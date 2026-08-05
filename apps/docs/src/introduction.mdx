@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# App Design System
+
+A single, standardized design system for applications and websites across
+the org - design tokens, an Angular Material component library, and
+Tailwind/Bootstrap integrations, all driven from one source of truth.
+
+## Consuming packages
+
+| Package | Purpose |
+| --- | --- |
+| `@app-design-system/tokens` | Design tokens (color, typography, spacing, elevation, radius, motion) - CSS custom properties, SCSS variables, and JSON, built with Style Dictionary. |
+| `@app-design-system/theme-angular-material` | Wires the tokens' brand palettes into Angular Material's M3 theme. |
+| `@app-design-system/tailwind-preset` | Tailwind v3 preset generated from the tokens, for Tailwind-based apps. |
+| `@app-design-system/bootstrap-overrides` | Bootstrap 5 Sass variable overrides + runtime theme bridge, for Bootstrap-based apps. |
+| `@app-design-system/date-utils` | Framework-agnostic dayjs wrapper (formats, timezones). |
+| `@app-design-system/date-adapter-angular` | dayjs `DateAdapter` for Angular Material's datepicker. |
+| `@app-design-system/core`, `button`, `form-field` | The Angular component library. |
+
+## Theming
+
+Every consumer - Angular, Tailwind, Bootstrap, or plain HTML - re-themes by
+setting `data-theme` on the document root:
+
+```ts
+import { setTheme } from '@app-design-system/tokens';
+setTheme('dark'); // 'light' | 'dark' | 'high-contrast'
+```
+
+Use the **Theme** toolbar item above to preview each mode against these
+docs.
+
+## Accessibility
+
+Every component here targets WCAG 2.1/2.2 AA: native semantics wherever
+possible (`AdsButtonComponent` selects a real `<button>`/`<a>`, never a
+`<div>`), full keyboard support, and explicit `aria-*` wiring (see
+`AdsFormFieldComponent`'s label/hint/error associations). The **Accessibility**
+addon panel on each story runs an automated axe scan against the rendered
+story.

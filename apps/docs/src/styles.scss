@@ -1,0 +1,9 @@
+@import '@app-design-system/theme-angular-material/src/theme';
+
+html,
+body {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}

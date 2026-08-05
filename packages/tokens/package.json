@@ -1,0 +1,16 @@
+{
+  "name": "@app-design-system/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens (reference + semantic) - single source of truth, built with Style Dictionary into CSS custom properties, SCSS variables/maps, and JSON.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./css/*": "./dist/css/*",
+    "./scss/*": "./dist/scss/*",
+    "./json/*": "./dist/json/*"
+  },
+  "files": ["dist", "src"]
+}

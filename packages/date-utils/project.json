@@ -1,0 +1,21 @@
+{
+  "name": "date-utils",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/date-utils/src",
+  "projectType": "library",
+  "tags": ["scope:agnostic"],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/date-utils",
+        "main": "packages/date-utils/src/index.ts",
+        "tsConfig": "packages/date-utils/tsconfig.lib.json",
+        "assets": ["packages/date-utils/*.md"],
+        "format": ["cjs"],
+        "generatePackageJson": true
+      }
+    }
+  }
+}

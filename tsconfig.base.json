@@ -1,0 +1,41 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "paths": {
+      "@app-design-system/tokens": ["./packages/tokens/src/index.ts"],
+      "@app-design-system/tailwind-preset": [
+        "./packages/tailwind-preset/src/index.ts"
+      ],
+      "@app-design-system/bootstrap-overrides": [
+        "./packages/bootstrap-overrides/src/index.ts"
+      ],
+      "@app-design-system/date-utils": ["./packages/date-utils/src/index.ts"],
+      "@app-design-system/date-adapter-angular": [
+        "./packages/date-adapter-angular/src/index.ts"
+      ],
+      "@app-design-system/core": ["./packages/components/core/src/index.ts"],
+      "@app-design-system/button": [
+        "./packages/components/button/src/index.ts"
+      ],
+      "@app-design-system/form-field": [
+        "./packages/components/form-field/src/index.ts"
+      ],
+      "@app-design-system/theme-angular-material": [
+        "./packages/theme-angular-material/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "playground-bootstrap",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/playground-bootstrap/src",
+  "tags": ["scope:playground"],
+  "implicitDependencies": ["tokens", "bootstrap-overrides"],
+  "targets": {
+    "generate-styles": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["bootstrap-overrides:build"],
+      "options": {
+        "command": "sass --load-path=../../node_modules --no-source-map src/styles.entry.scss src/generated/styles.css",
+        "cwd": "apps/playground-bootstrap"
+      },
+      "outputs": ["{projectRoot}/src/generated"],
+      "cache": true,
+      "inputs": ["{projectRoot}/src/styles.entry.scss", "^production"]
+    },
+    "build": {
+      "dependsOn": ["generate-styles"]
+    },
+    "serve": {
+      "dependsOn": ["generate-styles"]
+    }
+  }
+}

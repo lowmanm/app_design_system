@@ -1,0 +1,14 @@
+{
+  "name": "date-adapter-angular",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/date-adapter-angular/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["scope:angular"],
+  "implicitDependencies": ["date-utils"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

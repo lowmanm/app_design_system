@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Design System - Tailwind Playground</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="bg-surface text-on-surface font-sans m-0 p-8">
+    <main class="max-w-2xl mx-auto flex flex-col gap-6">
+      <header class="flex items-center justify-between">
+        <h1 class="text-2xl font-semibold">Tailwind Playground</h1>
+        <div class="flex gap-2">
+          <button data-theme-button="light" class="rounded-full border border-outline px-3 py-1 text-sm">
+            Light
+          </button>
+          <button data-theme-button="dark" class="rounded-full border border-outline px-3 py-1 text-sm">
+            Dark
+          </button>
+          <button data-theme-button="high-contrast" class="rounded-full border border-outline px-3 py-1 text-sm">
+            High contrast
+          </button>
+        </div>
+      </header>
+
+      <p class="text-on-surface-variant">
+        Every color, spacing, radius, and shadow class below (<code>bg-primary</code>,
+        <code>rounded-md</code>, <code>shadow-2</code>, ...) comes from
+        <code>@app-design-system/tailwind-preset</code>, which is generated from the same
+        tokens the Angular Material theme and Bootstrap overrides use. Switch themes above
+        to confirm all three consumer types agree.
+      </p>
+
+      <section class="flex flex-wrap gap-3">
+        <button class="rounded-full bg-primary text-on-primary px-4 py-2 font-medium shadow-2">
+          Filled button
+        </button>
+        <button class="rounded-full border border-outline text-primary px-4 py-2 font-medium">
+          Outlined button
+        </button>
+        <button class="rounded-full text-primary px-4 py-2 font-medium">Text button</button>
+      </section>
+
+      <section class="grid grid-cols-3 gap-3">
+        <div class="rounded-lg bg-primary-container text-on-primary-container p-4">primary-container</div>
+        <div class="rounded-lg bg-secondary-container text-on-secondary-container p-4">secondary-container</div>
+        <div class="rounded-lg bg-error-container text-on-error-container p-4">error-container</div>
+      </section>
+
+      <section class="rounded-lg border border-outline-variant p-4">
+        <label class="block text-sm font-medium mb-1" for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          class="w-full rounded-sm border border-outline bg-surface px-3 py-2"
+          placeholder="you@example.com"
+        />
+        <p class="text-xs text-on-surface-variant mt-1">We'll never share it.</p>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

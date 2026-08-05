@@ -1,0 +1,21 @@
+{
+  "name": "@app-design-system/tailwind-preset",
+  "version": "0.1.0",
+  "description": "Tailwind CSS v3 preset generated from @app-design-system/tokens - colors reference CSS custom properties so runtime theme switching (data-theme) applies to Tailwind utility classes too.",
+  "license": "MIT",
+  "main": "./dist/preset.cjs",
+  "module": "./dist/preset.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/preset.mjs",
+      "require": "./dist/preset.cjs"
+    }
+  },
+  "files": ["dist"],
+  "peerDependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "dependencies": {
+    "@app-design-system/tokens": "workspace:*"
+  }
+}

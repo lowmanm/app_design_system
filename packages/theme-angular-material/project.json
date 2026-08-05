@@ -1,0 +1,32 @@
+{
+  "name": "theme-angular-material",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/theme-angular-material/src",
+  "projectType": "library",
+  "tags": ["scope:angular"],
+  "implicitDependencies": ["tokens"],
+  "targets": {
+    "generate-palettes": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node build.mjs",
+        "cwd": "packages/theme-angular-material"
+      },
+      "dependsOn": ["tokens:build"],
+      "outputs": ["{projectRoot}/generated"],
+      "cache": true,
+      "inputs": ["{projectRoot}/build.mjs", "^production"]
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["generate-palettes"],
+      "options": {
+        "command": "sass --load-path=node_modules --load-path=../../node_modules --no-source-map src/theme.scss dist/theme.css",
+        "cwd": "packages/theme-angular-material"
+      },
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true,
+      "inputs": ["{projectRoot}/src/**/*", "^production"]
+    }
+  }
+}

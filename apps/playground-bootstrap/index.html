@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Design System - Bootstrap Playground</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/src/generated/styles.css" />
+  </head>
+  <body class="p-4">
+    <main class="container" style="max-width: 42rem">
+      <header class="d-flex align-items-center justify-content-between mb-4">
+        <h1 class="h2">Bootstrap Playground</h1>
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-theme-button="light">Light</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-theme-button="dark">Dark</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-theme-button="high-contrast">
+            High contrast
+          </button>
+        </div>
+      </header>
+
+      <p class="text-body-secondary">
+        This Bootstrap theme is compiled from
+        <code>@app-design-system/bootstrap-overrides</code>, which remaps Bootstrap's own Sass
+        variables to the same tokens the Angular Material theme and Tailwind preset use.
+        Switching themes above also demonstrates the runtime <code>--bs-*</code> variable bridge.
+      </p>
+
+      <section class="d-flex gap-2 flex-wrap mb-4">
+        <button type="button" class="btn btn-primary">Primary</button>
+        <button type="button" class="btn btn-secondary">Secondary</button>
+        <button type="button" class="btn btn-outline-primary">Outline</button>
+        <button type="button" class="btn btn-danger">Danger</button>
+      </section>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="you@example.com" />
+        <div class="form-text">We'll never share it.</div>
+      </div>
+
+      <div class="alert alert-warning" role="alert">This alert uses Bootstrap's own component styles.</div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

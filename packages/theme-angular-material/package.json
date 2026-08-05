@@ -1,0 +1,15 @@
+{
+  "name": "@app-design-system/theme-angular-material",
+  "version": "0.1.0",
+  "description": "Angular Material M3 theme wired to @app-design-system/tokens' brand palettes - light/dark/high-contrast switching via the data-theme attribute.",
+  "license": "MIT",
+  "main": "./src/theme.scss",
+  "files": ["src", "generated"],
+  "peerDependencies": {
+    "@angular/material": "^22.0.0",
+    "sass": "^1.83.0"
+  },
+  "dependencies": {
+    "@app-design-system/tokens": "workspace:*"
+  }
+}

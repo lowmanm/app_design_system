@@ -1,0 +1,13 @@
+<label class="ads-form-field__label" [attr.for]="control?.id">{{ label() }}</label>
+
+<div class="ads-form-field__control">
+  <ng-content></ng-content>
+</div>
+
+@if (hint() && !errorMessage()) {
+  <p class="ads-form-field__hint" [id]="hintId">{{ hint() }}</p>
+}
+
+@if (errorMessage()) {
+  <p class="ads-form-field__error" [id]="errorId" role="alert">{{ errorMessage() }}</p>
+}

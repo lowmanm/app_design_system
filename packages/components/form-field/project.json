@@ -1,0 +1,14 @@
+{
+  "name": "form-field",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/components/form-field/src",
+  "prefix": "ads",
+  "projectType": "library",
+  "tags": ["scope:angular"],
+  "implicitDependencies": ["core"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

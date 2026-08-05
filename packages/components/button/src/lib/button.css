@@ -1,0 +1,63 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2, 0.5rem);
+  box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-full, 9999px);
+  font-family: var(--font-family-sans, inherit);
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  transition: background-color var(--motion-duration-normal, 200ms)
+    var(--motion-easing-standard, ease);
+  position: relative;
+  overflow: hidden;
+}
+
+:host(.ads-button--sm) {
+  height: 2rem;
+  padding: 0 var(--space-3, 0.75rem);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+:host(.ads-button--md) {
+  height: 2.5rem;
+  padding: 0 var(--space-4, 1rem);
+  font-size: var(--font-size-md, 1rem);
+}
+
+:host(.ads-button--lg) {
+  height: 3rem;
+  padding: 0 var(--space-6, 1.5rem);
+  font-size: var(--font-size-lg, 1.125rem);
+}
+
+:host(.ads-button--filled) {
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+}
+
+:host(.ads-button--outlined) {
+  background-color: transparent;
+  color: var(--mat-sys-primary);
+  border: 1px solid var(--mat-sys-outline);
+}
+
+:host(.ads-button--text) {
+  background-color: transparent;
+  color: var(--mat-sys-primary);
+  padding-inline: var(--space-2, 0.5rem);
+}
+
+:host([disabled]) {
+  cursor: not-allowed;
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+:host(:focus-visible) {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+}

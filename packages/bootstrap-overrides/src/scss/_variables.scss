@@ -1,0 +1,51 @@
+// Remaps design-token values onto Bootstrap's own Sass variables, before
+// Bootstrap's stylesheets are @imported. This must be @imported BEFORE
+// "bootstrap/scss/bootstrap" (see ../bootstrap-theme.scss) - Bootstrap reads
+// these variables while building its component styles, so overrides only
+// take effect if they're set first.
+//
+// Note: Sass variables are resolved at compile time, so these bake in the
+// *light* theme's literal values as Bootstrap's compiled-CSS defaults/
+// fallbacks. Runtime theme switching (dark/high-contrast, via the org's
+// `data-theme` attribute) is handled separately in _runtime-theme-bridge.css,
+// which maps Bootstrap's own `--bs-*` custom properties to the design
+// tokens' CSS custom properties - so Bootstrap's rendered colors follow
+// `data-theme` even though this Sass layer only ever compiles once.
+// Resolved via Sass load-paths pointed at node_modules (see project.json's
+// `build`/`test` targets and README) - the same mechanism used to
+// @import "bootstrap/scss/bootstrap" itself below.
+@import '@app-design-system/tokens/dist/scss/_core.scss';
+@import '@app-design-system/tokens/dist/scss/_theme-light.scss';
+
+$theme-colors: (
+  'primary': $color-primary,
+  'secondary': $color-secondary,
+  'success': $color-success,
+  'danger': $color-error,
+  'warning': $color-warning,
+  'info': $color-tertiary,
+  'light': $color-surface,
+  'dark': $color-on-surface,
+);
+
+$body-bg: $color-surface;
+$body-color: $color-on-surface;
+$border-color: $color-outline-variant;
+
+$font-family-base: $font-family-sans;
+$font-size-base: $font-size-md;
+$line-height-base: $font-line-height-normal;
+
+$spacer: $space-4;
+
+$border-radius: $radius-md;
+$border-radius-sm: $radius-sm;
+$border-radius-lg: $radius-lg;
+$border-radius-xl: $radius-xl;
+$border-radius-pill: $radius-full;
+
+$box-shadow: $elevation-2;
+$box-shadow-sm: $elevation-1;
+$box-shadow-lg: $elevation-4;
+
+$transition-base: all $motion-duration-normal $motion-easing-standard;

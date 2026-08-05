@@ -1,0 +1,21 @@
+{
+  "name": "bootstrap-overrides",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/bootstrap-overrides/src",
+  "projectType": "library",
+  "tags": ["scope:bootstrap"],
+  "implicitDependencies": ["tokens"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["tokens:build"],
+      "options": {
+        "command": "sass --load-path=node_modules --load-path=../../node_modules --no-source-map src/bootstrap-theme.scss dist/bootstrap-theme.css",
+        "cwd": "packages/bootstrap-overrides"
+      },
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true,
+      "inputs": ["{projectRoot}/src/**/*", "^production"]
+    }
+  }
+}

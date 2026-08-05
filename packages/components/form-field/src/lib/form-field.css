@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+  font-family: var(--font-family-sans, inherit);
+}
+
+.ads-form-field__label {
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.ads-form-field__control ::ng-deep input,
+.ads-form-field__control ::ng-deep select,
+.ads-form-field__control ::ng-deep textarea {
+  font: inherit;
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  border: 1px solid var(--mat-sys-outline);
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+.ads-form-field__control ::ng-deep [aria-invalid='true'] {
+  border-color: var(--mat-sys-error);
+}
+
+.ads-form-field__hint {
+  font-size: var(--font-size-xs, 0.75rem);
+  color: var(--mat-sys-on-surface-variant);
+  margin: 0;
+}
+
+.ads-form-field__error {
+  font-size: var(--font-size-xs, 0.75rem);
+  color: var(--mat-sys-error);
+  margin: 0;
+}
