@@ -57,6 +57,20 @@
   pointer-events: none;
 }
 
+/* A submenu trigger item gets a trailing chevron, pushed to the far edge
+   regardless of how much text precedes it. */
+.brk-menu ::ng-deep .brk-menu-item--submenu::after {
+  content: '';
+  margin-left: auto;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  opacity: 0.6;
+  flex: none;
+}
+
 .brk-menu ::ng-deep .brk-menu-divider {
   height: 1px;
   margin: var(--space-1, 0.25rem) var(--space-2, 0.5rem);

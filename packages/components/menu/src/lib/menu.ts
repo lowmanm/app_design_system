@@ -1,17 +1,26 @@
 import {
   AfterContentInit,
   Component,
+  ContentChild,
   ContentChildren,
   EventEmitter,
+  Input,
   OnDestroy,
   Output,
   QueryList,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Subscription } from 'rxjs';
 import { BrkMenuItemDirective } from './menu-item.directive';
+import { BrkMenuContentDirective } from './menu-content.directive';
+import { BrkMenuTriggerDirective } from './menu-trigger.directive';
+
+/** Where the panel opens relative to its trigger - mirrors mat-menu's xPosition/yPosition/overlapTrigger. */
+export type BrkMenuXPosition = 'before' | 'after';
+export type BrkMenuYPosition = 'above' | 'below';
 
 /**
  * A floating menu panel's *content* - the actual floating/positioning is
@@ -37,10 +46,15 @@ import { BrkMenuItemDirective } from './menu-item.directive';
 @Component({
   selector: 'brk-menu',
   standalone: true,
+  imports: [NgTemplateOutlet],
   template: `
     <ng-template #templateRef>
       <div class="brk-menu" role="menu" tabindex="-1" (keydown)="_onKeydown($event)">
-        <ng-content />
+        @if (lazyContent) {
+          <ng-container *ngTemplateOutlet="lazyContent" />
+        } @else {
+          <ng-content />
+        }
       </div>
     </ng-template>
   `,
@@ -50,6 +64,17 @@ export class BrkMenuComponent implements AfterContentInit, OnDestroy {
   @ViewChild('templateRef', { static: true }) readonly templateRef!: TemplateRef<unknown>;
   @ContentChildren(BrkMenuItemDirective, { descendants: true })
   readonly items!: QueryList<BrkMenuItemDirective>;
+  @ContentChildren(BrkMenuTriggerDirective, { descendants: true })
+  private readonly submenuTriggers?: QueryList<BrkMenuTriggerDirective>;
+  @ContentChild(BrkMenuContentDirective, { read: TemplateRef })
+  protected lazyContent?: TemplateRef<unknown>;
+
+  /** Which side of the trigger the panel opens toward horizontally. Default `'after'`. */
+  @Input() xPosition: BrkMenuXPosition = 'after';
+  /** Whether the panel opens above or below the trigger. Default `'below'`. */
+  @Input() yPosition: BrkMenuYPosition = 'below';
+  /** Opens the panel flush over the trigger instead of beside it. Default `false`. */
+  @Input() overlapTrigger = false;
 
   /** Fires on Escape, an outside click, or an item being activated - the trigger closes on this. */
   @Output() readonly closed = new EventEmitter<void>();
@@ -66,6 +91,11 @@ export class BrkMenuComponent implements AfterContentInit, OnDestroy {
   /** Called by the trigger once the panel is attached to the overlay and visible. */
   focusFirstItem(): void {
     this.keyManager?.setFirstItemActive();
+  }
+
+  /** Closes every open submenu nested inside this menu - called before this menu itself closes. */
+  closeAllSubmenus(): void {
+    this.submenuTriggers?.forEach((trigger) => trigger.close());
   }
 
   protected _onKeydown(event: KeyboardEvent): void {
