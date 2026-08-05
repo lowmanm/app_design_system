@@ -1,0 +1,78 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Colors" />
+
+# Colors
+
+Every swatch below is rendered with the actual `--color-*` CSS custom
+properties from `@app-design-system/tokens` - not a picture, not a
+hand-copied hex code. Switch the **Theme** toolbar item above between
+light, dark, and high-contrast to see them update live, and see
+`@app-design-system/tokens`' README for the full per-business-unit brand
+list (this page reflects whichever brand `apps/docs` is built against -
+currently "azure-blue").
+
+export const roles = [
+  ['primary', 'on-primary'],
+  ['primary-container', 'on-primary-container'],
+  ['secondary', 'on-secondary'],
+  ['secondary-container', 'on-secondary-container'],
+  ['tertiary', 'on-tertiary'],
+  ['tertiary-container', 'on-tertiary-container'],
+  ['error', 'on-error'],
+  ['error-container', 'on-error-container'],
+  ['success', 'on-success'],
+  ['success-container', 'on-success-container'],
+  ['warning', 'on-warning'],
+  ['warning-container', 'on-warning-container'],
+  ['surface', 'on-surface'],
+  ['surface-variant', 'on-surface-variant'],
+];
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
+  {roles.map(([bg, fg]) => (
+    <div
+      key={bg}
+      style={{
+        backgroundColor: `var(--color-${bg})`,
+        color: `var(--color-${fg})`,
+        border: '1px solid var(--color-outline-variant)',
+        borderRadius: 'var(--radius-md)',
+        padding: 'var(--space-4)',
+        fontFamily: 'var(--font-family-sans)',
+      }}
+    >
+      <div style={{ fontWeight: 'var(--font-weight-semibold)' }}>color-{bg}</div>
+      <div style={{ fontSize: 'var(--font-size-sm)' }}>on-{bg.replace('-container', '')}: color-{fg}</div>
+    </div>
+  ))}
+</div>
+
+## Usage
+
+- **Angular**: these become Angular Material's `--mat-sys-*` system tokens
+  automatically via `@app-design-system/theme-angular-material` - use
+  Material components directly, or reference `var(--color-*)` in custom
+  component styles.
+- **Tailwind**: use the matching utility class, e.g. `bg-primary`,
+  `text-on-primary-container` - see `@app-design-system/tailwind-preset`.
+- **Bootstrap**: use Bootstrap's own utilities/variables (`.btn-primary`,
+  `$primary`); `@app-design-system/bootstrap-overrides` remaps them to
+  these same values.
+- **Plain CSS/HTML**: reference `var(--color-primary)` etc. directly after
+  loading `@app-design-system/tokens`' CSS.
+
+## Do
+
+- Use semantic roles (`primary`, `surface`, `error`, ...), never a
+  hand-picked hex value, so your UI stays correct across themes and brands.
+- Pair a color with its matching `on-*` role for text/icons on top of it,
+  to guarantee sufficient contrast (WCAG 1.4.3).
+
+## Don't
+
+- Don't hardcode hex values in app code - if a color you need doesn't
+  exist as a token, add it to the design system instead of working around
+  it locally.
+- Don't assume `primary` is always blue - it's brand-specific; write
+  component styles against the *role*, not an assumed color.
