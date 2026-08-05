@@ -1,7 +1,7 @@
 {
-  "name": "button",
+  "name": "menu",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/components/button/src",
+  "sourceRoot": "packages/components/menu/src",
   "prefix": "brk",
   "projectType": "library",
   "tags": ["scope:angular"],
@@ -13,10 +13,10 @@
     "build": {
       "executor": "nx:run-commands",
       "dependsOn": ["core:build"],
-      "outputs": ["{workspaceRoot}/dist/packages/components/button"],
+      "outputs": ["{workspaceRoot}/dist/packages/components/menu"],
       "options": {
         "command": "ng-packagr -p ng-package.json -c tsconfig.package.json",
-        "cwd": "packages/components/button"
+        "cwd": "packages/components/menu"
       },
       "cache": true,
       "inputs": ["{projectRoot}/src/**/*", "^production"]

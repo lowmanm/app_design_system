@@ -21,7 +21,7 @@ visual language and one accessibility bar (WCAG 2.1/2.2 AA).
 | [`packages/bootstrap-overrides`](packages/bootstrap-overrides) | Bootstrap 5 Sass variable overrides + a runtime theme bridge - one compiled bundle per brand. |
 | [`packages/date-utils`](packages/date-utils) | Framework-agnostic dayjs wrapper (org-standard formats, timezones). |
 | [`packages/date-adapter-angular`](packages/date-adapter-angular) | dayjs `DateAdapter` for Angular Material's datepicker. |
-| [`packages/components/core`](packages/components/core), [`button`](packages/components/button), [`form-field`](packages/components/form-field) | The Angular component library (`brk-` prefixed selectors, e.g. `brk-form-field`, `brkButton`). |
+| [`packages/components/core`](packages/components/core), [`button`](packages/components/button), [`form-field`](packages/components/form-field), [`card`](packages/components/card), [`header`](packages/components/header), [`menu`](packages/components/menu) | The Angular component library (`brk-` prefixed selectors, e.g. `brk-form-field`, `brkButton`, `brk-menu`). |
 | [`apps/docs`](apps/docs) | Storybook documentation site - component stories plus prose "Guides/*" pages (colors, and more to come) written in MDX. |
 | [`apps/playground-tailwind`](apps/playground-tailwind), [`apps/playground-bootstrap`](apps/playground-bootstrap) | Manual QA sandboxes proving the non-Angular consumers stay visually consistent. |
 
@@ -76,7 +76,8 @@ pnpm exec nx run docs:storybook     # component playground + guides
 ## Status
 
 Done: tokens (multi-brand), theming across Angular Material/Tailwind/
-Bootstrap, the Angular component library (button, form-field), the
+Bootstrap, the Angular component library (button, form-field, card, header,
+menu), the
 Storybook docs site (component stories + a starting set of MDX guide
 pages), the Tailwind/Bootstrap playgrounds, and GitHub Packages publish
 config (Changesets) for every package.

@@ -1,7 +1,7 @@
 {
-  "name": "button",
+  "name": "header",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/components/button/src",
+  "sourceRoot": "packages/components/header/src",
   "prefix": "brk",
   "projectType": "library",
   "tags": ["scope:angular"],
@@ -13,10 +13,10 @@
     "build": {
       "executor": "nx:run-commands",
       "dependsOn": ["core:build"],
-      "outputs": ["{workspaceRoot}/dist/packages/components/button"],
+      "outputs": ["{workspaceRoot}/dist/packages/components/header"],
       "options": {
         "command": "ng-packagr -p ng-package.json -c tsconfig.package.json",
-        "cwd": "packages/components/button"
+        "cwd": "packages/components/header"
       },
       "cache": true,
       "inputs": ["{projectRoot}/src/**/*", "^production"]

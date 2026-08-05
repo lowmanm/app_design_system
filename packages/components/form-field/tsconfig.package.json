@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "paths": {
+      "@app-design-system/core": ["../../../dist/packages/components/core/types/app-design-system-core.d.ts"]
+    }
+  }
+}

@@ -5,15 +5,21 @@
   gap: var(--space-2, 0.5rem);
   box-sizing: border-box;
   cursor: pointer;
-  border: none;
-  border-radius: var(--radius-full, 9999px);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, 0.5rem);
   font-family: var(--font-family-sans, inherit);
   font-weight: var(--font-weight-medium, 500);
   text-decoration: none;
-  transition: background-color var(--motion-duration-normal, 200ms)
-    var(--motion-easing-standard, ease);
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
   position: relative;
   overflow: hidden;
+}
+
+:host(:active) {
+  transform: translateY(1px);
 }
 
 :host(.brk-button--sm) {
@@ -34,21 +40,64 @@
   font-size: var(--font-size-lg, 1.125rem);
 }
 
+/* filled - full-strength primary, for the one dominant action on a screen */
 :host(.brk-button--filled) {
   background-color: var(--mat-sys-primary);
   color: var(--mat-sys-on-primary);
+}
+:host(.brk-button--filled:hover) {
+  background-color: color-mix(in srgb, var(--mat-sys-primary) 88%, black);
+}
+:host(.brk-button--filled:active) {
+  background-color: color-mix(in srgb, var(--mat-sys-primary) 78%, black);
+}
+
+/* tonal - lower-emphasis filled style for a secondary action beside a filled primary */
+:host(.brk-button--tonal) {
+  background-color: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+}
+:host(.brk-button--tonal:hover) {
+  background-color: color-mix(in srgb, var(--mat-sys-secondary-container) 92%, black);
+}
+:host(.brk-button--tonal:active) {
+  background-color: color-mix(in srgb, var(--mat-sys-secondary-container) 84%, black);
 }
 
 :host(.brk-button--outlined) {
   background-color: transparent;
   color: var(--mat-sys-primary);
-  border: 1px solid var(--mat-sys-outline);
+  border-color: var(--mat-sys-outline);
+}
+:host(.brk-button--outlined:hover) {
+  background-color: color-mix(in srgb, var(--mat-sys-on-surface) 6%, transparent);
+}
+:host(.brk-button--outlined:active) {
+  background-color: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
 }
 
 :host(.brk-button--text) {
   background-color: transparent;
   color: var(--mat-sys-primary);
   padding-inline: var(--space-2, 0.5rem);
+}
+:host(.brk-button--text:hover) {
+  background-color: color-mix(in srgb, var(--mat-sys-on-surface) 6%, transparent);
+}
+:host(.brk-button--text:active) {
+  background-color: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
+}
+
+/* danger - same weight as filled, for destructive actions */
+:host(.brk-button--danger) {
+  background-color: var(--mat-sys-error);
+  color: var(--mat-sys-on-error);
+}
+:host(.brk-button--danger:hover) {
+  background-color: color-mix(in srgb, var(--mat-sys-error) 88%, black);
+}
+:host(.brk-button--danger:active) {
+  background-color: color-mix(in srgb, var(--mat-sys-error) 78%, black);
 }
 
 :host([disabled]) {
@@ -60,4 +109,13 @@
 :host(:focus-visible) {
   outline: 2px solid var(--mat-sys-primary);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    transition: none;
+  }
+  :host(:active) {
+    transform: none;
+  }
 }

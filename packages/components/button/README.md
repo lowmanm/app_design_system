@@ -10,11 +10,17 @@ attribute a consumer sets keep working for free.
 
 ```html
 <button brkButton variant="filled" size="md">Save</button>
+<button brkButton variant="tonal" size="md">Preview</button>
 <button brkButton variant="outlined" size="lg" [disabled]="saving">Cancel</button>
 <a brkButton variant="text" href="/help">Learn more</a>
+<button brkButton variant="danger" size="md">Delete report</button>
 ```
 
-- `variant`: `'filled' | 'outlined' | 'text'` (default `'filled'`)
+- `variant`: `'filled' | 'tonal' | 'outlined' | 'text' | 'danger'` (default `'filled'`)
+  - `filled`: the one dominant action on a screen.
+  - `tonal`: a lower-emphasis filled action next to a `filled` primary.
+  - `outlined` / `text`: lowest emphasis, for secondary or dismissive actions.
+  - `danger`: same visual weight as `filled`, in the error role, for destructive actions.
 - `size`: `'sm' | 'md' | 'lg'` (default `'md'`)
 
 Colors and spacing come from `@app-design-system/theme-angular-material`'s

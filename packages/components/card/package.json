@@ -1,0 +1,17 @@
+{
+  "name": "@app-design-system/card",
+  "version": "0.1.0",
+  "description": "Container component (brk-card) for the design system's Angular component library.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "@app-design-system/core": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
+}

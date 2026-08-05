@@ -67,7 +67,32 @@ describe('BrkButtonComponent', () => {
   it('exposes its text through BrkButtonHarness', async () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
-    const harness = await TestbedHarnessEnvironment.harnessForFixture(fixture, BrkButtonHarness);
+    // `.loader(fixture).getHarness(...)` (not `.harnessForFixture(...)`) -
+    // the latter treats the fixture's own root as the harness host, which
+    // is only correct when the fixture was created directly for the
+    // harnessed component. Here the fixture root is a wrapping test host,
+    // so the harness must search its descendants for `.brk-button`.
+    const harness = await TestbedHarnessEnvironment.loader(fixture).getHarness(BrkButtonHarness);
     expect((await harness.getText()).trim()).toBe('Save');
+  });
+});
+
+@Component({
+  standalone: true,
+  imports: [BrkButtonComponent],
+  template: `
+    <button brkButton variant="tonal">Preview</button>
+    <button brkButton variant="danger">Delete</button>
+  `,
+})
+class VariantsHostComponent {}
+
+describe('BrkButtonComponent variants', () => {
+  it('applies the tonal and danger variant classes', () => {
+    const fixture = TestBed.createComponent(VariantsHostComponent);
+    fixture.detectChanges();
+    const [preview, danger] = fixture.nativeElement.querySelectorAll('button');
+    expect(preview.classList.contains('brk-button--tonal')).toBe(true);
+    expect(danger.classList.contains('brk-button--danger')).toBe(true);
   });
 });

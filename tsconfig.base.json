@@ -32,6 +32,11 @@
       "@app-design-system/form-field": [
         "./packages/components/form-field/src/index.ts"
       ],
+      "@app-design-system/card": ["./packages/components/card/src/index.ts"],
+      "@app-design-system/header": [
+        "./packages/components/header/src/index.ts"
+      ],
+      "@app-design-system/menu": ["./packages/components/menu/src/index.ts"],
       "@app-design-system/theme-angular-material": [
         "./packages/theme-angular-material/src/index.ts"
       ]

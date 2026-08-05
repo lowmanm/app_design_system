@@ -9,19 +9,21 @@
 // redefining those variables under a different `[data-theme]` selector,
 // with no Sass recompile, exactly like the tokens package's own theme CSS.
 //
-// Note on the two color pipelines: Angular Material computes its
-// `--mat-sys-*` semantic role mapping (surface/on-surface/primary-container/
-// etc.) itself, following the official M3 spec, from the primary/tertiary
-// palettes passed in. `@app-design-system/tokens` separately hand-authors an
-// analogous (but not byte-identical) semantic mapping in
-// `src/semantic/color.*.json`, consumed as `--color-*` by Tailwind/
-// Bootstrap/plain-HTML apps. Both derive from the same brand seed and the
-// same tonal-palette math, so they read as one system, but a Tailwind
-// `bg-primary` and an Angular Material `--mat-sys-primary` are computed by
-// two different (M3-spec-following) role algorithms, not copied from one
-// canonical source. Keep this in mind if pixel-exact parity between an
-// Angular Material button and a Tailwind button ever matters more than
-// visual consistency.
+// Note on the two color pipelines: Angular Material's `mat.theme()` mixin
+// derives its own `--mat-sys-*` semantic role mapping from the primary/
+// tertiary palettes following the M3 spec's own algorithm, which picks
+// specific tonal steps that don't necessarily match the ones
+// `@app-design-system/tokens` hand-picks for its own `src/semantic/
+// color.*.json` (consumed as `--color-*` by Tailwind/Bootstrap/plain-HTML
+// apps) - both read from the same brand seed and tonal-palette math, but
+// aren't byte-identical without help. Rather than let Angular components
+// render a subtly different blue than everything else, every theme block
+// below re-points the color-bearing `--mat-sys-*` variables at the tokens
+// package's own `--color-*` values after `mat.theme()` runs (Material's
+// *non*-color system tokens - typography, shape, state-layer opacities -
+// are left alone). This is the same technique the high-contrast block
+// already used, just applied everywhere for one literal color source
+// instead of two similar ones.
 @use '@angular/material' as mat;
 @use '@app-design-system/tokens/dist/scss/_core.scss' as tokens;
 
@@ -45,6 +47,7 @@
         density: 0,
       )
     );
+    @include bridge-color-roles-to-tokens();
   }
 
   [data-theme='dark'] {
@@ -58,6 +61,7 @@
         ),
       )
     );
+    @include bridge-color-roles-to-tokens();
   }
 
   // Material has no built-in "high-contrast" theme-type (only light/dark/
@@ -69,23 +73,33 @@
   // *values* come from whichever brand's tokens CSS the consuming app loads.
   [data-theme='high-contrast'] {
     color-scheme: light;
-    --mat-sys-primary: var(--color-primary);
-    --mat-sys-on-primary: var(--color-on-primary);
-    --mat-sys-primary-container: var(--color-primary-container);
-    --mat-sys-on-primary-container: var(--color-on-primary-container);
-    --mat-sys-secondary: var(--color-secondary);
-    --mat-sys-on-secondary: var(--color-on-secondary);
-    --mat-sys-secondary-container: var(--color-secondary-container);
-    --mat-sys-on-secondary-container: var(--color-on-secondary-container);
-    --mat-sys-error: var(--color-error);
-    --mat-sys-on-error: var(--color-on-error);
-    --mat-sys-error-container: var(--color-error-container);
-    --mat-sys-on-error-container: var(--color-on-error-container);
-    --mat-sys-surface: var(--color-surface);
-    --mat-sys-on-surface: var(--color-on-surface);
-    --mat-sys-surface-variant: var(--color-surface-variant);
-    --mat-sys-on-surface-variant: var(--color-on-surface-variant);
-    --mat-sys-outline: var(--color-outline);
-    --mat-sys-outline-variant: var(--color-outline-variant);
+    @include bridge-color-roles-to-tokens();
   }
+}
+
+// Shared by every theme block above - keeping it in one mixin means the
+// list of bridged roles can't drift between light/dark/high-contrast.
+@mixin bridge-color-roles-to-tokens() {
+  --mat-sys-primary: var(--color-primary);
+  --mat-sys-on-primary: var(--color-on-primary);
+  --mat-sys-primary-container: var(--color-primary-container);
+  --mat-sys-on-primary-container: var(--color-on-primary-container);
+  --mat-sys-secondary: var(--color-secondary);
+  --mat-sys-on-secondary: var(--color-on-secondary);
+  --mat-sys-secondary-container: var(--color-secondary-container);
+  --mat-sys-on-secondary-container: var(--color-on-secondary-container);
+  --mat-sys-tertiary: var(--color-tertiary);
+  --mat-sys-on-tertiary: var(--color-on-tertiary);
+  --mat-sys-tertiary-container: var(--color-tertiary-container);
+  --mat-sys-on-tertiary-container: var(--color-on-tertiary-container);
+  --mat-sys-error: var(--color-error);
+  --mat-sys-on-error: var(--color-on-error);
+  --mat-sys-error-container: var(--color-error-container);
+  --mat-sys-on-error-container: var(--color-on-error-container);
+  --mat-sys-surface: var(--color-surface);
+  --mat-sys-on-surface: var(--color-on-surface);
+  --mat-sys-surface-variant: var(--color-surface-variant);
+  --mat-sys-on-surface-variant: var(--color-on-surface-variant);
+  --mat-sys-outline: var(--color-outline);
+  --mat-sys-outline-variant: var(--color-outline-variant);
 }

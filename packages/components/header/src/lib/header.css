@@ -1,0 +1,75 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6, 1.5rem);
+  box-sizing: border-box;
+  height: 4rem;
+  padding-inline: var(--space-6, 1.5rem);
+  background-color: var(--mat-sys-surface);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  font-family: var(--font-family-sans, inherit);
+}
+
+.brk-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  flex: none;
+  font-weight: var(--font-weight-semibold, 600);
+  font-size: var(--font-size-lg, 1.125rem);
+  color: var(--mat-sys-on-surface);
+}
+
+.brk-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6, 1.5rem);
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+/* Projected content renders in the consumer's own view encapsulation, so
+   these have to be ::ng-deep to reach it - same technique already used in
+   the form-field component for its projected native inputs. */
+.brk-header__nav ::ng-deep a {
+  text-decoration: none;
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--mat-sys-on-surface-variant);
+  padding-block: var(--space-1, 0.25rem);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.brk-header__nav ::ng-deep a:hover {
+  color: var(--mat-sys-on-surface);
+}
+
+.brk-header__nav ::ng-deep a.is-active,
+.brk-header__nav ::ng-deep a[aria-current='page'] {
+  color: var(--mat-sys-on-surface);
+  border-bottom-color: var(--mat-sys-primary);
+}
+
+.brk-header__nav ::ng-deep a:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 3px;
+}
+
+.brk-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brk-header__nav ::ng-deep a {
+    transition: none;
+  }
+}

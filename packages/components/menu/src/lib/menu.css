@@ -1,0 +1,64 @@
+.brk-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-sizing: border-box;
+  min-width: 200px;
+  padding: var(--space-1, 0.25rem);
+  border-radius: var(--radius-md, 0.5rem);
+  border: 1px solid var(--mat-sys-outline-variant);
+  background-color: var(--mat-sys-surface);
+  box-shadow: var(--elevation-2, none);
+  font-family: var(--font-family-sans, inherit);
+}
+
+/* Projected menu items render in the consumer's own view encapsulation -
+   ::ng-deep is needed to reach them, same technique as form-field/header. */
+.brk-menu ::ng-deep .brk-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--mat-sys-on-surface);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.brk-menu ::ng-deep .brk-menu-item:hover,
+.brk-menu ::ng-deep .brk-menu-item:focus-visible {
+  background-color: var(--mat-sys-surface-variant);
+}
+
+.brk-menu ::ng-deep .brk-menu-item:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: -2px;
+}
+
+.brk-menu ::ng-deep .brk-menu-item--danger {
+  color: var(--mat-sys-error);
+}
+
+.brk-menu ::ng-deep .brk-menu-item--danger:hover,
+.brk-menu ::ng-deep .brk-menu-item--danger:focus-visible {
+  background-color: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+}
+
+.brk-menu ::ng-deep .brk-menu-item[aria-disabled='true'] {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.brk-menu ::ng-deep .brk-menu-divider {
+  height: 1px;
+  margin: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  background-color: var(--mat-sys-outline-variant);
+}

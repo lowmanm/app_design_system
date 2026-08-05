@@ -1,6 +1,6 @@
 {
   "color": {
-    "primary": { "$type": "color", "$value": "{palette.primary.40}" },
+    "primary": { "$type": "color", "$value": "{palette.primary.30}" },
     "on-primary": { "$type": "color", "$value": "{palette.primary.100}" },
     "primary-container": { "$type": "color", "$value": "{palette.primary.90}" },
     "on-primary-container": { "$type": "color", "$value": "{palette.primary.10}" },
