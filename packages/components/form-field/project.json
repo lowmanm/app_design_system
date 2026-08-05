@@ -9,6 +9,14 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/packages/components/form-field"],
+      "options": {
+        "project": "packages/components/form-field/ng-package.json",
+        "tsConfig": "packages/components/form-field/tsconfig.lib.json"
+      }
     }
   }
 }

@@ -1,0 +1,13 @@
+{
+  "name": "@app-design-system/form-field",
+  "version": "0.1.0",
+  "description": "Accessible form-field component (brk-form-field) for the design system's Angular component library.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "@app-design-system/core": "workspace:*"
+  }
+}

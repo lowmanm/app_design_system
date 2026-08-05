@@ -1,0 +1,13 @@
+{
+  "name": "@app-design-system/date-adapter-angular",
+  "version": "0.1.0",
+  "description": "dayjs DateAdapter for Angular Material's date-based components (datepicker, etc).",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@angular/material": "^22.0.0"
+  },
+  "dependencies": {
+    "@app-design-system/date-utils": "workspace:*"
+  }
+}

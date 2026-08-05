@@ -9,6 +9,17 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["date-utils:build"],
+      "outputs": ["{workspaceRoot}/dist/packages/date-adapter-angular"],
+      "options": {
+        "command": "ng-packagr -p ng-package.json -c tsconfig.package.json",
+        "cwd": "packages/date-adapter-angular"
+      },
+      "cache": true,
+      "inputs": ["{projectRoot}/src/**/*", "^production"]
     }
   }
 }

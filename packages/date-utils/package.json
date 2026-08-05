@@ -4,8 +4,6 @@
   "description": "Framework-agnostic dayjs wrapper (org-standard formats, timezone helpers) shared by Angular, Tailwind, Bootstrap, and plain-JS consumers.",
   "license": "MIT",
   "type": "commonjs",
-  "main": "./index.cjs",
-  "types": "./index.d.ts",
   "dependencies": {
     "dayjs": "^1.11.13"
   }

@@ -7,10 +7,14 @@
     "inlineSources": true,
     "types": []
   },
+  "angularCompilerOptions": {
+    "compilationMode": "partial"
+  },
   "include": ["src/**/*.ts"],
   "exclude": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
+    "src/**/*.stories.ts",
     "vite.config.ts",
     "vite.config.mts",
     "vitest.config.ts",

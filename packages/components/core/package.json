@@ -1,0 +1,10 @@
+{
+  "name": "@app-design-system/core",
+  "version": "0.1.0",
+  "description": "Shared accessibility utilities and types for the design system's Angular component library.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  }
+}

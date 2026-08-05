@@ -1,6 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { dayjs, type Dayjs } from '@app-design-system/date-utils';
+// Registers the `Dayjs.localeData()` type augmentation (used by
+// getFirstDayOfWeek() below) directly in this compilation unit - dayjs
+// plugin type augmentations don't reliably survive being re-exported
+// through another package's own declaration build.
+import 'dayjs/plugin/localeData';
 
 /**
  * Adapts dayjs `Dayjs` objects for use with Angular Material's date-based
