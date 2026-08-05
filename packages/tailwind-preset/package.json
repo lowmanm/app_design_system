@@ -11,11 +11,17 @@
       "require": "./dist/preset.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "peerDependencies": {
     "tailwindcss": "^3.4.0"
   },
   "dependencies": {
     "@app-design-system/tokens": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   }
 }

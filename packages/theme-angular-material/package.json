@@ -6,12 +6,20 @@
   "exports": {
     "./themes/*": "./src/themes/*.scss"
   },
-  "files": ["src", "generated", "dist"],
+  "files": [
+    "src",
+    "generated",
+    "dist"
+  ],
   "peerDependencies": {
     "@angular/material": "^22.0.0",
     "sass": "^1.83.0"
   },
   "dependencies": {
     "@app-design-system/tokens": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   }
 }

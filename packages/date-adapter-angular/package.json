@@ -9,5 +9,9 @@
   },
   "dependencies": {
     "@app-design-system/date-utils": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   }
 }

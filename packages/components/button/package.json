@@ -10,5 +10,9 @@
   },
   "dependencies": {
     "@app-design-system/core": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   }
 }
