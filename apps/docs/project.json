@@ -96,7 +96,8 @@
       "options": {
         "browserTarget": "docs:storybook-browser-target",
         "configDir": "apps/docs/.storybook",
-        "port": 4400
+        "port": 4400,
+        "compodoc": false
       }
     },
     "build-storybook": {
