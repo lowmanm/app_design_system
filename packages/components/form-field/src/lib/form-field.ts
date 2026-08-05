@@ -4,7 +4,7 @@ import {
   ContentChild,
   input,
 } from '@angular/core';
-import { AdsFormFieldControlDirective } from './form-field-control.directive';
+import { BrkFormFieldControlDirective } from './form-field-control.directive';
 
 let nextFieldId = 0;
 
@@ -16,27 +16,27 @@ let nextFieldId = 0;
  * construction rather than having to wire ids by hand.
  *
  * ```html
- * <ads-form-field label="Email" hint="We'll never share it" [errorMessage]="emailError">
- *   <input adsFormFieldControl type="email" [(ngModel)]="email" />
- * </ads-form-field>
+ * <brk-form-field label="Email" hint="We'll never share it" [errorMessage]="emailError">
+ *   <input brkFormFieldControl type="email" [(ngModel)]="email" />
+ * </brk-form-field>
  * ```
  */
 @Component({
-  selector: 'ads-form-field',
+  selector: 'brk-form-field',
   standalone: true,
   templateUrl: './form-field.html',
   styleUrl: './form-field.css',
-  host: { class: 'ads-form-field' },
+  host: { class: 'brk-form-field' },
 })
-export class AdsFormFieldComponent implements AfterContentChecked {
+export class BrkFormFieldComponent implements AfterContentChecked {
   readonly label = input.required<string>();
   readonly hint = input<string>('');
   readonly errorMessage = input<string>('');
 
-  @ContentChild(AdsFormFieldControlDirective) control?: AdsFormFieldControlDirective;
+  @ContentChild(BrkFormFieldControlDirective) control?: BrkFormFieldControlDirective;
 
-  protected readonly hintId = `ads-form-field-hint-${nextFieldId}`;
-  protected readonly errorId = `ads-form-field-error-${nextFieldId++}`;
+  protected readonly hintId = `brk-form-field-hint-${nextFieldId}`;
+  protected readonly errorId = `brk-form-field-error-${nextFieldId++}`;
 
   ngAfterContentChecked(): void {
     if (!this.control) {

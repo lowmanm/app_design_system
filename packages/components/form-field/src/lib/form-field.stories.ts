@@ -1,28 +1,28 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { AdsFormFieldComponent } from './form-field';
-import { AdsFormFieldControlDirective } from './form-field-control.directive';
+import { BrkFormFieldComponent } from './form-field';
+import { BrkFormFieldControlDirective } from './form-field-control.directive';
 
-const meta: Meta<AdsFormFieldComponent> = {
+const meta: Meta<BrkFormFieldComponent> = {
   title: 'Components/Form Field',
-  component: AdsFormFieldComponent,
+  component: BrkFormFieldComponent,
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [AdsFormFieldComponent, AdsFormFieldControlDirective],
+      imports: [BrkFormFieldComponent, BrkFormFieldControlDirective],
     }),
   ],
 };
 
 export default meta;
-type Story = StoryObj<AdsFormFieldComponent>;
+type Story = StoryObj<BrkFormFieldComponent>;
 
 export const Default: Story = {
   render: () => ({
     template: `
-      <ads-form-field label="Email" hint="We'll never share it">
-        <input adsFormFieldControl type="email" />
-      </ads-form-field>
+      <brk-form-field label="Email" hint="We'll never share it">
+        <input brkFormFieldControl type="email" />
+      </brk-form-field>
     `,
   }),
 };
@@ -30,9 +30,9 @@ export const Default: Story = {
 export const WithError: Story = {
   render: () => ({
     template: `
-      <ads-form-field label="Email" hint="We'll never share it" errorMessage="Enter a valid email address">
-        <input adsFormFieldControl type="email" value="not-an-email" />
-      </ads-form-field>
+      <brk-form-field label="Email" hint="We'll never share it" errorMessage="Enter a valid email address">
+        <input brkFormFieldControl type="email" value="not-an-email" />
+      </brk-form-field>
     `,
   }),
 };

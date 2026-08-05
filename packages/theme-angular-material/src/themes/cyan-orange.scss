@@ -1,0 +1,7 @@
+// Angular Material theme for the "cyan-orange" business-unit brand. Import
+// this instead of a bare "theme" - pick the .scss matching your business
+// unit, mirroring Angular Material's own cyan-orange.css convention.
+@use '../theme-mixin' as theme;
+@use '../../generated/cyan-orange/app-palettes' as palettes;
+
+@include theme.app-theme(palettes.$app-primary-palette, palettes.$app-tertiary-palette);

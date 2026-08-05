@@ -9,13 +9,13 @@ instead of wiring ids by hand.
 ## Usage
 
 ```html
-<ads-form-field label="Email" hint="We'll never share it" [errorMessage]="emailError">
-  <input adsFormFieldControl type="email" [(ngModel)]="email" />
-</ads-form-field>
+<brk-form-field label="Email" hint="We'll never share it" [errorMessage]="emailError">
+  <input brkFormFieldControl type="email" [(ngModel)]="email" />
+</brk-form-field>
 ```
 
 - The control (`<input>`/`<select>`/`<textarea>`) must have
-  `adsFormFieldControl` applied.
+  `brkFormFieldControl` applied.
 - While `errorMessage` is empty, the hint (if any) is shown and referenced
   via `aria-describedby`.
 - Once `errorMessage` is set, the hint is replaced by the error message
@@ -26,7 +26,7 @@ instead of wiring ids by hand.
 
 ## Testing
 
-`AdsFormFieldHarness` (Angular CDK `ComponentHarness`) exposes
+`BrkFormFieldHarness` (Angular CDK `ComponentHarness`) exposes
 `getLabelText()`/`getErrorText()` for consumers. This repo's own tests
 assert directly against the rendered DOM (label `for`/input `id`,
 `aria-describedby`, `aria-invalid`) since that's what actually matters for

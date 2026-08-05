@@ -1,6 +1,6 @@
 {
   "palette": {
-    "$description": "Reference-tier tonal color palettes (0-100), generated from brand seed colors via HCT/Material-3 tonal palette math. Do not edit by hand - rerun generate-palettes.mjs after changing SEED_HEX.",
+    "$description": "Reference-tier tonal color palette (0-100) for the \"rose-red\" brand, generated from seed colors via HCT/Material-3 tonal palette math. Do not edit by hand - rerun generate-palettes.mjs after changing BRANDS.",
     "primary": {
       "0": {
         "$type": "color",
@@ -8,47 +8,47 @@
       },
       "10": {
         "$type": "color",
-        "$value": "#00164d"
+        "$value": "#3f0018"
       },
       "20": {
         "$type": "color",
-        "$value": "#00297b"
+        "$value": "#66002b"
       },
       "30": {
         "$type": "color",
-        "$value": "#003cac"
+        "$value": "#8f003f"
       },
       "40": {
         "$type": "color",
-        "$value": "#0051e0"
+        "$value": "#b90c55"
       },
       "50": {
         "$type": "color",
-        "$value": "#306bff"
+        "$value": "#dc306d"
       },
       "60": {
         "$type": "color",
-        "$value": "#648aff"
+        "$value": "#fe4d86"
       },
       "70": {
         "$type": "color",
-        "$value": "#8da8ff"
+        "$value": "#ff85a4"
       },
       "80": {
         "$type": "color",
-        "$value": "#b5c4ff"
+        "$value": "#ffb1c2"
       },
       "90": {
         "$type": "color",
-        "$value": "#dbe1ff"
+        "$value": "#ffd9df"
       },
       "95": {
         "$type": "color",
-        "$value": "#eff0ff"
+        "$value": "#ffecee"
       },
       "99": {
         "$type": "color",
-        "$value": "#fefbff"
+        "$value": "#fffbff"
       },
       "100": {
         "$type": "color",
@@ -62,47 +62,47 @@
       },
       "10": {
         "$type": "color",
-        "$value": "#161b2c"
+        "$value": "#2b151a"
       },
       "20": {
         "$type": "color",
-        "$value": "#2b3042"
+        "$value": "#43292f"
       },
       "30": {
         "$type": "color",
-        "$value": "#414659"
+        "$value": "#5b3f45"
       },
       "40": {
         "$type": "color",
-        "$value": "#595e72"
+        "$value": "#75565c"
       },
       "50": {
         "$type": "color",
-        "$value": "#72768b"
+        "$value": "#8f6e75"
       },
       "60": {
         "$type": "color",
-        "$value": "#8b90a5"
+        "$value": "#ab888e"
       },
       "70": {
         "$type": "color",
-        "$value": "#a6aac1"
+        "$value": "#c7a2a8"
       },
       "80": {
         "$type": "color",
-        "$value": "#c1c5dd"
+        "$value": "#e4bdc3"
       },
       "90": {
         "$type": "color",
-        "$value": "#dde1f9"
+        "$value": "#ffd9df"
       },
       "95": {
         "$type": "color",
-        "$value": "#eff0ff"
+        "$value": "#ffecee"
       },
       "99": {
         "$type": "color",
-        "$value": "#fefbff"
+        "$value": "#fffbff"
       },
       "100": {
         "$type": "color",
@@ -116,43 +116,43 @@
       },
       "10": {
         "$type": "color",
-        "$value": "#2b122a"
+        "$value": "#2c1600"
       },
       "20": {
         "$type": "color",
-        "$value": "#432740"
+        "$value": "#462a09"
       },
       "30": {
         "$type": "color",
-        "$value": "#5b3d57"
+        "$value": "#60401d"
       },
       "40": {
         "$type": "color",
-        "$value": "#745470"
+        "$value": "#7a5733"
       },
       "50": {
         "$type": "color",
-        "$value": "#8f6c89"
+        "$value": "#966f49"
       },
       "60": {
         "$type": "color",
-        "$value": "#aa86a4"
+        "$value": "#b28960"
       },
       "70": {
         "$type": "color",
-        "$value": "#c6a0bf"
+        "$value": "#cfa378"
       },
       "80": {
         "$type": "color",
-        "$value": "#e2bbdb"
+        "$value": "#ecbe91"
       },
       "90": {
         "$type": "color",
-        "$value": "#ffd6f7"
+        "$value": "#ffdcbd"
       },
       "95": {
         "$type": "color",
-        "$value": "#ffebf8"
+        "$value": "#ffeee0"
       },
       "99": {
         "$type": "color",
@@ -170,47 +170,47 @@
       },
       "10": {
         "$type": "color",
-        "$value": "#1b1b1f"
+        "$value": "#201a1b"
       },
       "20": {
         "$type": "color",
-        "$value": "#303034"
+        "$value": "#352f30"
       },
       "30": {
         "$type": "color",
-        "$value": "#46464a"
+        "$value": "#4c4546"
       },
       "40": {
         "$type": "color",
-        "$value": "#5e5e62"
+        "$value": "#655c5d"
       },
       "50": {
         "$type": "color",
-        "$value": "#77767a"
+        "$value": "#7e7576"
       },
       "60": {
         "$type": "color",
-        "$value": "#919094"
+        "$value": "#988e8f"
       },
       "70": {
         "$type": "color",
-        "$value": "#acaaaf"
+        "$value": "#b3a9aa"
       },
       "80": {
         "$type": "color",
-        "$value": "#c7c6ca"
+        "$value": "#cfc4c5"
       },
       "90": {
         "$type": "color",
-        "$value": "#e4e2e6"
+        "$value": "#ece0e0"
       },
       "95": {
         "$type": "color",
-        "$value": "#f2f0f4"
+        "$value": "#faeeef"
       },
       "99": {
         "$type": "color",
-        "$value": "#fefbff"
+        "$value": "#fffbff"
       },
       "100": {
         "$type": "color",
@@ -224,47 +224,47 @@
       },
       "10": {
         "$type": "color",
-        "$value": "#1a1b23"
+        "$value": "#24191b"
       },
       "20": {
         "$type": "color",
-        "$value": "#2e3038"
+        "$value": "#3a2d2f"
       },
       "30": {
         "$type": "color",
-        "$value": "#45464f"
+        "$value": "#524346"
       },
       "40": {
         "$type": "color",
-        "$value": "#5d5e67"
+        "$value": "#6a5a5d"
       },
       "50": {
         "$type": "color",
-        "$value": "#767680"
+        "$value": "#847375"
       },
       "60": {
         "$type": "color",
-        "$value": "#8f909a"
+        "$value": "#9e8c8f"
       },
       "70": {
         "$type": "color",
-        "$value": "#aaaab4"
+        "$value": "#baa7a9"
       },
       "80": {
         "$type": "color",
-        "$value": "#c6c6d0"
+        "$value": "#d6c2c4"
       },
       "90": {
         "$type": "color",
-        "$value": "#e2e1ec"
+        "$value": "#f3dde0"
       },
       "95": {
         "$type": "color",
-        "$value": "#f0f0fa"
+        "$value": "#ffecee"
       },
       "99": {
         "$type": "color",
-        "$value": "#fefbff"
+        "$value": "#fffbff"
       },
       "100": {
         "$type": "color",

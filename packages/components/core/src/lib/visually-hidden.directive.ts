@@ -6,13 +6,13 @@ import { Directive } from '@angular/core';
  * only wants icon-visible). Prefer this over `display: none`/`visibility:
  * hidden`, which remove the content from screen readers too.
  *
- * Usage: `<span adsVisuallyHidden>Loading</span>`
+ * Usage: `<span brkVisuallyHidden>Loading</span>`
  */
 @Directive({
-  selector: '[adsVisuallyHidden]',
+  selector: '[brkVisuallyHidden]',
   standalone: true,
   host: {
-    class: 'ads-visually-hidden',
+    class: 'brk-visually-hidden',
   },
 })
 export class VisuallyHiddenDirective {}

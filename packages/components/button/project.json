@@ -2,7 +2,7 @@
   "name": "button",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/components/button/src",
-  "prefix": "ads",
+  "prefix": "brk",
   "projectType": "library",
   "tags": ["scope:angular"],
   "implicitDependencies": ["core"],

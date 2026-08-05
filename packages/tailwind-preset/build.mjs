@@ -15,8 +15,10 @@ const tokensJsonDir = resolve(__dirname, '../tokens/dist/json');
 const readJson = (name) => JSON.parse(readFileSync(resolve(tokensJsonDir, name), 'utf-8'));
 
 const core = readJson('core.json');
-// Any theme file has the same semantic color key set - light is just the pick.
-const colorKeys = Object.keys(readJson('theme-light.json').color);
+// Every brand's theme file has the same semantic color *key* set (only the
+// values differ per brand) - since this preset only emits var(--color-*)
+// references, not values, which brand we read here doesn't matter.
+const colorKeys = Object.keys(readJson('brands/azure-blue/theme-light.json').color);
 
 const cssVar = (...parts) => `var(--${parts.join('-')})`;
 

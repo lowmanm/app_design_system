@@ -1,4 +1,6 @@
-@import '@app-design-system/theme-angular-material/src/theme';
+// Storybook demos the "azure-blue" business-unit brand - see
+// @app-design-system/tokens' README for the full brand list.
+@import '@app-design-system/theme-angular-material/src/themes/azure-blue';
 
 html,
 body {

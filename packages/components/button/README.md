@@ -9,9 +9,9 @@ attribute a consumer sets keep working for free.
 ## Usage
 
 ```html
-<button adsButton variant="filled" size="md">Save</button>
-<button adsButton variant="outlined" size="lg" [disabled]="saving">Cancel</button>
-<a adsButton variant="text" href="/help">Learn more</a>
+<button brkButton variant="filled" size="md">Save</button>
+<button brkButton variant="outlined" size="lg" [disabled]="saving">Cancel</button>
+<a brkButton variant="text" href="/help">Learn more</a>
 ```
 
 - `variant`: `'filled' | 'outlined' | 'text'` (default `'filled'`)
@@ -25,7 +25,7 @@ visible focus ring for keyboard users.
 
 ## Testing
 
-`AdsButtonHarness` (Angular CDK `ComponentHarness`) is exported for
+`BrkButtonHarness` (Angular CDK `ComponentHarness`) is exported for
 consumers to test against instead of querying host DOM directly - use it in
 a real browser (Karma) or Playwright component tests. This repo's own
 Vitest+Analog unit tests exercise interactions via native DOM (`.click()`,

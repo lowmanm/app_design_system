@@ -10,12 +10,12 @@
       "executor": "nx:run-commands",
       "dependsOn": ["tokens:build"],
       "options": {
-        "command": "sass --load-path=node_modules --load-path=../../node_modules --no-source-map src/bootstrap-theme.scss dist/bootstrap-theme.css",
+        "command": "node compile-themes.mjs",
         "cwd": "packages/bootstrap-overrides"
       },
       "outputs": ["{projectRoot}/dist"],
       "cache": true,
-      "inputs": ["{projectRoot}/src/**/*", "^production"]
+      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/compile-themes.mjs", "^production"]
     }
   }
 }

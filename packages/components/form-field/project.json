@@ -2,7 +2,7 @@
   "name": "form-field",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/components/form-field/src",
-  "prefix": "ads",
+  "prefix": "brk",
   "projectType": "library",
   "tags": ["scope:angular"],
   "implicitDependencies": ["core"],

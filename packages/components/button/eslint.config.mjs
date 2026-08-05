@@ -12,15 +12,15 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'ads',
+          prefix: 'brk',
           style: 'camelCase',
         },
       ],
       '@angular-eslint/component-selector': [
         'error',
         [
-          { type: 'element', prefix: 'ads', style: 'kebab-case' },
-          { type: 'attribute', prefix: 'ads', style: 'camelCase' },
+          { type: 'element', prefix: 'brk', style: 'kebab-case' },
+          { type: 'attribute', prefix: 'brk', style: 'camelCase' },
         ],
       ],
     },

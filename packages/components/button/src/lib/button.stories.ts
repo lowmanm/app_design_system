@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { AdsButtonComponent } from './button';
+import { BrkButtonComponent } from './button';
 
-const meta: Meta<AdsButtonComponent> = {
+const meta: Meta<BrkButtonComponent> = {
   title: 'Components/Button',
-  component: AdsButtonComponent,
+  component: BrkButtonComponent,
   tags: ['autodocs'],
   argTypes: {
     variant: { control: 'select', options: ['filled', 'outlined', 'text'] },
@@ -11,12 +11,12 @@ const meta: Meta<AdsButtonComponent> = {
   },
   render: (args) => ({
     props: args,
-    template: `<button adsButton [variant]="variant" [size]="size">Save changes</button>`,
+    template: `<button brkButton [variant]="variant" [size]="size">Save changes</button>`,
   }),
 };
 
 export default meta;
-type Story = StoryObj<AdsButtonComponent>;
+type Story = StoryObj<BrkButtonComponent>;
 
 export const Filled: Story = { args: { variant: 'filled', size: 'md' } };
 export const Outlined: Story = { args: { variant: 'outlined', size: 'md' } };
@@ -26,9 +26,9 @@ export const Sizes: Story = {
   render: () => ({
     template: `
       <div style="display:flex; gap: 1rem; align-items:center;">
-        <button adsButton variant="filled" size="sm">Small</button>
-        <button adsButton variant="filled" size="md">Medium</button>
-        <button adsButton variant="filled" size="lg">Large</button>
+        <button brkButton variant="filled" size="sm">Small</button>
+        <button brkButton variant="filled" size="md">Medium</button>
+        <button brkButton variant="filled" size="lg">Large</button>
       </div>
     `,
   }),
@@ -36,6 +36,6 @@ export const Sizes: Story = {
 
 export const Disabled: Story = {
   render: () => ({
-    template: `<button adsButton variant="filled" [disabled]="true">Save changes</button>`,
+    template: `<button brkButton variant="filled" [disabled]="true">Save changes</button>`,
   }),
 };

@@ -10,23 +10,23 @@ import type { ComponentSize, ComponentVariant } from '@app-design-system/core';
  * every ARIA attribute a consumer sets keep working with zero extra effort.
  *
  * ```html
- * <button adsButton variant="filled">Save</button>
- * <a adsButton variant="text" href="/cancel">Cancel</a>
+ * <button brkButton variant="filled">Save</button>
+ * <a brkButton variant="text" href="/cancel">Cancel</a>
  * ```
  */
 @Component({
-  selector: 'button[adsButton], a[adsButton]',
+  selector: 'button[brkButton], a[brkButton]',
   standalone: true,
   imports: [MatRipple],
   hostDirectives: [MatRipple],
   host: {
-    class: 'ads-button',
-    '[class]': '"ads-button--" + variant() + " ads-button--" + size()',
+    class: 'brk-button',
+    '[class]': '"brk-button--" + variant() + " brk-button--" + size()',
   },
   template: `<ng-content />`,
   styleUrl: './button.css',
 })
-export class AdsButtonComponent {
+export class BrkButtonComponent {
   readonly variant = input<ComponentVariant>('filled');
   readonly size = input<ComponentSize>('md');
 }

@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { describe, expect, it } from 'vitest';
-import { AdsFormFieldComponent } from './form-field';
-import { AdsFormFieldControlDirective } from './form-field-control.directive';
+import { BrkFormFieldComponent } from './form-field';
+import { BrkFormFieldControlDirective } from './form-field-control.directive';
 
 @Component({
   standalone: true,
-  imports: [AdsFormFieldComponent, AdsFormFieldControlDirective],
+  imports: [BrkFormFieldComponent, BrkFormFieldControlDirective],
   template: `
-    <ads-form-field label="Email" [hint]="hint()" [errorMessage]="error()">
-      <input adsFormFieldControl type="email" />
-    </ads-form-field>
+    <brk-form-field label="Email" [hint]="hint()" [errorMessage]="error()">
+      <input brkFormFieldControl type="email" />
+    </brk-form-field>
   `,
 })
 class HostComponent {
@@ -18,7 +18,7 @@ class HostComponent {
   error = signal('');
 }
 
-describe('AdsFormFieldComponent', () => {
+describe('BrkFormFieldComponent', () => {
   it('associates the label with the control via for/id', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
@@ -32,10 +32,10 @@ describe('AdsFormFieldComponent', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
     const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
-    const hint: HTMLElement = fixture.nativeElement.querySelector('.ads-form-field__hint');
+    const hint: HTMLElement = fixture.nativeElement.querySelector('.brk-form-field__hint');
     expect(input.getAttribute('aria-describedby')).toBe(hint.id);
     expect(input.getAttribute('aria-invalid')).toBeNull();
-    expect(fixture.nativeElement.querySelector('.ads-form-field__error')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.brk-form-field__error')).toBeNull();
   });
 
   it('switches to the error message and marks aria-invalid when an error is set', () => {
@@ -44,7 +44,7 @@ describe('AdsFormFieldComponent', () => {
     fixture.detectChanges();
 
     const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
-    const error: HTMLElement = fixture.nativeElement.querySelector('.ads-form-field__error');
+    const error: HTMLElement = fixture.nativeElement.querySelector('.brk-form-field__error');
 
     expect(error.textContent?.trim()).toBe('Enter a valid email address');
     expect(error.getAttribute('role')).toBe('alert');
@@ -52,6 +52,6 @@ describe('AdsFormFieldComponent', () => {
     expect(input.getAttribute('aria-invalid')).toBe('true');
     // Hint is suppressed while an error is showing, to avoid a noisy double
     // announcement - the error already conveys the field is invalid.
-    expect(fixture.nativeElement.querySelector('.ads-form-field__hint')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.brk-form-field__hint')).toBeNull();
   });
 });

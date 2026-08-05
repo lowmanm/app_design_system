@@ -1,5 +1,0 @@
-// Entry point: import this instead of "bootstrap/scss/bootstrap" directly.
-// Sets design-token-derived variables first, then compiles Bootstrap so its
-// component styles pick them up.
-@import 'scss/variables';
-@import 'bootstrap/scss/bootstrap';

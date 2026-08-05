@@ -1,0 +1,7 @@
+// Bootstrap 5 compiled with the "cyan-orange" business-unit brand's tokens.
+// Pick the entry matching your business unit - mirroring Angular
+// Material's own cyan-orange.css convention.
+@import '@app-design-system/tokens/dist/scss/_core.scss';
+@import '@app-design-system/tokens/dist/scss/brands/cyan-orange/_theme-light.scss';
+@import '../scss/bootstrap-variable-mapping';
+@import 'bootstrap/scss/bootstrap';

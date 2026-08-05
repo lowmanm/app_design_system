@@ -3,8 +3,13 @@
 // contract), SCSS variables/maps (for Bootstrap consumers), and a flat JSON
 // token map (consumed by the Tailwind preset package). Every non-Angular and
 // Angular consumer ultimately derives from these same generated values.
+//
+// Color is brand-specific (see scripts/generate-palettes.mjs and BRANDS
+// below) - typography/spacing/radius/elevation/motion are shared across
+// every business unit's brand, so "core" builds once, unscoped by brand.
 import StyleDictionary from 'style-dictionary';
 import { formats, transformGroups } from 'style-dictionary/enums';
+import { BRANDS } from './scripts/generate-palettes.mjs';
 
 const { cssVariables, scssVariables, jsonNested } = formats;
 const { css, scss } = transformGroups;
@@ -47,18 +52,19 @@ async function buildCore() {
   await sd.buildAllPlatforms();
 }
 
-async function buildTheme({ name, selector, file }) {
+async function buildBrandTheme(brand, { name, selector, file }) {
+  const brandPalette = `src/reference/brands/${brand}/color.json`;
   // Palette (reference) tokens are sourced only to resolve semantic
   // references (outputReferences: false bakes them to literal hex) - they
   // are deliberately excluded from every theme's own output via the filter
   // below so the raw 0-100 tonal scale isn't duplicated three times over.
   const semanticOnly = (token) => token.filePath === file;
   const sd = new StyleDictionary({
-    source: ['src/reference/color.json', file],
+    source: [brandPalette, file],
     platforms: {
       css: {
         transformGroup: css,
-        buildPath: 'dist/css/',
+        buildPath: `dist/css/brands/${brand}/`,
         files: [
           {
             destination: `theme-${name}.css`,
@@ -70,7 +76,7 @@ async function buildTheme({ name, selector, file }) {
       },
       scss: {
         transformGroup: scss,
-        buildPath: 'dist/scss/',
+        buildPath: `dist/scss/brands/${brand}/`,
         files: [
           {
             destination: `_theme-${name}.scss`,
@@ -82,7 +88,7 @@ async function buildTheme({ name, selector, file }) {
       },
       json: {
         transformGroup: css,
-        buildPath: 'dist/json/',
+        buildPath: `dist/json/brands/${brand}/`,
         files: [{ destination: `theme-${name}.json`, format: jsonNested, filter: semanticOnly }],
       },
     },
@@ -90,26 +96,27 @@ async function buildTheme({ name, selector, file }) {
   await sd.buildAllPlatforms();
 }
 
-async function buildPalette() {
-  // The full 0-100 tonal scale, emitted once (unscoped) for advanced
-  // consumers (e.g. data-visualization) that need finer-grained tones than
-  // the semantic layer exposes. Most consumers should use the theme files.
+async function buildBrandPalette(brand) {
+  // The full 0-100 tonal scale for this brand, emitted once (unscoped) for
+  // advanced consumers (e.g. data-visualization, or theme-angular-material's
+  // Sass palette generation) that need finer-grained tones than the
+  // semantic layer exposes. Most consumers should use the theme files.
   const sd = new StyleDictionary({
-    source: ['src/reference/color.json'],
+    source: [`src/reference/brands/${brand}/color.json`],
     platforms: {
       css: {
         transformGroup: css,
-        buildPath: 'dist/css/',
+        buildPath: `dist/css/brands/${brand}/`,
         files: [{ destination: 'palette.css', format: cssVariables, options: { selector: ':root' } }],
       },
       scss: {
         transformGroup: scss,
-        buildPath: 'dist/scss/',
+        buildPath: `dist/scss/brands/${brand}/`,
         files: [{ destination: '_palette.scss', format: scssVariables }],
       },
       json: {
         transformGroup: css,
-        buildPath: 'dist/json/',
+        buildPath: `dist/json/brands/${brand}/`,
         files: [{ destination: 'palette.json', format: jsonNested }],
       },
     },
@@ -119,8 +126,10 @@ async function buildPalette() {
 
 console.log('Building design tokens...');
 await buildCore();
-await buildPalette();
-for (const theme of THEMES) {
-  await buildTheme(theme);
+for (const brand of Object.keys(BRANDS)) {
+  await buildBrandPalette(brand);
+  for (const theme of THEMES) {
+    await buildBrandTheme(brand, theme);
+  }
 }
-console.log('Token build complete -> dist/css, dist/scss, dist/json');
+console.log(`Token build complete for brands: ${Object.keys(BRANDS).join(', ')} -> dist/css, dist/scss, dist/json`);

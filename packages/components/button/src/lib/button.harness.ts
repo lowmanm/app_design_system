@@ -1,8 +1,8 @@
 import { ComponentHarness } from '@angular/cdk/testing';
 
-/** Test harness for AdsButtonComponent - consumers should test through this, not host DOM selectors. */
-export class AdsButtonHarness extends ComponentHarness {
-  static hostSelector = '.ads-button';
+/** Test harness for BrkButtonComponent - consumers should test through this, not host DOM selectors. */
+export class BrkButtonHarness extends ComponentHarness {
+  static hostSelector = '.brk-button';
 
   async click(): Promise<void> {
     return (await this.host()).click();

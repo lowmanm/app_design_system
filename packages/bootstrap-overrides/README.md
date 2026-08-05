@@ -1,25 +1,32 @@
 # @app-design-system/bootstrap-overrides
 
 Lets Bootstrap 5-based apps in the org use the same design tokens as the
-Angular component library and the Tailwind preset.
+Angular component library and the Tailwind preset - one compiled bundle per
+business-unit brand.
 
 ## Usage
 
+Pick the brand matching your business unit (see
+`@app-design-system/tokens`' README for the brand list):
+
 ```scss
 // your-app/styles.scss
-@import '@app-design-system/bootstrap-overrides/src/bootstrap-theme';
+@import '@app-design-system/bootstrap-overrides/src/themes/azure-blue';
+// or: .../src/themes/rose-red
+// or: .../src/themes/cyan-orange
 ```
 
 This compiles Bootstrap with `$theme-colors`, spacing, radii, shadows, and
-typography all sourced from `@app-design-system/tokens` (baked to the
-*light* theme's values, since Sass compiles once, ahead of time).
+typography all sourced from that brand's `@app-design-system/tokens` output
+(baked to the *light* theme's values, since Sass compiles once, ahead of
+time).
 
 Then load the runtime bridge (plain CSS, no Sass) after your compiled
 Bootstrap CSS and the tokens' theme CSS:
 
 ```html
-<link rel="stylesheet" href="dist/bootstrap-theme.css" />
-<link rel="stylesheet" href="node_modules/@app-design-system/tokens/css/theme-dark.css" />
+<link rel="stylesheet" href="dist/azure-blue.css" />
+<link rel="stylesheet" href="node_modules/@app-design-system/tokens/css/brands/azure-blue/theme-dark.css" />
 <link rel="stylesheet" href="node_modules/@app-design-system/bootstrap-overrides/src/runtime-theme-bridge.css" />
 ```
 
@@ -41,5 +48,5 @@ import:
 
 ```sh
 nx run tokens:build              # tokens must be built first
-nx run bootstrap-overrides:build # compiles dist/bootstrap-theme.css
+nx run bootstrap-overrides:build # compiles dist/<brand>.css per brand
 ```

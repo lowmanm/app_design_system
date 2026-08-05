@@ -1,8 +1,13 @@
 // Remaps design-token values onto Bootstrap's own Sass variables, before
-// Bootstrap's stylesheets are @imported. This must be @imported BEFORE
-// "bootstrap/scss/bootstrap" (see ../bootstrap-theme.scss) - Bootstrap reads
-// these variables while building its component styles, so overrides only
-// take effect if they're set first.
+// Bootstrap's stylesheets are @imported (see ../themes/<brand>.scss, which
+// @import this after the brand's tokens SCSS and before "bootstrap/scss/
+// bootstrap" - Bootstrap reads these variables while building its component
+// styles, so overrides only take effect if they're set first).
+//
+// Brand-agnostic: reads whichever brand's $color-* variables the importing
+// entry file already defined via its own tokens SCSS @import - the mapping
+// logic itself (which token maps to which Bootstrap variable) is identical
+// no matter which business unit's brand is active.
 //
 // Note: Sass variables are resolved at compile time, so these bake in the
 // *light* theme's literal values as Bootstrap's compiled-CSS defaults/
@@ -11,12 +16,6 @@
 // which maps Bootstrap's own `--bs-*` custom properties to the design
 // tokens' CSS custom properties - so Bootstrap's rendered colors follow
 // `data-theme` even though this Sass layer only ever compiles once.
-// Resolved via Sass load-paths pointed at node_modules (see project.json's
-// `build`/`test` targets and README) - the same mechanism used to
-// @import "bootstrap/scss/bootstrap" itself below.
-@import '@app-design-system/tokens/dist/scss/_core.scss';
-@import '@app-design-system/tokens/dist/scss/_theme-light.scss';
-
 $theme-colors: (
   'primary': $color-primary,
   'secondary': $color-secondary,

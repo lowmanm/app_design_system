@@ -81,9 +81,9 @@
         ],
         "styles": [
           "node_modules/@app-design-system/tokens/dist/css/core.css",
-          "node_modules/@app-design-system/tokens/dist/css/theme-light.css",
-          "node_modules/@app-design-system/tokens/dist/css/theme-dark.css",
-          "node_modules/@app-design-system/tokens/dist/css/theme-high-contrast.css",
+          "node_modules/@app-design-system/tokens/dist/css/brands/azure-blue/theme-light.css",
+          "node_modules/@app-design-system/tokens/dist/css/brands/azure-blue/theme-dark.css",
+          "node_modules/@app-design-system/tokens/dist/css/brands/azure-blue/theme-high-contrast.css",
           "apps/docs/src/styles.scss"
         ],
         "stylePreprocessorOptions": {

@@ -21,12 +21,12 @@
       "executor": "nx:run-commands",
       "dependsOn": ["generate-palettes"],
       "options": {
-        "command": "sass --load-path=node_modules --load-path=../../node_modules --no-source-map src/theme.scss dist/theme.css",
+        "command": "node compile-themes.mjs",
         "cwd": "packages/theme-angular-material"
       },
       "outputs": ["{projectRoot}/dist"],
       "cache": true,
-      "inputs": ["{projectRoot}/src/**/*", "^production"]
+      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/compile-themes.mjs", "^production"]
     }
   }
 }
