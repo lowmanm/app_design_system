@@ -3,6 +3,10 @@ import type { Preview } from '@storybook/angular';
 // storybook-browser-target in ../project.json instead of imported here -
 // ts-loader (used for this file specifically) has no loader configured for
 // bare .css/.scss imports, unlike the app's own Angular style pipeline.
+//
+// Manager (sidebar/toolbar chrome) theming is kept in sync with the
+// Brand/Theme globals below by .storybook/manager.ts, via the core
+// GLOBALS_UPDATED event - nothing needed here beyond declaring them.
 
 const preview: Preview = {
   parameters: {
