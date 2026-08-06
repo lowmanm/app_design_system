@@ -7,11 +7,10 @@
     "@angular/common": "^22.0.0",
     "@angular/core": "^22.0.0"
   },
-  "dependencies": {
-    "@app-design-system/core": "workspace:*"
-  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "restricted",
+    "directory": "../../../dist/packages/components/form-field",
+    "linkDirectory": false
   }
 }

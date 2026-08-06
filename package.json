@@ -8,7 +8,11 @@
     "test": "nx run-many -t test",
     "lint": "nx run-many -t lint",
     "storybook": "nx run docs:storybook",
-    "tokens:build": "nx run tokens:build"
+    "tokens:build": "nx run tokens:build",
+    "changeset": "changeset",
+    "version-packages": "changeset version && pnpm install --lockfile-only",
+    "release": "nx run-many -t build && changeset publish",
+    "release:dry-run": "nx run-many -t build && pnpm -r publish --dry-run --no-git-checks"
   },
   "dependencies": {
     "@angular/cdk": "22.1.0",

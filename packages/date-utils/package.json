@@ -4,11 +4,24 @@
   "description": "Framework-agnostic dayjs wrapper (org-standard formats, timezone helpers) shared by Angular, Tailwind, Bootstrap, and plain-JS consumers.",
   "license": "MIT",
   "type": "commonjs",
+  "main": "./index.cjs",
+  "module": "./index.js",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./index.js",
+      "require": "./index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "dependencies": {
     "dayjs": "^1.11.13"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "restricted",
+    "directory": "../../dist/packages/date-utils",
+    "linkDirectory": false
   }
 }

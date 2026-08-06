@@ -6,13 +6,16 @@
   "peerDependencies": {
     "@angular/cdk": "^22.0.0",
     "@angular/common": "^22.0.0",
-    "@angular/core": "^22.0.0"
+    "@angular/core": "^22.0.0",
+    "rxjs": "^7.8.0"
   },
   "dependencies": {
     "@app-design-system/core": "workspace:*"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "restricted",
+    "directory": "../../../dist/packages/components/menu",
+    "linkDirectory": false
   }
 }

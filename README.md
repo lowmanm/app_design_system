@@ -27,7 +27,8 @@ visual language and one accessibility bar (WCAG 2.1/2.2 AA).
 
 Every package above is a real, independently installable npm package
 (`@app-design-system/*`, published to GitHub Packages - see "Installing"
-below).
+below). The compiled ones publish from their built output, so consumers get
+compiled JS plus type declarations, never source.
 
 ## Theming
 
@@ -104,8 +105,13 @@ and a Colors guide - more guides to come), the Tailwind/Bootstrap
 playgrounds, and GitHub Packages publish config (Changesets) for every
 package.
 
-Not yet wired: the actual CI release workflow (Changesets version/publish
-automation), a deploy of Storybook to GitHub Pages, LambdaTest
+Releases run through Changesets: `pnpm changeset` to record a change,
+and `.github/workflows/release.yml` opens a version PR on merge to `main`
+and publishes when that PR lands. `pnpm release:dry-run` packs every
+package locally without publishing. Publishing itself only starts working
+once the repo moves to a GitHub org whose name matches the npm scope - see
+[MIGRATION.md](MIGRATION.md).
+
+Not yet wired: a deploy of Storybook to GitHub Pages, LambdaTest
 cross-browser/visual-regression CI, the separate custom showcase/
 guidelines website, and governance docs (CONTRIBUTING.md, RFC process).
-See [MIGRATION.md](MIGRATION.md) for the repo-move checklist.

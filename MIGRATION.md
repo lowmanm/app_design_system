@@ -65,8 +65,10 @@ still pending).
 
 ## 5. Still-pending items (not migration-specific, just not built yet)
 
-- CI release workflow (Changesets version/publish automation) - see root
-  README's "Status" section.
+The release pipeline itself is built and verified end-to-end by
+`pnpm release:dry-run` - the only thing standing between it and a real
+publish is the scope/org mismatch in step 2 above.
+
 - A GitHub Pages (or other) deploy of the Storybook docs site.
 - The separate custom showcase/guidelines website (typography, colors,
   spacing, writing-style guides) - Storybook already carries some of this

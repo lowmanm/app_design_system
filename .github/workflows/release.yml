@@ -1,0 +1,61 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+# The only workflow that needs write access. CI runs read-only.
+permissions:
+  contents: write # Changesets commits version bumps and creates tags
+  pull-requests: write # ...and opens/updates the "Version Packages" PR
+  packages: write # ...and publishes to GitHub Packages
+
+# Never run two releases at once - a second would race the first's version
+# commit. Not cancel-in-progress: aborting mid-publish could leave some
+# packages released and others not.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  PNPM_VERSION: 10
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://npm.pkg.github.com
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Publishable packages ship from dist/ (see publishConfig.directory in
+      # each package.json), which is gitignored - so the build has to run
+      # before `changeset publish` packs anything.
+      - name: Build all packages
+        run: pnpm exec nx run-many -t build
+
+      # Opens or updates a "Version Packages" PR when changesets are pending;
+      # publishes when that PR is merged and no changesets remain.
+      - name: Create release PR or publish
+        uses: changesets/action@v1
+        with:
+          version: pnpm run version-packages
+          publish: pnpm exec changeset publish
+          commit: 'chore: version packages'
+          title: 'chore: version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

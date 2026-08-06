@@ -12,6 +12,8 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "restricted",
+    "directory": "../../dist/packages/date-adapter-angular",
+    "linkDirectory": false
   }
 }
