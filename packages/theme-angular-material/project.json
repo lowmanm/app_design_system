@@ -25,6 +25,9 @@
         "cwd": "packages/theme-angular-material"
       },
       "outputs": ["{projectRoot}/dist"]
+    },
+    "test": {
+      "dependsOn": ["build"]
     }
   }
 }

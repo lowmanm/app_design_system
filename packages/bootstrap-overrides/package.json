@@ -4,8 +4,11 @@
   "description": "Bootstrap 5 Sass variable overrides + a runtime CSS-variable bridge, one per business-unit brand, both derived from @app-design-system/tokens.",
   "license": "MIT",
   "exports": {
+    ".": "./src/index.ts",
     "./themes/*": "./src/themes/*.scss",
-    "./runtime-theme-bridge.css": "./src/runtime-theme-bridge.css"
+    "./runtime-theme-bridge.css": "./src/runtime-theme-bridge.css",
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
   },
   "files": [
     "src",

@@ -17,11 +17,20 @@ module.exports = {
 };
 ```
 
-```html
-<link rel="stylesheet" href="node_modules/@app-design-system/tokens/css/core.css" />
-<link rel="stylesheet" href="node_modules/@app-design-system/tokens/css/theme-light.css" />
-<link rel="stylesheet" href="node_modules/@app-design-system/tokens/css/theme-dark.css" />
+The preset only emits `var(--...)` references, so it is brand-agnostic -
+the tokens CSS is what supplies the actual values, and which brand's files
+you load is what picks your business unit's colors:
+
+```ts
+// your-app/src/main.ts - swap azure-blue for your business unit's brand
+import '@app-design-system/tokens/css/core.css';
+import '@app-design-system/tokens/css/brands/azure-blue/theme-light.css';
+import '@app-design-system/tokens/css/brands/azure-blue/theme-dark.css';
+import '@app-design-system/tokens/css/brands/azure-blue/theme-high-contrast.css';
 ```
+
+Miss this step and every `bg-primary` resolves to nothing - the utility
+classes exist but have no values behind them.
 
 Now `bg-primary`, `text-on-surface`, `rounded-md`, `shadow-2`, etc. are all
 backed by `var(--...)` references into the tokens CSS - switching

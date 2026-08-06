@@ -4,7 +4,10 @@
   "description": "Angular Material M3 themes wired to @app-design-system/tokens' per-business-unit brand palettes - pick a brand at import time, light/dark/high-contrast switching via the data-theme attribute.",
   "license": "MIT",
   "exports": {
-    "./themes/*": "./src/themes/*.scss"
+    ".": "./src/index.ts",
+    "./themes/*": "./src/themes/*.scss",
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
   },
   "files": [
     "src",

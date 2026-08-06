@@ -22,7 +22,7 @@ visual language and one accessibility bar (WCAG 2.1/2.2 AA).
 | [`packages/date-utils`](packages/date-utils)                                                                                                                                                                                                                   | Framework-agnostic dayjs wrapper (org-standard formats, timezones).                                                                                                                                                                                      |
 | [`packages/date-adapter-angular`](packages/date-adapter-angular)                                                                                                                                                                                               | dayjs `DateAdapter` for Angular Material's datepicker.                                                                                                                                                                                                   |
 | [`packages/components/core`](packages/components/core), [`button`](packages/components/button), [`form-field`](packages/components/form-field), [`card`](packages/components/card), [`header`](packages/components/header), [`menu`](packages/components/menu) | The Angular component library (`brk-` prefixed selectors, e.g. `brk-form-field`, `brkButton`, `brk-menu`).                                                                                                                                               |
-| [`apps/docs`](apps/docs)                                                                                                                                                                                                                                       | Storybook documentation site - component stories plus prose "Guides/*" pages (colors, and more to come) written in MDX.                                                                                                                                  |
+| [`apps/docs`](apps/docs)                                                                                                                                                                                                                                       | Storybook documentation site, in docs-only mode (one page per component) with Brand and Theme toolbar switchers - component stories plus prose "Guides/*" pages written in MDX.                                                                          |
 | [`apps/playground-tailwind`](apps/playground-tailwind), [`apps/playground-bootstrap`](apps/playground-bootstrap)                                                                                                                                               | Manual QA sandboxes proving the non-Angular consumers stay visually consistent.                                                                                                                                                                          |
 
 Every package above is a real, independently installable npm package
@@ -42,6 +42,11 @@ import { setTheme } from '@app-design-system/tokens';
 setTheme('dark'); // 'light' | 'dark' | 'high-contrast'
 ```
 
+The Storybook docs site has toolbar switchers for **both** axes, so you can
+preview every brand and mode without rebuilding. That brand switcher is a
+docs-only affordance - it loads all brands' CSS at once behind a
+`[data-brand]` attribute. Real apps still ship exactly one brand.
+
 ## Installing into an app
 
 Packages are published to GitHub Packages (private, scoped to this repo's
@@ -55,13 +60,23 @@ scope to that registry, then a normal `npm install`:
 ```
 
 ```sh
+# Angular apps
 npm install @app-design-system/tokens @app-design-system/theme-angular-material
-# add @app-design-system/tailwind-preset or bootstrap-overrides instead, for those apps
-# add @app-design-system/core @app-design-system/button @app-design-system/form-field for Angular components
+npm install @app-design-system/core @app-design-system/button \
+  @app-design-system/form-field @app-design-system/card \
+  @app-design-system/header @app-design-system/menu
+
+# Tailwind apps: tokens + the preset instead of the Material theme
+npm install @app-design-system/tokens @app-design-system/tailwind-preset
+
+# Bootstrap apps: tokens + the overrides instead
+npm install @app-design-system/tokens @app-design-system/bootstrap-overrides
 ```
 
-Each package's own README has the specific import/wiring steps (e.g. which
-`.scss` to `@import`, which brand to pick).
+`@app-design-system/tokens` is required in every case - it supplies the
+`--color-*`/`--space-*`/etc. custom properties every other package's output
+references. Each package's own README has the specific import/wiring steps
+(which `.scss` to load, which brand to pick).
 
 ## Developing this repo
 
@@ -77,10 +92,10 @@ pnpm exec nx run docs:storybook     # component playground + guides
 
 Done: tokens (multi-brand), theming across Angular Material/Tailwind/
 Bootstrap, the Angular component library (button, form-field, card, header,
-menu), the
-Storybook docs site (component stories + a starting set of MDX guide
-pages), the Tailwind/Bootstrap playgrounds, and GitHub Packages publish
-config (Changesets) for every package.
+menu), the Storybook docs site (component stories, brand/theme switchers,
+and a Colors guide - more guides to come), the Tailwind/Bootstrap
+playgrounds, and GitHub Packages publish config (Changesets) for every
+package.
 
 Not yet wired: the actual CI release workflow (Changesets version/publish
 automation), a deploy of Storybook to GitHub Pages, LambdaTest

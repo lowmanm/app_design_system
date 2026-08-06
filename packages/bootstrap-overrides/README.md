@@ -11,9 +11,9 @@ Pick the brand matching your business unit (see
 
 ```scss
 // your-app/styles.scss
-@import '@app-design-system/bootstrap-overrides/src/themes/azure-blue';
-// or: .../src/themes/rose-red
-// or: .../src/themes/cyan-orange
+@use '@app-design-system/bootstrap-overrides/themes/azure-blue';
+// or: .../themes/rose-red
+// or: .../themes/cyan-orange
 ```
 
 This compiles Bootstrap with `$theme-colors`, spacing, radii, shadows, and
@@ -25,7 +25,7 @@ Then load the runtime bridge (plain CSS, no Sass) after your compiled
 Bootstrap CSS and the tokens' theme CSS:
 
 ```html
-<link rel="stylesheet" href="dist/azure-blue.css" />
+<link rel="stylesheet" href="node_modules/@app-design-system/bootstrap-overrides/dist/azure-blue.css" />
 <link rel="stylesheet" href="node_modules/@app-design-system/tokens/css/brands/azure-blue/theme-dark.css" />
 <link rel="stylesheet" href="node_modules/@app-design-system/bootstrap-overrides/src/runtime-theme-bridge.css" />
 ```

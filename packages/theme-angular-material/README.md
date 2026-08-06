@@ -8,19 +8,35 @@ high-contrast `data-theme` switching as every other consumer.
 
 ## Usage
 
-Pick the `.scss` matching your business unit's brand and import it once
-(brand is chosen at import time, not switchable at runtime - see
-`@app-design-system/tokens`' README for the brand list):
+Two things must be loaded, not one.
+
+**1. This package's theme for your business unit's brand.** Brand is chosen
+at import time, not switchable at runtime - see
+`@app-design-system/tokens`' README for the brand list:
 
 ```scss
 // your-app/src/styles.scss
-@import '@app-design-system/theme-angular-material/src/themes/azure-blue';
-// or: .../src/themes/rose-red
-// or: .../src/themes/cyan-orange
+@use '@app-design-system/theme-angular-material/themes/azure-blue';
+// or: .../themes/rose-red
+// or: .../themes/cyan-orange
 ```
 
-Then toggle light/dark/high-contrast at runtime the same way as any other
-consumer:
+**2. `@app-design-system/tokens`' CSS.** This is a hard requirement, not an
+optional extra: the themes above deliberately re-point Material's
+`--mat-sys-*` colour roles at the tokens' `--color-*` variables (see "How
+it works"), so without the tokens CSS loaded those variables resolve to
+nothing and Material components render unstyled.
+
+```ts
+// your-app/src/main.ts
+import '@app-design-system/tokens/css/core.css';
+import '@app-design-system/tokens/css/brands/azure-blue/theme-light.css';
+import '@app-design-system/tokens/css/brands/azure-blue/theme-dark.css';
+import '@app-design-system/tokens/css/brands/azure-blue/theme-high-contrast.css';
+```
+
+Load the same brand in both places. Then toggle light/dark/high-contrast at
+runtime the same way as every other consumer:
 
 ```ts
 import { setTheme } from '@app-design-system/tokens';
