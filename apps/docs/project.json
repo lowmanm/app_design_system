@@ -65,6 +65,20 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
+    "generate-brand-css": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["tokens:build"],
+      "options": {
+        "command": "node scripts/generate-brand-css.mjs",
+        "cwd": "apps/docs"
+      },
+      "outputs": ["{projectRoot}/src/generated"],
+      "cache": true,
+      "inputs": [
+        "{workspaceRoot}/packages/tokens/dist/css/brands/**/*",
+        "{projectRoot}/scripts/generate-brand-css.mjs"
+      ]
+    },
     "storybook-browser-target": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
@@ -81,9 +95,7 @@
         ],
         "styles": [
           "node_modules/@app-design-system/tokens/dist/css/core.css",
-          "node_modules/@app-design-system/tokens/dist/css/brands/azure-blue/theme-light.css",
-          "node_modules/@app-design-system/tokens/dist/css/brands/azure-blue/theme-dark.css",
-          "node_modules/@app-design-system/tokens/dist/css/brands/azure-blue/theme-high-contrast.css",
+          "apps/docs/src/generated/brand-themes.css",
           "apps/docs/src/styles.scss"
         ],
         "stylePreprocessorOptions": {
@@ -93,6 +105,7 @@
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
+      "dependsOn": ["generate-brand-css"],
       "options": {
         "browserTarget": "docs:storybook-browser-target",
         "configDir": "apps/docs/.storybook",
@@ -103,6 +116,7 @@
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
+      "dependsOn": ["generate-brand-css"],
       "outputs": ["{options.outputDir}"],
       "options": {
         "browserTarget": "docs:storybook-browser-target",

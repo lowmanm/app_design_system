@@ -6,11 +6,17 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 Every swatch below is rendered with the actual `--color-*` CSS custom
 properties from `@app-design-system/tokens` - not a picture, not a
-hand-copied hex code. Switch the **Theme** toolbar item above between
-light, dark, and high-contrast to see them update live, and see
-`@app-design-system/tokens`' README for the full per-business-unit brand
-list (this page reflects whichever brand `apps/docs` is built against -
-currently "azure-blue").
+hand-copied hex code. Switch the **Brand** toolbar item above between
+Azure Blue, Rose Red, and Cyan Orange to see the whole palette swap live,
+and **Theme** between light, dark, and high-contrast - both apply to every
+page in this Storybook, not just this one.
+
+The brand switcher is a Storybook-only preview: it loads all three
+brands' token CSS at once, scoped under a `[data-brand]` attribute this
+site's toolbar toggles. A real consuming app still picks exactly **one**
+brand at install time and loads only that brand's CSS - see
+`@app-design-system/tokens`' README for the full brand list and how to
+choose one.
 
 export const roles = [
   ['primary', 'on-primary'],

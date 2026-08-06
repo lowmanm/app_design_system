@@ -17,6 +17,19 @@ const preview: Preview = {
     },
   },
   globalTypes: {
+    brand: {
+      description: 'Business-unit brand (color palette)',
+      toolbar: {
+        title: 'Brand',
+        icon: 'globe',
+        items: [
+          { value: 'azure-blue', title: 'Azure Blue' },
+          { value: 'rose-red', title: 'Rose Red' },
+          { value: 'cyan-orange', title: 'Cyan Orange' },
+        ],
+        dynamicTitle: true,
+      },
+    },
     theme: {
       description: 'Design system theme',
       toolbar: {
@@ -28,10 +41,12 @@ const preview: Preview = {
     },
   },
   initialGlobals: {
+    brand: 'azure-blue',
     theme: 'light',
   },
   decorators: [
     (story, context) => {
+      document.documentElement.setAttribute('data-brand', context.globals['brand'] ?? 'azure-blue');
       document.documentElement.setAttribute('data-theme', context.globals['theme'] ?? 'light');
       return story();
     },

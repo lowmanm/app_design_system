@@ -33,6 +33,12 @@ setTheme('dark'); // 'light' | 'dark' | 'high-contrast'
 Use the **Theme** toolbar item above to preview each mode against these
 docs.
 
+**Brand** (which business unit's colors - Azure Blue, Rose Red, Cyan
+Orange) is a separate toolbar item next to it, for the same reason: to
+preview all three without leaving Storybook. A real app doesn't switch
+brands at runtime like this - it picks one at install time and loads only
+that brand's CSS (see `@app-design-system/tokens`' README).
+
 ## Accessibility
 
 Every component here targets WCAG 2.1/2.2 AA: native semantics wherever

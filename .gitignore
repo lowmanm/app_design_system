@@ -60,3 +60,4 @@ storybook-static
 # generated build output that regenerates from `nx run <project>:build` / `:generate-*`
 /packages/theme-angular-material/generated
 /apps/playground-bootstrap/src/generated
+/apps/docs/src/generated
