@@ -9,13 +9,13 @@ let nextControlId = 0;
  * without the consumer having to manage those associations by hand.
  *
  * `describedByIds` and `invalid` are set imperatively by the parent
- * `BrkFormFieldComponent` (via `@ContentChild`), not bound as `@Input`s -
- * consumers never set them directly.
+ * `BrkFormFieldComponent`, which reaches this directive through a
+ * `contentChild()` query - they are not inputs, and consumers never set
+ * them directly.
  */
 @Directive({
   selector:
     'input[brkFormFieldControl], select[brkFormFieldControl], textarea[brkFormFieldControl]',
-  standalone: true,
   host: {
     '[id]': 'id',
     '[attr.aria-describedby]': 'describedByIds || null',
