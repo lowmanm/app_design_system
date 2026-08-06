@@ -7,7 +7,8 @@ export type ComponentSize = 'sm' | 'md' | 'lg';
  * action next to a `filled` primary one; `danger` carries the same weight
  * as `filled` but in the error role, for destructive actions.
  */
-export type ComponentVariant = 'filled' | 'tonal' | 'outlined' | 'text' | 'danger';
+export type ComponentVariant =
+  'filled' | 'tonal' | 'outlined' | 'text' | 'danger';
 
 /**
  * Elevation strategy for container-like components (card, menu panel, ...):

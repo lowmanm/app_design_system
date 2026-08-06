@@ -23,12 +23,17 @@ const toneMap = (scale) =>
 
 for (const brand of Object.keys(BRANDS)) {
   const palette = JSON.parse(
-    readFileSync(resolve(__dirname, `../tokens/dist/json/brands/${brand}/palette.json`), 'utf-8'),
+    readFileSync(
+      resolve(__dirname, `../tokens/dist/json/brands/${brand}/palette.json`),
+      'utf-8',
+    ),
   ).palette;
 
   const primaryMap = `(\n${Object.entries(palette.primary)
     .map(([tone, hex]) => `  ${tone}: ${hex},`)
-    .join('\n')}\n  secondary: ${toneMap(palette.secondary)},\n  neutral: ${toneMap(palette.neutral)},\n  neutral-variant: ${toneMap(palette['neutral-variant'])},\n  error: ${toneMap(palette.error)},\n)`;
+    .join(
+      '\n',
+    )}\n  secondary: ${toneMap(palette.secondary)},\n  neutral: ${toneMap(palette.neutral)},\n  neutral-variant: ${toneMap(palette['neutral-variant'])},\n  error: ${toneMap(palette.error)},\n)`;
 
   const tertiaryMap = `(\n${Object.entries(palette.tertiary)
     .map(([tone, hex]) => `  ${tone}: ${hex},`)

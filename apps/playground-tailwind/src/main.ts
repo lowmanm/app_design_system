@@ -7,8 +7,10 @@ import '@app-design-system/tokens/css/brands/azure-blue/theme-light.css';
 import '@app-design-system/tokens/css/brands/azure-blue/theme-dark.css';
 import '@app-design-system/tokens/css/brands/azure-blue/theme-high-contrast.css';
 
-document.querySelectorAll<HTMLButtonElement>('[data-theme-button]').forEach((button) => {
-  button.addEventListener('click', () => {
-    setTheme(button.dataset['themeButton'] as ThemeName);
+document
+  .querySelectorAll<HTMLButtonElement>('[data-theme-button]')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      setTheme(button.dataset['themeButton'] as ThemeName);
+    });
   });
-});

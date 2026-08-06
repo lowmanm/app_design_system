@@ -3,7 +3,10 @@ import { dayjs } from './dayjs';
 import { DATE_FORMATS } from './formats';
 
 /** Formats any dayjs-parseable input using an org-standard format string. */
-export function formatDate(input: ConfigType, format: string = DATE_FORMATS.DISPLAY_DATE): string {
+export function formatDate(
+  input: ConfigType,
+  format: string = DATE_FORMATS.DISPLAY_DATE,
+): string {
   const parsed = dayjs(input);
   return parsed.isValid() ? parsed.format(format) : '';
 }

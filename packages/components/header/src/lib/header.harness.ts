@@ -12,7 +12,10 @@ export class BrkHeaderHarness extends ComponentHarness {
   async getActiveNavLinkLabel(): Promise<string | null> {
     const links = await this.locatorForAll('.brk-header__nav a')();
     for (const link of links) {
-      if ((await link.hasClass('is-active')) || (await link.getAttribute('aria-current')) === 'page') {
+      if (
+        (await link.hasClass('is-active')) ||
+        (await link.getAttribute('aria-current')) === 'page'
+      ) {
         return link.text();
       }
     }

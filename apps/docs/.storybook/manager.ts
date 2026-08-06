@@ -22,15 +22,31 @@ type Mode = 'light' | 'dark' | 'high-contrast';
 type Brand = 'azure-blue' | 'rose-red' | 'cyan-orange';
 
 const BRAND_PRIMARY: Record<Brand, Record<Mode, string>> = {
-  'azure-blue': { light: '#003cac', dark: '#8da8ff', 'high-contrast': '#00297b' },
+  'azure-blue': {
+    light: '#003cac',
+    dark: '#8da8ff',
+    'high-contrast': '#00297b',
+  },
   'rose-red': { light: '#8f003f', dark: '#ff85a4', 'high-contrast': '#66002b' },
-  'cyan-orange': { light: '#004f56', dark: '#21bccc', 'high-contrast': '#00363c' },
+  'cyan-orange': {
+    light: '#004f56',
+    dark: '#21bccc',
+    'high-contrast': '#00363c',
+  },
 };
 
 const BRAND_ON_PRIMARY: Record<Brand, Record<Mode, string>> = {
-  'azure-blue': { light: '#ffffff', dark: '#00164d', 'high-contrast': '#ffffff' },
+  'azure-blue': {
+    light: '#ffffff',
+    dark: '#00164d',
+    'high-contrast': '#ffffff',
+  },
   'rose-red': { light: '#ffffff', dark: '#3f0018', 'high-contrast': '#ffffff' },
-  'cyan-orange': { light: '#ffffff', dark: '#001f23', 'high-contrast': '#ffffff' },
+  'cyan-orange': {
+    light: '#ffffff',
+    dark: '#001f23',
+    'high-contrast': '#ffffff',
+  },
 };
 
 const MODE_BASE = {
@@ -87,7 +103,9 @@ function logoDataUri(bg: string, fg: string): string {
 }
 
 function isBrand(value: unknown): value is Brand {
-  return value === 'azure-blue' || value === 'rose-red' || value === 'cyan-orange';
+  return (
+    value === 'azure-blue' || value === 'rose-red' || value === 'cyan-orange'
+  );
 }
 
 function isMode(value: unknown): value is Mode {
@@ -122,9 +140,14 @@ const DEFAULT_MODE: Mode = 'light';
 addons.setConfig({ theme: buildTheme(DEFAULT_BRAND, DEFAULT_MODE) });
 
 addons.register('brk/theme-sync', (api) => {
-  api.on(GLOBALS_UPDATED, ({ globals }: { globals: Record<string, unknown> }) => {
-    const brand = isBrand(globals['brand']) ? globals['brand'] : DEFAULT_BRAND;
-    const mode = isMode(globals['theme']) ? globals['theme'] : DEFAULT_MODE;
-    addons.setConfig({ theme: buildTheme(brand, mode) });
-  });
+  api.on(
+    GLOBALS_UPDATED,
+    ({ globals }: { globals: Record<string, unknown> }) => {
+      const brand = isBrand(globals['brand'])
+        ? globals['brand']
+        : DEFAULT_BRAND;
+      const mode = isMode(globals['theme']) ? globals['theme'] : DEFAULT_MODE;
+      addons.setConfig({ theme: buildTheme(brand, mode) });
+    },
+  );
 });

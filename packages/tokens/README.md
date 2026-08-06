@@ -26,11 +26,11 @@ brand's files - mirroring Angular Material's own prebuilt-theme naming
 (`azure-blue.css`, `rose-red.css`, ...). Defined in `BRANDS` in
 `scripts/generate-palettes.mjs`:
 
-| Brand | Primary seed | Tertiary seed |
-| --- | --- | --- |
-| `azure-blue` | `#0B5FFF` | _(auto-derived)_ |
-| `rose-red` | `#C2185B` | _(auto-derived)_ |
-| `cyan-orange` | `#00838F` | `#F4511E` |
+| Brand         | Primary seed | Tertiary seed    |
+| ------------- | ------------ | ---------------- |
+| `azure-blue`  | `#0B5FFF`    | _(auto-derived)_ |
+| `rose-red`    | `#C2185B`    | _(auto-derived)_ |
+| `cyan-orange` | `#00838F`    | `#F4511E`        |
 
 These are placeholders - swap them for the org's real per-business-unit
 brand colors when defined, and add new entries to `BRANDS` for additional

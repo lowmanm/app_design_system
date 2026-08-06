@@ -6,7 +6,10 @@ const meta: Meta<BrkButtonComponent> = {
   component: BrkButtonComponent,
   tags: ['autodocs'],
   argTypes: {
-    variant: { control: 'select', options: ['filled', 'tonal', 'outlined', 'text', 'danger'] },
+    variant: {
+      control: 'select',
+      options: ['filled', 'tonal', 'outlined', 'text', 'danger'],
+    },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
   },
   render: (args) => ({

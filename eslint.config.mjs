@@ -42,7 +42,11 @@ export default [
             },
             {
               sourceTag: 'scope:angular',
-              onlyDependOnLibsWithTags: ['scope:tokens', 'scope:agnostic', 'scope:angular'],
+              onlyDependOnLibsWithTags: [
+                'scope:tokens',
+                'scope:agnostic',
+                'scope:angular',
+              ],
             },
             {
               // Storybook docs app and the manual-QA playground apps may

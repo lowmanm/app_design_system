@@ -50,8 +50,14 @@ const preview: Preview = {
   },
   decorators: [
     (story, context) => {
-      document.documentElement.setAttribute('data-brand', context.globals['brand'] ?? 'azure-blue');
-      document.documentElement.setAttribute('data-theme', context.globals['theme'] ?? 'light');
+      document.documentElement.setAttribute(
+        'data-brand',
+        context.globals['brand'] ?? 'azure-blue',
+      );
+      document.documentElement.setAttribute(
+        'data-theme',
+        context.globals['theme'] ?? 'light',
+      );
       return story();
     },
   ],

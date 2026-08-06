@@ -11,12 +11,20 @@ import type { BrkMenuComponent } from './menu';
  * overlay, positioned outside this menu's own pane) would register as an
  * outside click on the *parent* and close it out from under the submenu.
  */
-export function menuCloseEvents(menu: BrkMenuComponent, overlayRef: OverlayRef) {
+export function menuCloseEvents(
+  menu: BrkMenuComponent,
+  overlayRef: OverlayRef,
+) {
   return merge(
     menu.closed,
-    overlayRef.outsidePointerEvents().pipe(
-      filter((event) => !(event.target as Element | null)?.closest?.('.cdk-overlay-pane')),
-    ),
+    overlayRef
+      .outsidePointerEvents()
+      .pipe(
+        filter(
+          (event) =>
+            !(event.target as Element | null)?.closest?.('.cdk-overlay-pane'),
+        ),
+      ),
     overlayRef.detachments(),
   ).pipe(take(1));
 }

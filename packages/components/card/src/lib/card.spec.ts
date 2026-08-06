@@ -56,7 +56,10 @@ describe('BrkCardComponent', () => {
     // is only correct when the fixture was created directly for the
     // harnessed component. Here the fixture root is a wrapping test host,
     // so the harness must search its descendants for `.brk-card`.
-    const harness = await TestbedHarnessEnvironment.loader(fixture).getHarness(BrkCardHarness);
+    const harness =
+      await TestbedHarnessEnvironment.loader(fixture).getHarness(
+        BrkCardHarness,
+      );
     expect(await harness.getVariant()).toBe('outlined');
     expect(await harness.getText()).toContain('Getting started');
   });

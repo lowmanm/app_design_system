@@ -19,6 +19,9 @@ export type BrandName = (typeof BRAND_NAMES)[number];
  * - Angular, Tailwind, Bootstrap, or plain HTML - that has loaded the
  * tokens CSS, with no per-framework theming logic required.
  */
-export function setTheme(theme: ThemeName, root: HTMLElement = document.documentElement): void {
+export function setTheme(
+  theme: ThemeName,
+  root: HTMLElement = document.documentElement,
+): void {
   root.setAttribute('data-theme', theme);
 }

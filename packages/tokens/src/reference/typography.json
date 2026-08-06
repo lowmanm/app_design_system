@@ -1,8 +1,14 @@
 {
   "font": {
     "family": {
-      "sans": { "$type": "fontFamily", "$value": ["Inter", "system-ui", "sans-serif"] },
-      "mono": { "$type": "fontFamily", "$value": ["'JetBrains Mono'", "monospace"] }
+      "sans": {
+        "$type": "fontFamily",
+        "$value": ["Inter", "system-ui", "sans-serif"]
+      },
+      "mono": {
+        "$type": "fontFamily",
+        "$value": ["'JetBrains Mono'", "monospace"]
+      }
     },
     "weight": {
       "regular": { "$type": "fontWeight", "$value": 400 },

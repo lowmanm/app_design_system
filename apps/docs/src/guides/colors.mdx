@@ -35,7 +35,13 @@ export const roles = [
   ['surface-variant', 'on-surface-variant'],
 ];
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+    gap: '1rem',
+  }}
+>
   {roles.map(([bg, fg]) => (
     <div
       key={bg}
@@ -48,8 +54,12 @@ export const roles = [
         fontFamily: 'var(--font-family-sans)',
       }}
     >
-      <div style={{ fontWeight: 'var(--font-weight-semibold)' }}>color-{bg}</div>
-      <div style={{ fontSize: 'var(--font-size-sm)' }}>on-{bg.replace('-container', '')}: color-{fg}</div>
+      <div style={{ fontWeight: 'var(--font-weight-semibold)' }}>
+        color-{bg}
+      </div>
+      <div style={{ fontSize: 'var(--font-size-sm)' }}>
+        on-{bg.replace('-container', '')}: color-{fg}
+      </div>
     </div>
   ))}
 </div>
@@ -81,4 +91,4 @@ export const roles = [
   exist as a token, add it to the design system instead of working around
   it locally.
 - Don't assume `primary` is always blue - it's brand-specific; write
-  component styles against the *role*, not an assumed color.
+  component styles against the _role_, not an assumed color.

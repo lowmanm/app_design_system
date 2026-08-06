@@ -25,16 +25,24 @@ describe('BrkHeaderComponent', () => {
   it('projects brand, nav, and actions into their own regions', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
-    const header: HTMLElement = fixture.nativeElement.querySelector('brk-header');
-    expect(header.querySelector('.brk-header__brand')?.textContent?.trim()).toBe('Acme');
+    const header: HTMLElement =
+      fixture.nativeElement.querySelector('brk-header');
+    expect(
+      header.querySelector('.brk-header__brand')?.textContent?.trim(),
+    ).toBe('Acme');
     expect(header.querySelectorAll('.brk-header__nav a').length).toBe(2);
-    expect(header.querySelector('.brk-header__actions button')?.textContent?.trim()).toBe('Sign in');
+    expect(
+      header.querySelector('.brk-header__actions button')?.textContent?.trim(),
+    ).toBe('Sign in');
   });
 
   it('exposes nav link labels and the active link through BrkHeaderHarness', async () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
-    const harness = await TestbedHarnessEnvironment.loader(fixture).getHarness(BrkHeaderHarness);
+    const harness =
+      await TestbedHarnessEnvironment.loader(fixture).getHarness(
+        BrkHeaderHarness,
+      );
     expect(await harness.getNavLinkLabels()).toEqual(['Product', 'Docs']);
     expect(await harness.getActiveNavLinkLabel()).toBe('Product');
   });

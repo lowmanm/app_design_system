@@ -1,4 +1,11 @@
-import { Directive, ElementRef, Input, OnDestroy, ViewContainerRef, inject } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnDestroy,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import type { Subscription } from 'rxjs';
@@ -44,10 +51,30 @@ export class BrkContextMenuTriggerDirective implements OnDestroy {
         .position()
         .flexibleConnectedTo({ x, y })
         .withPositions([
-          { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'top' },
-          { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' },
-          { originX: 'start', originY: 'top', overlayX: 'end', overlayY: 'top' },
-          { originX: 'start', originY: 'top', overlayX: 'end', overlayY: 'bottom' },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'top',
+          },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'start',
+            overlayY: 'bottom',
+          },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'end',
+            overlayY: 'top',
+          },
+          {
+            originX: 'start',
+            originY: 'top',
+            overlayX: 'end',
+            overlayY: 'bottom',
+          },
         ])
         .withFlexibleDimensions(false)
         .withPush(true),
@@ -55,10 +82,15 @@ export class BrkContextMenuTriggerDirective implements OnDestroy {
     });
     this.overlayRef = overlayRef;
 
-    const portal = new TemplatePortal(this.menu.templateRef, this.viewContainerRef);
+    const portal = new TemplatePortal(
+      this.menu.templateRef,
+      this.viewContainerRef,
+    );
     overlayRef.attach(portal);
 
-    this.closeSubscription = menuCloseEvents(this.menu, overlayRef).subscribe(() => this.close());
+    this.closeSubscription = menuCloseEvents(this.menu, overlayRef).subscribe(
+      () => this.close(),
+    );
     queueMicrotask(() => this.menu.focusFirstItem());
   }
 

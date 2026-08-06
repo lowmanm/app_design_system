@@ -58,10 +58,18 @@
   color: var(--mat-sys-on-secondary-container);
 }
 :host(.brk-button--tonal:hover) {
-  background-color: color-mix(in srgb, var(--mat-sys-secondary-container) 92%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--mat-sys-secondary-container) 92%,
+    black
+  );
 }
 :host(.brk-button--tonal:active) {
-  background-color: color-mix(in srgb, var(--mat-sys-secondary-container) 84%, black);
+  background-color: color-mix(
+    in srgb,
+    var(--mat-sys-secondary-container) 84%,
+    black
+  );
 }
 
 :host(.brk-button--outlined) {
@@ -70,10 +78,18 @@
   border-color: var(--mat-sys-outline);
 }
 :host(.brk-button--outlined:hover) {
-  background-color: color-mix(in srgb, var(--mat-sys-on-surface) 6%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--mat-sys-on-surface) 6%,
+    transparent
+  );
 }
 :host(.brk-button--outlined:active) {
-  background-color: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--mat-sys-on-surface) 12%,
+    transparent
+  );
 }
 
 :host(.brk-button--text) {
@@ -82,10 +98,18 @@
   padding-inline: var(--space-2, 0.5rem);
 }
 :host(.brk-button--text:hover) {
-  background-color: color-mix(in srgb, var(--mat-sys-on-surface) 6%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--mat-sys-on-surface) 6%,
+    transparent
+  );
 }
 :host(.brk-button--text:active) {
-  background-color: color-mix(in srgb, var(--mat-sys-on-surface) 12%, transparent);
+  background-color: color-mix(
+    in srgb,
+    var(--mat-sys-on-surface) 12%,
+    transparent
+  );
 }
 
 /* danger - same weight as filled, for destructive actions */

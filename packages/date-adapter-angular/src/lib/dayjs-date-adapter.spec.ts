@@ -8,7 +8,10 @@ describe('DayjsDateAdapter', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DayjsDateAdapter, { provide: MAT_DATE_LOCALE, useValue: 'en' }],
+      providers: [
+        DayjsDateAdapter,
+        { provide: MAT_DATE_LOCALE, useValue: 'en' },
+      ],
     });
     adapter = TestBed.inject(DayjsDateAdapter);
   });

@@ -1,4 +1,12 @@
-import { Directive, ElementRef, EventEmitter, Input, Output, booleanAttribute, inject } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  booleanAttribute,
+  inject,
+} from '@angular/core';
 
 /**
  * Marks a native `<button>` inside a `<brk-menu>` as an actionable item.

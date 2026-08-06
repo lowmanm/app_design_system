@@ -35,7 +35,7 @@ setTheme('dark');
    `primary` palette: tone keys 0-100 at the map root, with
    `secondary`/`neutral`/`neutral-variant`/`error` nested inside.
 2. `src/_theme-mixin.scss` defines `app-theme($primary-palette,
-   $tertiary-palette)`, calling `mat.theme()` with those palettes once per
+$tertiary-palette)`, calling `mat.theme()` with those palettes once per
    `[data-theme]` value. `mat.theme()` emits Material's "system" tokens as
    runtime CSS custom properties (`--mat-sys-*`) that every Material
    component references - so switching `data-theme` re-themes Material
@@ -48,7 +48,7 @@ setTheme('dark');
    high-contrast block manually points select `--mat-sys-*` variables at
    the tokens package's own `--color-*` values instead of deriving a third
    M3 role mapping - this part is brand-agnostic, since it references
-   variable *names* whose *values* come from whichever brand's tokens CSS
+   variable _names_ whose _values_ come from whichever brand's tokens CSS
    the consuming app has loaded.
 
 See `src/_theme-mixin.scss` for the note on why an Angular Material button

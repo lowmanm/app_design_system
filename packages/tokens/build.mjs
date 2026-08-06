@@ -15,9 +15,21 @@ const { cssVariables, scssVariables, jsonNested } = formats;
 const { css, scss } = transformGroups;
 
 const THEMES = [
-  { name: 'light', selector: ':root, [data-theme="light"]', file: 'src/semantic/color.light.json' },
-  { name: 'dark', selector: '[data-theme="dark"]', file: 'src/semantic/color.dark.json' },
-  { name: 'high-contrast', selector: '[data-theme="high-contrast"]', file: 'src/semantic/color.hc.json' },
+  {
+    name: 'light',
+    selector: ':root, [data-theme="light"]',
+    file: 'src/semantic/color.light.json',
+  },
+  {
+    name: 'dark',
+    selector: '[data-theme="dark"]',
+    file: 'src/semantic/color.dark.json',
+  },
+  {
+    name: 'high-contrast',
+    selector: '[data-theme="high-contrast"]',
+    file: 'src/semantic/color.hc.json',
+  },
 ];
 
 const CORE_SOURCE = [
@@ -35,7 +47,13 @@ async function buildCore() {
       css: {
         transformGroup: css,
         buildPath: 'dist/css/',
-        files: [{ destination: 'core.css', format: cssVariables, options: { selector: ':root' } }],
+        files: [
+          {
+            destination: 'core.css',
+            format: cssVariables,
+            options: { selector: ':root' },
+          },
+        ],
       },
       scss: {
         transformGroup: scss,
@@ -89,7 +107,13 @@ async function buildBrandTheme(brand, { name, selector, file }) {
       json: {
         transformGroup: css,
         buildPath: `dist/json/brands/${brand}/`,
-        files: [{ destination: `theme-${name}.json`, format: jsonNested, filter: semanticOnly }],
+        files: [
+          {
+            destination: `theme-${name}.json`,
+            format: jsonNested,
+            filter: semanticOnly,
+          },
+        ],
       },
     },
   });
@@ -107,7 +131,13 @@ async function buildBrandPalette(brand) {
       css: {
         transformGroup: css,
         buildPath: `dist/css/brands/${brand}/`,
-        files: [{ destination: 'palette.css', format: cssVariables, options: { selector: ':root' } }],
+        files: [
+          {
+            destination: 'palette.css',
+            format: cssVariables,
+            options: { selector: ':root' },
+          },
+        ],
       },
       scss: {
         transformGroup: scss,
@@ -132,4 +162,6 @@ for (const brand of Object.keys(BRANDS)) {
     await buildBrandTheme(brand, theme);
   }
 }
-console.log(`Token build complete for brands: ${Object.keys(BRANDS).join(', ')} -> dist/css, dist/scss, dist/json`);
+console.log(
+  `Token build complete for brands: ${Object.keys(BRANDS).join(', ')} -> dist/css, dist/scss, dist/json`,
+);

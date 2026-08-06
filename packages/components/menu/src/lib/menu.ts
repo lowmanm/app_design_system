@@ -49,7 +49,12 @@ export type BrkMenuYPosition = 'above' | 'below';
   imports: [NgTemplateOutlet],
   template: `
     <ng-template #templateRef>
-      <div class="brk-menu" role="menu" tabindex="-1" (keydown)="_onKeydown($event)">
+      <div
+        class="brk-menu"
+        role="menu"
+        tabindex="-1"
+        (keydown)="_onKeydown($event)"
+      >
         @if (lazyContent) {
           <ng-container *ngTemplateOutlet="lazyContent" />
         } @else {
@@ -61,7 +66,8 @@ export type BrkMenuYPosition = 'above' | 'below';
   styleUrl: './menu.css',
 })
 export class BrkMenuComponent implements AfterContentInit, OnDestroy {
-  @ViewChild('templateRef', { static: true }) readonly templateRef!: TemplateRef<unknown>;
+  @ViewChild('templateRef', { static: true })
+  readonly templateRef!: TemplateRef<unknown>;
   @ContentChildren(BrkMenuItemDirective, { descendants: true })
   readonly items!: QueryList<BrkMenuItemDirective>;
   @ContentChildren(BrkMenuTriggerDirective, { descendants: true })
@@ -83,7 +89,9 @@ export class BrkMenuComponent implements AfterContentInit, OnDestroy {
   private itemSubscriptions = new Subscription();
 
   ngAfterContentInit(): void {
-    this.keyManager = new FocusKeyManager(this.items).withWrap().withTypeAhead();
+    this.keyManager = new FocusKeyManager(this.items)
+      .withWrap()
+      .withTypeAhead();
     this._subscribeToItemActivation();
     this.items.changes.subscribe(() => this._subscribeToItemActivation());
   }
@@ -111,7 +119,9 @@ export class BrkMenuComponent implements AfterContentInit, OnDestroy {
     this.itemSubscriptions.unsubscribe();
     this.itemSubscriptions = new Subscription();
     this.items.forEach((item) =>
-      this.itemSubscriptions.add(item.activated.subscribe(() => this.closed.emit())),
+      this.itemSubscriptions.add(
+        item.activated.subscribe(() => this.closed.emit()),
+      ),
     );
   }
 

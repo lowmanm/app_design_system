@@ -9,7 +9,13 @@ import { BrkButtonHarness } from './button.harness';
   standalone: true,
   imports: [BrkButtonComponent],
   template: `
-    <button brkButton variant="outlined" size="lg" [disabled]="disabled" (click)="onClick()">
+    <button
+      brkButton
+      variant="outlined"
+      size="lg"
+      [disabled]="disabled"
+      (click)="onClick()"
+    >
       Save
     </button>
   `,
@@ -34,7 +40,8 @@ describe('BrkButtonComponent', () => {
   it('renders as a native <button> preserving native semantics', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
-    const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const button: HTMLButtonElement =
+      fixture.nativeElement.querySelector('button');
     expect(button.tagName).toBe('BUTTON');
     expect(button.textContent?.trim()).toBe('Save');
   });
@@ -42,7 +49,8 @@ describe('BrkButtonComponent', () => {
   it('applies variant and size classes', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
-    const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const button: HTMLButtonElement =
+      fixture.nativeElement.querySelector('button');
     expect(button.classList.contains('brk-button--outlined')).toBe(true);
     expect(button.classList.contains('brk-button--lg')).toBe(true);
   });
@@ -50,7 +58,8 @@ describe('BrkButtonComponent', () => {
   it('is clickable and fires (click)', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
-    const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const button: HTMLButtonElement =
+      fixture.nativeElement.querySelector('button');
     button.click();
     expect(fixture.componentInstance.clicked).toBe(true);
   });
@@ -59,7 +68,8 @@ describe('BrkButtonComponent', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.componentInstance.disabled = true;
     fixture.detectChanges();
-    const button: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const button: HTMLButtonElement =
+      fixture.nativeElement.querySelector('button');
     button.click();
     expect(fixture.componentInstance.clicked).toBe(false);
   });
@@ -72,7 +82,10 @@ describe('BrkButtonComponent', () => {
     // is only correct when the fixture was created directly for the
     // harnessed component. Here the fixture root is a wrapping test host,
     // so the harness must search its descendants for `.brk-button`.
-    const harness = await TestbedHarnessEnvironment.loader(fixture).getHarness(BrkButtonHarness);
+    const harness =
+      await TestbedHarnessEnvironment.loader(fixture).getHarness(
+        BrkButtonHarness,
+      );
     expect((await harness.getText()).trim()).toBe('Save');
   });
 });

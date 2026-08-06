@@ -8,13 +8,22 @@ import { BrkMenuDividerDirective } from './menu-divider.directive';
 
 @Component({
   standalone: true,
-  imports: [BrkMenuComponent, BrkMenuTriggerDirective, BrkMenuItemDirective, BrkMenuDividerDirective],
+  imports: [
+    BrkMenuComponent,
+    BrkMenuTriggerDirective,
+    BrkMenuItemDirective,
+    BrkMenuDividerDirective,
+  ],
   template: `
     <button [brkMenuTriggerFor]="menu">Workspace</button>
     <brk-menu #menu>
-      <button brkMenuItem (activated)="profileCount = profileCount + 1">Profile settings</button>
+      <button brkMenuItem (activated)="profileCount = profileCount + 1">
+        Profile settings
+      </button>
       <div brkMenuDivider></div>
-      <button brkMenuItem danger (activated)="signOutCount = signOutCount + 1">Sign out</button>
+      <button brkMenuItem danger (activated)="signOutCount = signOutCount + 1">
+        Sign out
+      </button>
     </brk-menu>
   `,
 })
@@ -29,7 +38,8 @@ describe('BrkMenuComponent + BrkMenuTriggerDirective', () => {
     fixture.detectChanges();
     expect(document.querySelector('.brk-menu')).toBeNull();
 
-    const trigger: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const trigger: HTMLButtonElement =
+      fixture.nativeElement.querySelector('button');
     trigger.click();
     fixture.detectChanges();
 
@@ -45,11 +55,14 @@ describe('BrkMenuComponent + BrkMenuTriggerDirective', () => {
   it('closes and fires (activated) when an item is clicked', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
-    const trigger: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const trigger: HTMLButtonElement =
+      fixture.nativeElement.querySelector('button');
     trigger.click();
     fixture.detectChanges();
 
-    const signOutItem = document.querySelectorAll('.brk-menu-item')[1] as HTMLButtonElement;
+    const signOutItem = document.querySelectorAll(
+      '.brk-menu-item',
+    )[1] as HTMLButtonElement;
     signOutItem.click();
     fixture.detectChanges();
 
@@ -60,12 +73,15 @@ describe('BrkMenuComponent + BrkMenuTriggerDirective', () => {
   it('closes on Escape and returns focus to the trigger', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
-    const trigger: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const trigger: HTMLButtonElement =
+      fixture.nativeElement.querySelector('button');
     trigger.click();
     fixture.detectChanges();
 
     const panel = document.querySelector('.brk-menu') as HTMLElement;
-    panel.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    panel.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    );
     fixture.detectChanges();
 
     expect(document.querySelector('.brk-menu')).toBeNull();

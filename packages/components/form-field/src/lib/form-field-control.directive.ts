@@ -13,7 +13,8 @@ let nextControlId = 0;
  * consumers never set them directly.
  */
 @Directive({
-  selector: 'input[brkFormFieldControl], select[brkFormFieldControl], textarea[brkFormFieldControl]',
+  selector:
+    'input[brkFormFieldControl], select[brkFormFieldControl], textarea[brkFormFieldControl]',
   standalone: true,
   host: {
     '[id]': 'id',

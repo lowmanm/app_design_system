@@ -7,7 +7,10 @@ import { dirname, resolve } from 'node:path';
 import { BRANDS } from '../tokens/scripts/generate-palettes.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const loadPaths = [resolve(__dirname, 'node_modules'), resolve(__dirname, '../../node_modules')];
+const loadPaths = [
+  resolve(__dirname, 'node_modules'),
+  resolve(__dirname, '../../node_modules'),
+];
 
 mkdirSync(resolve(__dirname, 'dist'), { recursive: true });
 

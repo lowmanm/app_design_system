@@ -33,7 +33,8 @@ export class BrkFormFieldComponent implements AfterContentChecked {
   readonly hint = input<string>('');
   readonly errorMessage = input<string>('');
 
-  @ContentChild(BrkFormFieldControlDirective) control?: BrkFormFieldControlDirective;
+  @ContentChild(BrkFormFieldControlDirective)
+  control?: BrkFormFieldControlDirective;
 
   protected readonly hintId = `brk-form-field-hint-${nextFieldId}`;
   protected readonly errorId = `brk-form-field-error-${nextFieldId++}`;

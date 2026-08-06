@@ -1,5 +1,16 @@
-import { Directive, ElementRef, Input, OnDestroy, ViewContainerRef, inject } from '@angular/core';
-import { Overlay, OverlayRef, type ConnectedPosition } from '@angular/cdk/overlay';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnDestroy,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
+import {
+  Overlay,
+  OverlayRef,
+  type ConnectedPosition,
+} from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import type { Subscription } from 'rxjs';
 import { BrkMenuComponent } from './menu';
@@ -51,7 +62,10 @@ export class BrkMenuTriggerDirective implements OnDestroy {
   // Present only when this trigger sits on the same button as a
   // `brkMenuItem` - i.e. this is a submenu, opening beside its parent item
   // rather than below a standalone trigger.
-  private readonly parentMenuItem = inject(BrkMenuItemDirective, { optional: true, self: true });
+  private readonly parentMenuItem = inject(BrkMenuItemDirective, {
+    optional: true,
+    self: true,
+  });
 
   private overlayRef?: OverlayRef;
   private closeSubscription?: Subscription;
@@ -87,14 +101,21 @@ export class BrkMenuTriggerDirective implements OnDestroy {
         .withFlexibleDimensions(false)
         .withPush(true),
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      minWidth: this.parentMenuItem ? undefined : this.elementRef.nativeElement.getBoundingClientRect().width,
+      minWidth: this.parentMenuItem
+        ? undefined
+        : this.elementRef.nativeElement.getBoundingClientRect().width,
     });
     this.overlayRef = overlayRef;
 
-    const portal = new TemplatePortal(this.menu.templateRef, this.viewContainerRef);
+    const portal = new TemplatePortal(
+      this.menu.templateRef,
+      this.viewContainerRef,
+    );
     overlayRef.attach(portal);
 
-    this.closeSubscription = menuCloseEvents(this.menu, overlayRef).subscribe(() => this.close());
+    this.closeSubscription = menuCloseEvents(this.menu, overlayRef).subscribe(
+      () => this.close(),
+    );
 
     // Wait a tick for the portal content to actually be in the DOM before
     // trying to move focus into it.
@@ -121,8 +142,20 @@ export class BrkMenuTriggerDirective implements OnDestroy {
       // Submenu: open beside the item, top-aligned, flipping to the other
       // side if there isn't room.
       return [
-        { originX: 'end', originY: 'top', overlayX: 'start', overlayY: 'top', offsetX: 4 },
-        { originX: 'start', originY: 'top', overlayX: 'end', overlayY: 'top', offsetX: -4 },
+        {
+          originX: 'end',
+          originY: 'top',
+          overlayX: 'start',
+          overlayY: 'top',
+          offsetX: 4,
+        },
+        {
+          originX: 'start',
+          originY: 'top',
+          overlayX: 'end',
+          overlayY: 'top',
+          offsetX: -4,
+        },
       ];
     }
 
@@ -133,22 +166,52 @@ export class BrkMenuTriggerDirective implements OnDestroy {
     if (this.menu.yPosition === 'above') {
       return overlap
         ? [
-            { originX, originY: 'bottom', overlayX, overlayY: 'bottom', offsetY: 0 },
+            {
+              originX,
+              originY: 'bottom',
+              overlayX,
+              overlayY: 'bottom',
+              offsetY: 0,
+            },
             { originX, originY: 'top', overlayX, overlayY: 'top', offsetY: 0 },
           ]
         : [
-            { originX, originY: 'top', overlayX, overlayY: 'bottom', offsetY: -6 },
-            { originX, originY: 'bottom', overlayX, overlayY: 'top', offsetY: 6 },
+            {
+              originX,
+              originY: 'top',
+              overlayX,
+              overlayY: 'bottom',
+              offsetY: -6,
+            },
+            {
+              originX,
+              originY: 'bottom',
+              overlayX,
+              overlayY: 'top',
+              offsetY: 6,
+            },
           ];
     }
     return overlap
       ? [
           { originX, originY: 'top', overlayX, overlayY: 'top', offsetY: 0 },
-          { originX, originY: 'bottom', overlayX, overlayY: 'bottom', offsetY: 0 },
+          {
+            originX,
+            originY: 'bottom',
+            overlayX,
+            overlayY: 'bottom',
+            offsetY: 0,
+          },
         ]
       : [
           { originX, originY: 'bottom', overlayX, overlayY: 'top', offsetY: 6 },
-          { originX, originY: 'top', overlayX, overlayY: 'bottom', offsetY: -6 },
+          {
+            originX,
+            originY: 'top',
+            overlayX,
+            overlayY: 'bottom',
+            offsetY: -6,
+          },
         ];
   }
 

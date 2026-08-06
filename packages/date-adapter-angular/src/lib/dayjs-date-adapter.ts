@@ -17,7 +17,9 @@ import 'dayjs/plugin/localeData';
  */
 @Injectable()
 export class DayjsDateAdapter extends DateAdapter<Dayjs> {
-  private readonly matDateLocale = inject(MAT_DATE_LOCALE, { optional: true }) as string | undefined;
+  private readonly matDateLocale = inject(MAT_DATE_LOCALE, {
+    optional: true,
+  }) as string | undefined;
 
   constructor() {
     super();
@@ -41,7 +43,8 @@ export class DayjsDateAdapter extends DateAdapter<Dayjs> {
   }
 
   override getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
-    const format = style === 'long' ? 'MMMM' : style === 'short' ? 'MMM' : 'MMM';
+    const format =
+      style === 'long' ? 'MMMM' : style === 'short' ? 'MMM' : 'MMM';
     const names = Array.from({ length: 12 }, (_, month) =>
       dayjs().locale(this.locale).month(month).format(format),
     );
@@ -77,7 +80,11 @@ export class DayjsDateAdapter extends DateAdapter<Dayjs> {
   }
 
   override createDate(year: number, month: number, date: number): Dayjs {
-    const result = dayjs().locale(this.locale).year(year).month(month).date(date);
+    const result = dayjs()
+      .locale(this.locale)
+      .year(year)
+      .month(month)
+      .date(date);
     if (result.month() !== ((month % 12) + 12) % 12) {
       // dayjs, like the native Date object, rolls over-flowing days/months
       // into the next month rather than rejecting them - Angular Material

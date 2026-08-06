@@ -8,9 +8,7 @@ documents, under the `brk` prefix.
 ## Basic usage
 
 ```html
-<button brkButton variant="outlined" [brkMenuTriggerFor]="appMenu">
-  Workspace
-</button>
+<button brkButton variant="outlined" [brkMenuTriggerFor]="appMenu">Workspace</button>
 
 <brk-menu #appMenu>
   <button brkMenuItem (activated)="openSettings()">Profile settings</button>
@@ -41,7 +39,7 @@ documents, under the `brk` prefix.
 `brk-menu` takes the same three position inputs as `mat-menu`:
 
 ```html
-<brk-menu #appMenu xPosition="before" yPosition="above" [overlapTrigger]="true">
+<brk-menu #appMenu xPosition="before" yPosition="above" [overlapTrigger]="true"></brk-menu>
 ```
 
 - `xPosition`: `'after'` (default) opens toward the trigger's leading edge,
@@ -98,7 +96,7 @@ the menu is actually opened for the first time:
 <brk-menu #projectsMenu>
   <ng-template brkMenuContent>
     @for (project of projects$ | async; track project.id) {
-      <button brkMenuItem (activated)="open(project)">{{ project.name }}</button>
+    <button brkMenuItem (activated)="open(project)">{{ project.name }}</button>
     }
   </ng-template>
 </brk-menu>

@@ -22,8 +22,10 @@ describe('BrkFormFieldComponent', () => {
   it('associates the label with the control via for/id', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
-    const label: HTMLLabelElement = fixture.nativeElement.querySelector('label');
-    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
+    const label: HTMLLabelElement =
+      fixture.nativeElement.querySelector('label');
+    const input: HTMLInputElement =
+      fixture.nativeElement.querySelector('input');
     expect(label.getAttribute('for')).toBe(input.id);
     expect(input.id).toBeTruthy();
   });
@@ -31,11 +33,16 @@ describe('BrkFormFieldComponent', () => {
   it('describes the control with the hint when there is no error', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
-    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
-    const hint: HTMLElement = fixture.nativeElement.querySelector('.brk-form-field__hint');
+    const input: HTMLInputElement =
+      fixture.nativeElement.querySelector('input');
+    const hint: HTMLElement = fixture.nativeElement.querySelector(
+      '.brk-form-field__hint',
+    );
     expect(input.getAttribute('aria-describedby')).toBe(hint.id);
     expect(input.getAttribute('aria-invalid')).toBeNull();
-    expect(fixture.nativeElement.querySelector('.brk-form-field__error')).toBeNull();
+    expect(
+      fixture.nativeElement.querySelector('.brk-form-field__error'),
+    ).toBeNull();
   });
 
   it('switches to the error message and marks aria-invalid when an error is set', () => {
@@ -43,8 +50,11 @@ describe('BrkFormFieldComponent', () => {
     fixture.componentInstance.error.set('Enter a valid email address');
     fixture.detectChanges();
 
-    const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
-    const error: HTMLElement = fixture.nativeElement.querySelector('.brk-form-field__error');
+    const input: HTMLInputElement =
+      fixture.nativeElement.querySelector('input');
+    const error: HTMLElement = fixture.nativeElement.querySelector(
+      '.brk-form-field__error',
+    );
 
     expect(error.textContent?.trim()).toBe('Enter a valid email address');
     expect(error.getAttribute('role')).toBe('alert');
@@ -52,6 +62,8 @@ describe('BrkFormFieldComponent', () => {
     expect(input.getAttribute('aria-invalid')).toBe('true');
     // Hint is suppressed while an error is showing, to avoid a noisy double
     // announcement - the error already conveys the field is invalid.
-    expect(fixture.nativeElement.querySelector('.brk-form-field__hint')).toBeNull();
+    expect(
+      fixture.nativeElement.querySelector('.brk-form-field__hint'),
+    ).toBeNull();
   });
 });

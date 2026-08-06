@@ -13,7 +13,10 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const tokensBrandsDir = resolve(__dirname, '../../../packages/tokens/dist/css/brands');
+const tokensBrandsDir = resolve(
+  __dirname,
+  '../../../packages/tokens/dist/css/brands',
+);
 const outFile = resolve(__dirname, '../src/generated/brand-themes.css');
 
 const BRANDS = ['azure-blue', 'rose-red', 'cyan-orange'];
@@ -21,7 +24,8 @@ const MODES = [
   {
     file: 'theme-light.css',
     from: ':root, [data-theme="light"] {',
-    to: (brand) => `[data-brand="${brand}"]:root, [data-brand="${brand}"][data-theme="light"] {`,
+    to: (brand) =>
+      `[data-brand="${brand}"]:root, [data-brand="${brand}"][data-theme="light"] {`,
   },
   {
     file: 'theme-dark.css',

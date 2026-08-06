@@ -14,10 +14,14 @@ import { BrkMenuContentDirective } from './menu-content.directive';
     <button [brkMenuTriggerFor]="fileMenu">File</button>
     <brk-menu #fileMenu>
       <button brkMenuItem [brkMenuTriggerFor]="shareMenu">Share</button>
-      <button brkMenuItem (activated)="renameCount = renameCount + 1">Rename</button>
+      <button brkMenuItem (activated)="renameCount = renameCount + 1">
+        Rename
+      </button>
     </brk-menu>
     <brk-menu #shareMenu>
-      <button brkMenuItem (activated)="emailCount = emailCount + 1">Email link</button>
+      <button brkMenuItem (activated)="emailCount = emailCount + 1">
+        Email link
+      </button>
     </brk-menu>
   `,
 })
@@ -43,14 +47,18 @@ describe('nested submenus', () => {
     fixture.nativeElement.querySelector('button').click();
     fixture.detectChanges();
 
-    const shareItem = document.querySelectorAll('.brk-menu-item')[0] as HTMLButtonElement;
+    const shareItem = document.querySelectorAll(
+      '.brk-menu-item',
+    )[0] as HTMLButtonElement;
     shareItem.click();
     fixture.detectChanges();
 
     const panels = document.querySelectorAll('.brk-menu');
     expect(panels.length).toBe(2); // parent + submenu both open
 
-    const emailItem = Array.from(document.querySelectorAll('.brk-menu-item')).find(
+    const emailItem = Array.from(
+      document.querySelectorAll('.brk-menu-item'),
+    ).find(
       (el) => el.textContent?.trim() === 'Email link',
     ) as HTMLButtonElement;
     expect(emailItem).toBeTruthy();
@@ -67,15 +75,22 @@ describe('nested submenus', () => {
   it('closes the submenu when the parent closes (cascade)', () => {
     const fixture = TestBed.createComponent(NestedMenuHostComponent);
     fixture.detectChanges();
-    const trigger: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    const trigger: HTMLButtonElement =
+      fixture.nativeElement.querySelector('button');
     trigger.click();
     fixture.detectChanges();
-    (document.querySelectorAll('.brk-menu-item')[0] as HTMLButtonElement).click();
+    (
+      document.querySelectorAll('.brk-menu-item')[0] as HTMLButtonElement
+    ).click();
     fixture.detectChanges();
     expect(document.querySelectorAll('.brk-menu').length).toBe(2);
 
-    const parentPanel = document.querySelectorAll('.brk-menu')[0] as HTMLElement;
-    parentPanel.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    const parentPanel = document.querySelectorAll(
+      '.brk-menu',
+    )[0] as HTMLElement;
+    parentPanel.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    );
     fixture.detectChanges();
 
     expect(document.querySelectorAll('.brk-menu').length).toBe(0);
@@ -84,11 +99,17 @@ describe('nested submenus', () => {
 
 @Component({
   standalone: true,
-  imports: [BrkMenuComponent, BrkContextMenuTriggerDirective, BrkMenuItemDirective],
+  imports: [
+    BrkMenuComponent,
+    BrkContextMenuTriggerDirective,
+    BrkMenuItemDirective,
+  ],
   template: `
     <div class="row" [brkContextMenuTriggerFor]="rowMenu">Report row</div>
     <brk-menu #rowMenu>
-      <button brkMenuItem danger (activated)="deleteCount = deleteCount + 1">Delete</button>
+      <button brkMenuItem danger (activated)="deleteCount = deleteCount + 1">
+        Delete
+      </button>
     </brk-menu>
   `,
 })
@@ -106,7 +127,13 @@ describe('BrkContextMenuTriggerDirective', () => {
     fixture.detectChanges();
     expect(document.querySelector('.brk-menu')).toBeNull();
 
-    row.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, clientX: 120, clientY: 80 }));
+    row.dispatchEvent(
+      new MouseEvent('contextmenu', {
+        bubbles: true,
+        clientX: 120,
+        clientY: 80,
+      }),
+    );
     fixture.detectChanges();
     expect(document.querySelector('.brk-menu')).not.toBeNull();
   });
@@ -114,7 +141,12 @@ describe('BrkContextMenuTriggerDirective', () => {
 
 @Component({
   standalone: true,
-  imports: [BrkMenuComponent, BrkMenuTriggerDirective, BrkMenuItemDirective, BrkMenuContentDirective],
+  imports: [
+    BrkMenuComponent,
+    BrkMenuTriggerDirective,
+    BrkMenuItemDirective,
+    BrkMenuContentDirective,
+  ],
   template: `
     <button [brkMenuTriggerFor]="lazyMenu">Projects</button>
     <brk-menu #lazyMenu>

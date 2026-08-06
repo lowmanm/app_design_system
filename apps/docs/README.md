@@ -23,7 +23,7 @@ Outputs a static site to `storybook-static/`, deployable to GitHub Pages.
 `@storybook/angular` v10 dropped support for being invoked directly via the
 `storybook build`/`storybook dev` CLI (the pattern `@nx/storybook`'s
 generator scaffolds by default) - Angular's Storybook integration now
-*requires* being run through a real Angular CLI/architect builder
+_requires_ being run through a real Angular CLI/architect builder
 (`@storybook/angular:build-storybook` / `@storybook/angular:start-storybook`),
 so it can read build options (tsConfig, styles, polyfills) from an actual
 Angular target via `context.getTargetOptions()`.

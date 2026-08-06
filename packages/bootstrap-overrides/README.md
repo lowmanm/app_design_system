@@ -18,7 +18,7 @@ Pick the brand matching your business unit (see
 
 This compiles Bootstrap with `$theme-colors`, spacing, radii, shadows, and
 typography all sourced from that brand's `@app-design-system/tokens` output
-(baked to the *light* theme's values, since Sass compiles once, ahead of
+(baked to the _light_ theme's values, since Sass compiles once, ahead of
 time).
 
 Then load the runtime bridge (plain CSS, no Sass) after your compiled

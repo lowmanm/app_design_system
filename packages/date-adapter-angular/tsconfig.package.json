@@ -2,7 +2,9 @@
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
     "paths": {
-      "@app-design-system/date-utils": ["../../dist/packages/date-utils/src/index.d.ts"]
+      "@app-design-system/date-utils": [
+        "../../dist/packages/date-utils/src/index.d.ts"
+      ]
     }
   }
 }

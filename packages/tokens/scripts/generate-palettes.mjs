@@ -5,7 +5,12 @@
 // the org's real per-business-unit brand colors when they're defined; these
 // are reasonable placeholders approximating each name.
 // Run: node scripts/generate-palettes.mjs
-import { CorePalette, TonalPalette, argbFromHex, hexFromArgb } from '@material/material-color-utilities';
+import {
+  CorePalette,
+  TonalPalette,
+  argbFromHex,
+  hexFromArgb,
+} from '@material/material-color-utilities';
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
@@ -48,7 +53,9 @@ function generateBrandPalettes() {
 
   for (const [brand, { primary, tertiary }] of Object.entries(BRANDS)) {
     const corePalette = CorePalette.of(argbFromHex(primary));
-    const tertiaryPalette = tertiary ? TonalPalette.fromInt(argbFromHex(tertiary)) : corePalette.a3;
+    const tertiaryPalette = tertiary
+      ? TonalPalette.fromInt(argbFromHex(tertiary))
+      : corePalette.a3;
 
     const tokens = {
       palette: {
@@ -68,13 +75,18 @@ function generateBrandPalettes() {
     mkdirSync(outDir, { recursive: true });
     const outFile = resolve(outDir, 'color.json');
     writeFileSync(outFile, `${JSON.stringify(tokens, null, 2)}\n`);
-    console.log(`Wrote ${outFile} (primary ${primary}${tertiary ? `, tertiary ${tertiary}` : ''})`);
+    console.log(
+      `Wrote ${outFile} (primary ${primary}${tertiary ? `, tertiary ${tertiary}` : ''})`,
+    );
   }
 }
 
 // Only run when executed directly (`node generate-palettes.mjs`) - other
 // packages import this module just for the BRANDS list and must not trigger
 // tokens' own file-writing as a side effect of that import.
-if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href) {
+if (
+  process.argv[1] &&
+  import.meta.url === new URL(`file://${process.argv[1]}`).href
+) {
   generateBrandPalettes();
 }

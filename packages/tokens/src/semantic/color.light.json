@@ -3,17 +3,32 @@
     "primary": { "$type": "color", "$value": "{palette.primary.30}" },
     "on-primary": { "$type": "color", "$value": "{palette.primary.100}" },
     "primary-container": { "$type": "color", "$value": "{palette.primary.90}" },
-    "on-primary-container": { "$type": "color", "$value": "{palette.primary.10}" },
+    "on-primary-container": {
+      "$type": "color",
+      "$value": "{palette.primary.10}"
+    },
 
     "secondary": { "$type": "color", "$value": "{palette.secondary.40}" },
     "on-secondary": { "$type": "color", "$value": "{palette.secondary.100}" },
-    "secondary-container": { "$type": "color", "$value": "{palette.secondary.90}" },
-    "on-secondary-container": { "$type": "color", "$value": "{palette.secondary.10}" },
+    "secondary-container": {
+      "$type": "color",
+      "$value": "{palette.secondary.90}"
+    },
+    "on-secondary-container": {
+      "$type": "color",
+      "$value": "{palette.secondary.10}"
+    },
 
     "tertiary": { "$type": "color", "$value": "{palette.tertiary.40}" },
     "on-tertiary": { "$type": "color", "$value": "{palette.tertiary.100}" },
-    "tertiary-container": { "$type": "color", "$value": "{palette.tertiary.90}" },
-    "on-tertiary-container": { "$type": "color", "$value": "{palette.tertiary.10}" },
+    "tertiary-container": {
+      "$type": "color",
+      "$value": "{palette.tertiary.90}"
+    },
+    "on-tertiary-container": {
+      "$type": "color",
+      "$value": "{palette.tertiary.10}"
+    },
 
     "error": { "$type": "color", "$value": "{palette.error.40}" },
     "on-error": { "$type": "color", "$value": "{palette.error.100}" },
@@ -23,26 +38,53 @@
     "success": { "$type": "color", "$value": "{palette.success.40}" },
     "on-success": { "$type": "color", "$value": "{palette.success.100}" },
     "success-container": { "$type": "color", "$value": "{palette.success.90}" },
-    "on-success-container": { "$type": "color", "$value": "{palette.success.10}" },
+    "on-success-container": {
+      "$type": "color",
+      "$value": "{palette.success.10}"
+    },
 
     "warning": { "$type": "color", "$value": "{palette.warning.40}" },
     "on-warning": { "$type": "color", "$value": "{palette.warning.100}" },
     "warning-container": { "$type": "color", "$value": "{palette.warning.90}" },
-    "on-warning-container": { "$type": "color", "$value": "{palette.warning.10}" },
+    "on-warning-container": {
+      "$type": "color",
+      "$value": "{palette.warning.10}"
+    },
 
     "surface": { "$type": "color", "$value": "{palette.neutral.99}" },
     "on-surface": { "$type": "color", "$value": "{palette.neutral.10}" },
-    "surface-variant": { "$type": "color", "$value": "{palette.neutral-variant.90}" },
-    "on-surface-variant": { "$type": "color", "$value": "{palette.neutral-variant.30}" },
-    "surface-container-lowest": { "$type": "color", "$value": "{palette.neutral.100}" },
-    "surface-container-low": { "$type": "color", "$value": "{palette.neutral.95}" },
+    "surface-variant": {
+      "$type": "color",
+      "$value": "{palette.neutral-variant.90}"
+    },
+    "on-surface-variant": {
+      "$type": "color",
+      "$value": "{palette.neutral-variant.30}"
+    },
+    "surface-container-lowest": {
+      "$type": "color",
+      "$value": "{palette.neutral.100}"
+    },
+    "surface-container-low": {
+      "$type": "color",
+      "$value": "{palette.neutral.95}"
+    },
     "surface-container": { "$type": "color", "$value": "{palette.neutral.90}" },
-    "surface-container-high": { "$type": "color", "$value": "{palette.neutral.90}" },
+    "surface-container-high": {
+      "$type": "color",
+      "$value": "{palette.neutral.90}"
+    },
 
     "outline": { "$type": "color", "$value": "{palette.neutral-variant.50}" },
-    "outline-variant": { "$type": "color", "$value": "{palette.neutral-variant.80}" },
+    "outline-variant": {
+      "$type": "color",
+      "$value": "{palette.neutral-variant.80}"
+    },
     "inverse-surface": { "$type": "color", "$value": "{palette.neutral.20}" },
-    "inverse-on-surface": { "$type": "color", "$value": "{palette.neutral.95}" },
+    "inverse-on-surface": {
+      "$type": "color",
+      "$value": "{palette.neutral.95}"
+    },
     "scrim": { "$type": "color", "$value": "{palette.neutral.0}" }
   }
 }
