@@ -11,9 +11,11 @@
   font-weight: var(--font-weight-medium, 500);
   text-decoration: none;
   transition:
-    background-color 150ms ease,
-    border-color 150ms ease,
-    color 150ms ease;
+    background-color var(--motion-duration-fast, 100ms)
+      var(--motion-easing-standard, ease),
+    border-color var(--motion-duration-fast, 100ms)
+      var(--motion-easing-standard, ease),
+    color var(--motion-duration-fast, 100ms) var(--motion-easing-standard, ease);
   position: relative;
   overflow: hidden;
 }
@@ -23,19 +25,19 @@
 }
 
 :host(.brk-button--sm) {
-  height: 2rem;
+  height: var(--size-control-sm, 2rem);
   padding: 0 var(--space-3, 0.75rem);
   font-size: var(--font-size-sm, 0.875rem);
 }
 
 :host(.brk-button--md) {
-  height: 2.5rem;
+  height: var(--size-control-md, 2.5rem);
   padding: 0 var(--space-4, 1rem);
   font-size: var(--font-size-md, 1rem);
 }
 
 :host(.brk-button--lg) {
-  height: 3rem;
+  height: var(--size-control-lg, 3rem);
   padding: 0 var(--space-6, 1.5rem);
   font-size: var(--font-size-lg, 1.125rem);
 }
@@ -131,8 +133,8 @@
 }
 
 :host(:focus-visible) {
-  outline: 2px solid var(--mat-sys-primary);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary);
+  outline-offset: var(--focus-ring-offset, 2px);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -43,6 +43,9 @@
       "@app-design-system/menu": ["./packages/components/menu/src/index.ts"],
       "@app-design-system/theme-angular-material": [
         "./packages/theme-angular-material/src/index.ts"
+      ],
+      "@app-design-system/core/testing": [
+        "./packages/components/core/src/testing/index.ts"
       ]
     }
   },

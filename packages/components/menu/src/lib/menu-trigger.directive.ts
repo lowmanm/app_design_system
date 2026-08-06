@@ -1,10 +1,10 @@
 import {
   Directive,
   ElementRef,
-  Input,
   OnDestroy,
   ViewContainerRef,
   inject,
+  input,
 } from '@angular/core';
 import {
   Overlay,
@@ -31,7 +31,7 @@ import { menuCloseEvents } from './menu-overlay.util';
  * ```
  *
  * Put it on a `brkMenuItem` instead of a standalone trigger to get a
- * **nested submenu** - it opens to the side of the item, and clicking the
+ * **nested submenu** - it opens to the side of the item, and choosing the
  * item opens the submenu instead of closing the parent menu:
  *
  * ```html
@@ -45,16 +45,18 @@ import { menuCloseEvents } from './menu-overlay.util';
  */
 @Directive({
   selector: '[brkMenuTriggerFor]',
-  standalone: true,
   host: {
     'aria-haspopup': 'menu',
     '[attr.aria-expanded]': 'isOpen()',
+    '[attr.aria-controls]': 'isOpen() ? menu().panelId : null',
     '(click)': 'toggle()',
     '(keydown.arrowDown)': '_onArrowDown($event)',
   },
 })
 export class BrkMenuTriggerDirective implements OnDestroy {
-  @Input('brkMenuTriggerFor') menu!: BrkMenuComponent;
+  readonly menu = input.required<BrkMenuComponent>({
+    alias: 'brkMenuTriggerFor',
+  });
 
   private readonly overlay = inject(Overlay);
   private readonly elementRef = inject(ElementRef<HTMLElement>);
@@ -92,6 +94,7 @@ export class BrkMenuTriggerDirective implements OnDestroy {
     if (this.isOpen()) {
       return;
     }
+    const menu = this.menu();
 
     const overlayRef = this.overlay.create({
       positionStrategy: this.overlay
@@ -107,27 +110,27 @@ export class BrkMenuTriggerDirective implements OnDestroy {
     });
     this.overlayRef = overlayRef;
 
-    const portal = new TemplatePortal(
-      this.menu.templateRef,
-      this.viewContainerRef,
+    overlayRef.attach(
+      new TemplatePortal(menu.templateRef(), this.viewContainerRef),
     );
-    overlayRef.attach(portal);
 
-    this.closeSubscription = menuCloseEvents(this.menu, overlayRef).subscribe(
-      () => this.close(),
+    this.closeSubscription = menuCloseEvents(menu, overlayRef).subscribe(() =>
+      this.close(),
     );
 
     // Wait a tick for the portal content to actually be in the DOM before
     // trying to move focus into it.
-    queueMicrotask(() => this.menu.focusFirstItem());
+    queueMicrotask(() => menu.onPanelAttached());
   }
 
   close(): void {
     if (!this.overlayRef) {
       return;
     }
-    this.menu.closeAllSubmenus();
+    const menu = this.menu();
+    menu.closeAllSubmenus();
     this.overlayRef.detach();
+    menu.onPanelDetached();
     this.closeSubscription?.unsubscribe();
     this.elementRef.nativeElement.focus();
   }
@@ -159,11 +162,12 @@ export class BrkMenuTriggerDirective implements OnDestroy {
       ];
     }
 
-    const originX = this.menu.xPosition === 'before' ? 'end' : 'start';
+    const menu = this.menu();
+    const originX = menu.xPosition() === 'before' ? 'end' : 'start';
     const overlayX = originX;
-    const overlap = this.menu.overlapTrigger;
+    const overlap = menu.overlapTrigger();
 
-    if (this.menu.yPosition === 'above') {
+    if (menu.yPosition() === 'above') {
       return overlap
         ? [
             {

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { SurfaceVariant } from '@app-design-system/core';
 
 /**
@@ -23,7 +23,6 @@ import type { SurfaceVariant } from '@app-design-system/core';
  */
 @Component({
   selector: 'brk-card',
-  standalone: true,
   template: `
     <ng-content />
     <div class="brk-card__footer">
@@ -35,6 +34,7 @@ import type { SurfaceVariant } from '@app-design-system/core';
     class: 'brk-card',
     '[class]': '"brk-card--" + variant()',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrkCardComponent {
   readonly variant = input<SurfaceVariant>('elevated');

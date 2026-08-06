@@ -3,10 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { describe, expect, it } from 'vitest';
 import { BrkCardComponent } from './card';
+import { expectNoAxeViolations } from '@app-design-system/core/testing';
 import { BrkCardHarness } from './card.harness';
 
 @Component({
-  standalone: true,
   imports: [BrkCardComponent],
   template: `
     <brk-card variant="outlined">
@@ -21,7 +21,6 @@ import { BrkCardHarness } from './card.harness';
 class HostComponent {}
 
 @Component({
-  standalone: true,
   imports: [BrkCardComponent],
   template: `
     <brk-card>
@@ -62,5 +61,24 @@ describe('BrkCardComponent', () => {
       );
     expect(await harness.getVariant()).toBe('outlined');
     expect(await harness.getText()).toContain('Getting started');
+  });
+
+  it('hides the footer divider when no footer content is projected', () => {
+    // card.css relies on `.brk-card__footer:empty` for this, which in turn
+    // depends on Angular stripping whitespace text nodes - worth asserting
+    // rather than assuming.
+    const fixture = TestBed.createComponent(NoFooterHostComponent);
+    fixture.detectChanges();
+    const footer: HTMLElement =
+      fixture.nativeElement.querySelector('.brk-card__footer');
+    expect(footer).not.toBeNull();
+    expect(footer.childElementCount).toBe(0);
+    expect(footer.textContent?.trim()).toBe('');
+  });
+
+  it('has no accessibility violations', async () => {
+    const fixture = TestBed.createComponent(HostComponent);
+    fixture.detectChanges();
+    await expectNoAxeViolations(fixture.nativeElement);
   });
 });

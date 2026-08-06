@@ -74,6 +74,7 @@ const CORE_SOURCE = [
   'src/reference/radius.json',
   'src/reference/elevation.json',
   'src/reference/motion.json',
+  'src/reference/size.json',
 ];
 
 async function buildCore() {

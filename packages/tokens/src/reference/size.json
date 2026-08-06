@@ -1,0 +1,16 @@
+{
+  "size": {
+    "$description": "Fixed control and layout heights. These exist so a button, an input and a select line up on the same row without each component hard-coding its own height - the values were literal rem numbers scattered across component CSS before.",
+    "control": {
+      "sm": { "$type": "dimension", "$value": "2rem" },
+      "md": { "$type": "dimension", "$value": "2.5rem" },
+      "lg": { "$type": "dimension", "$value": "3rem" }
+    },
+    "header": { "$type": "dimension", "$value": "4rem" }
+  },
+  "focus-ring": {
+    "$description": "A single focus-ring definition for the whole system. Keyboard focus visibility is a WCAG 2.4.7 requirement, and it was previously drawn three different ways (2px/3px outlines with +2px/+3px/-2px offsets) across components.",
+    "width": { "$type": "dimension", "$value": "2px" },
+    "offset": { "$type": "dimension", "$value": "2px" }
+  }
+}

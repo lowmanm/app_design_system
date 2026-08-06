@@ -1,7 +1,8 @@
 import {
   AfterContentChecked,
+  ChangeDetectionStrategy,
   Component,
-  ContentChild,
+  contentChild,
   input,
 } from '@angular/core';
 import { BrkFormFieldControlDirective } from './form-field-control.directive';
@@ -23,24 +24,24 @@ let nextFieldId = 0;
  */
 @Component({
   selector: 'brk-form-field',
-  standalone: true,
   templateUrl: './form-field.html',
   styleUrl: './form-field.css',
   host: { class: 'brk-form-field' },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrkFormFieldComponent implements AfterContentChecked {
   readonly label = input.required<string>();
   readonly hint = input<string>('');
   readonly errorMessage = input<string>('');
 
-  @ContentChild(BrkFormFieldControlDirective)
-  control?: BrkFormFieldControlDirective;
+  readonly control = contentChild(BrkFormFieldControlDirective);
 
   protected readonly hintId = `brk-form-field-hint-${nextFieldId}`;
   protected readonly errorId = `brk-form-field-error-${nextFieldId++}`;
 
   ngAfterContentChecked(): void {
-    if (!this.control) {
+    const control = this.control();
+    if (!control) {
       return;
     }
     const hasError = this.errorMessage().length > 0;
@@ -54,7 +55,7 @@ export class BrkFormFieldComponent implements AfterContentChecked {
     if (hasError) {
       describedBy.push(this.errorId);
     }
-    this.control.describedByIds = describedBy.join(' ');
-    this.control.invalid = hasError;
+    control.describedByIds = describedBy.join(' ');
+    control.invalid = hasError;
   }
 }

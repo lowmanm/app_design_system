@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, type ComponentFixture } from '@angular/core/testing';
 import { describe, expect, it } from 'vitest';
 import { BrkMenuComponent } from './menu';
 import { BrkMenuTriggerDirective } from './menu-trigger.directive';
 import { BrkContextMenuTriggerDirective } from './context-menu-trigger.directive';
 import { BrkMenuItemDirective } from './menu-item.directive';
 import { BrkMenuContentDirective } from './menu-content.directive';
+import { expectNoAxeViolations } from '@app-design-system/core/testing';
 
 @Component({
   standalone: true,
@@ -171,5 +172,131 @@ describe('BrkMenuContentDirective (lazy rendering)', () => {
     const items = document.querySelectorAll('.brk-menu-item');
     expect(items.length).toBe(2);
     expect(items[0].textContent?.trim()).toBe('Alpha');
+  });
+});
+
+@Component({
+  imports: [BrkMenuComponent, BrkMenuTriggerDirective, BrkMenuItemDirective],
+  template: `
+    <button [brkMenuTriggerFor]="menu">Actions</button>
+    <brk-menu #menu>
+      <button brkMenuItem (activated)="picked = 'alpha'">Alpha</button>
+      <button brkMenuItem disabled (activated)="picked = 'beta'">Beta</button>
+      <button brkMenuItem (activated)="picked = 'gamma'">Gamma</button>
+    </brk-menu>
+  `,
+})
+class KeyboardHostComponent {
+  picked = '';
+}
+
+function openMenu(fixture: ComponentFixture<unknown>): HTMLElement {
+  (fixture.nativeElement.querySelector('button') as HTMLButtonElement).click();
+  fixture.detectChanges();
+  return document.querySelector('.brk-menu') as HTMLElement;
+}
+
+// CDK's ListKeyManager reads `event.keyCode`, which a synthetically
+// constructed KeyboardEvent leaves at 0 - real browser events always carry
+// it, so this only matters for tests.
+const KEY_CODES: Record<string, number> = {
+  Tab: 9,
+  Escape: 27,
+  ArrowLeft: 37,
+  ArrowUp: 38,
+  ArrowRight: 39,
+  ArrowDown: 40,
+};
+
+function press(panel: HTMLElement, key: string): void {
+  const event = new KeyboardEvent('keydown', { key, bubbles: true });
+  Object.defineProperty(event, 'keyCode', { get: () => KEY_CODES[key] ?? 0 });
+  panel.dispatchEvent(event);
+}
+
+describe('menu items: disabled', () => {
+  it('marks disabled items natively so clicks and key navigation both skip them', async () => {
+    const fixture = TestBed.createComponent(KeyboardHostComponent);
+    fixture.detectChanges();
+    openMenu(fixture);
+    await Promise.resolve();
+
+    const items = [
+      ...document.querySelectorAll('.brk-menu-item'),
+    ] as HTMLButtonElement[];
+    expect(items[1]!.disabled).toBe(true);
+    expect(items[1]!.getAttribute('aria-disabled')).toBe('true');
+
+    items[1]!.click();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.picked).toBe('');
+    // Still open: a disabled item is not an activation.
+    expect(document.querySelector('.brk-menu')).not.toBeNull();
+  });
+});
+
+describe('menu keyboard navigation', () => {
+  it('focuses the first item on open and moves with arrow keys, skipping disabled', async () => {
+    const fixture = TestBed.createComponent(KeyboardHostComponent);
+    fixture.detectChanges();
+    const panel = openMenu(fixture);
+    await Promise.resolve();
+
+    expect(document.activeElement?.textContent?.trim()).toBe('Alpha');
+
+    press(panel, 'ArrowDown');
+    fixture.detectChanges();
+    // Beta is disabled, so focus lands on Gamma.
+    expect(document.activeElement?.textContent?.trim()).toBe('Gamma');
+  });
+
+  it('wraps around at the ends', async () => {
+    const fixture = TestBed.createComponent(KeyboardHostComponent);
+    fixture.detectChanges();
+    const panel = openMenu(fixture);
+    await Promise.resolve();
+
+    press(panel, 'ArrowUp');
+    fixture.detectChanges();
+    expect(document.activeElement?.textContent?.trim()).toBe('Gamma');
+  });
+
+  it('closes on Tab so focus cannot walk out of an open overlay', () => {
+    const fixture = TestBed.createComponent(KeyboardHostComponent);
+    fixture.detectChanges();
+    const panel = openMenu(fixture);
+
+    press(panel, 'Tab');
+    fixture.detectChanges();
+    expect(document.querySelector('.brk-menu')).toBeNull();
+  });
+
+  it('returns focus to the trigger when it closes', () => {
+    const fixture = TestBed.createComponent(KeyboardHostComponent);
+    fixture.detectChanges();
+    const trigger = fixture.nativeElement.querySelector(
+      'button',
+    ) as HTMLButtonElement;
+    const panel = openMenu(fixture);
+
+    press(panel, 'Escape');
+    fixture.detectChanges();
+    expect(document.activeElement).toBe(trigger);
+  });
+});
+
+describe('menu accessibility', () => {
+  it('links the trigger to its panel and has no violations while open', async () => {
+    const fixture = TestBed.createComponent(KeyboardHostComponent);
+    fixture.detectChanges();
+    const trigger = fixture.nativeElement.querySelector(
+      'button',
+    ) as HTMLButtonElement;
+    const panel = openMenu(fixture);
+    await Promise.resolve();
+
+    expect(trigger.getAttribute('aria-controls')).toBe(panel.id);
+    expect(panel.id).toBeTruthy();
+    await expectNoAxeViolations(panel);
   });
 });

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /**
  * The application-shell header: a fixed-height bar with three regions -
@@ -34,12 +34,11 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'brk-header',
-  standalone: true,
   template: `
     <div class="brk-header__brand">
       <ng-content select="[brkHeaderBrand]" />
     </div>
-    <nav class="brk-header__nav">
+    <nav class="brk-header__nav" [attr.aria-label]="navLabel()">
       <ng-content />
     </nav>
     <div class="brk-header__actions">
@@ -47,6 +46,20 @@ import { Component } from '@angular/core';
     </div>
   `,
   styleUrl: './header.css',
-  host: { class: 'brk-header' },
+  host: {
+    class: 'brk-header',
+    // A page's masthead is a `banner` landmark. Without it, screen-reader
+    // users get no landmark to jump to, and `brk-header` is a custom element
+    // with no implicit role of its own.
+    role: 'banner',
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BrkHeaderComponent {}
+export class BrkHeaderComponent {
+  /**
+   * Accessible name for the nav region. Only worth changing when a page has
+   * more than one navigation landmark, in which case they must be
+   * distinguishable (WCAG 1.3.1, ARIA landmark practice).
+   */
+  readonly navLabel = input('Primary');
+}

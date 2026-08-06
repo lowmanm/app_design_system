@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import type { ComponentSize, ComponentVariant } from '@app-design-system/core';
 
@@ -16,8 +16,9 @@ import type { ComponentSize, ComponentVariant } from '@app-design-system/core';
  */
 @Component({
   selector: 'button[brkButton], a[brkButton]',
-  standalone: true,
-  imports: [MatRipple],
+  // MatRipple is applied as a host directive, which does not require (and is
+  // not satisfied by) a template `imports` entry - the template is just
+  // <ng-content />, so nothing here uses it as a directive.
   hostDirectives: [MatRipple],
   host: {
     class: 'brk-button',
@@ -25,6 +26,7 @@ import type { ComponentSize, ComponentVariant } from '@app-design-system/core';
   },
   template: `<ng-content />`,
   styleUrl: './button.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BrkButtonComponent {
   readonly variant = input<ComponentVariant>('filled');

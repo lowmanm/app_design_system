@@ -3,9 +3,11 @@ import { TestBed } from '@angular/core/testing';
 import { describe, expect, it } from 'vitest';
 import { BrkFormFieldComponent } from './form-field';
 import { BrkFormFieldControlDirective } from './form-field-control.directive';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { expectNoAxeViolations } from '@app-design-system/core/testing';
+import { BrkFormFieldHarness } from './form-field.harness';
 
 @Component({
-  standalone: true,
   imports: [BrkFormFieldComponent, BrkFormFieldControlDirective],
   template: `
     <brk-form-field label="Email" [hint]="hint()" [errorMessage]="error()">
@@ -65,5 +67,27 @@ describe('BrkFormFieldComponent', () => {
     expect(
       fixture.nativeElement.querySelector('.brk-form-field__hint'),
     ).toBeNull();
+  });
+
+  it('exposes its label and error through BrkFormFieldHarness', async () => {
+    const fixture = TestBed.createComponent(HostComponent);
+    fixture.componentInstance.error.set('Enter a valid email');
+    fixture.detectChanges();
+    const harness =
+      await TestbedHarnessEnvironment.loader(fixture).getHarness(
+        BrkFormFieldHarness,
+      );
+    expect(await harness.getLabelText()).toContain('Email');
+    expect(await harness.getErrorText()).toContain('Enter a valid email');
+  });
+
+  it('has no accessibility violations, with or without an error', async () => {
+    const fixture = TestBed.createComponent(HostComponent);
+    fixture.detectChanges();
+    await expectNoAxeViolations(fixture.nativeElement);
+
+    fixture.componentInstance.error.set('Enter a valid email');
+    fixture.detectChanges();
+    await expectNoAxeViolations(fixture.nativeElement);
   });
 });

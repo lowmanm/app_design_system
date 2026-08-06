@@ -3,10 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { describe, expect, it } from 'vitest';
 import { BrkButtonComponent } from './button';
+import { expectNoAxeViolations } from '@app-design-system/core/testing';
 import { BrkButtonHarness } from './button.harness';
 
 @Component({
-  standalone: true,
   imports: [BrkButtonComponent],
   template: `
     <button
@@ -91,7 +91,6 @@ describe('BrkButtonComponent', () => {
 });
 
 @Component({
-  standalone: true,
   imports: [BrkButtonComponent],
   template: `
     <button brkButton variant="tonal">Preview</button>
@@ -107,5 +106,38 @@ describe('BrkButtonComponent variants', () => {
     const [preview, danger] = fixture.nativeElement.querySelectorAll('button');
     expect(preview.classList.contains('brk-button--tonal')).toBe(true);
     expect(danger.classList.contains('brk-button--danger')).toBe(true);
+  });
+});
+
+@Component({
+  imports: [BrkButtonComponent],
+  template: `<a brkButton variant="text" href="/help">Learn more</a>`,
+})
+class LinkHostComponent {}
+
+describe('BrkButtonComponent as a link', () => {
+  it('renders as a real anchor, keeping href and link semantics', () => {
+    // Half of this component's selector is the `<a>` arm, which had no
+    // coverage at all - a regression there would only surface in an app.
+    const fixture = TestBed.createComponent(LinkHostComponent);
+    fixture.detectChanges();
+    const link: HTMLAnchorElement = fixture.nativeElement.querySelector('a');
+    expect(link.tagName).toBe('A');
+    expect(link.getAttribute('href')).toBe('/help');
+    expect(link.classList.contains('brk-button--text')).toBe(true);
+  });
+
+  it('has no accessibility violations', async () => {
+    const fixture = TestBed.createComponent(LinkHostComponent);
+    fixture.detectChanges();
+    await expectNoAxeViolations(fixture.nativeElement);
+  });
+});
+
+describe('BrkButtonComponent accessibility', () => {
+  it('has no violations across every variant and size', async () => {
+    const fixture = TestBed.createComponent(VariantsHostComponent);
+    fixture.detectChanges();
+    await expectNoAxeViolations(fixture.nativeElement);
   });
 });

@@ -1,10 +1,10 @@
 import {
   Directive,
   ElementRef,
-  Input,
   OnDestroy,
   ViewContainerRef,
   inject,
+  input,
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -23,16 +23,25 @@ import { menuCloseEvents } from './menu-overlay.util';
  *   <button brkMenuItem danger (activated)="delete()">Delete</button>
  * </brk-menu>
  * ```
+ *
+ * The host is made focusable (`tabindex="-1"` if it isn't already) and
+ * responds to the keyboard context-menu affordances - Shift+F10 and the
+ * dedicated ContextMenu key - because a mouse-only context menu is
+ * unreachable for keyboard users (WCAG 2.1.1).
  */
 @Directive({
   selector: '[brkContextMenuTriggerFor]',
-  standalone: true,
   host: {
+    '[attr.tabindex]': 'hostTabIndex',
     '(contextmenu)': '_onContextMenu($event)',
+    '(keydown.shift.F10)': '_onKeyboardRequest($event)',
+    '(keydown.ContextMenu)': '_onKeyboardRequest($event)',
   },
 })
 export class BrkContextMenuTriggerDirective implements OnDestroy {
-  @Input('brkContextMenuTriggerFor') menu!: BrkMenuComponent;
+  readonly menu = input.required<BrkMenuComponent>({
+    alias: 'brkContextMenuTriggerFor',
+  });
 
   private readonly overlay = inject(Overlay);
   private readonly elementRef = inject(ElementRef<HTMLElement>);
@@ -41,11 +50,33 @@ export class BrkContextMenuTriggerDirective implements OnDestroy {
   private overlayRef?: OverlayRef;
   private closeSubscription?: Subscription;
 
+  /**
+   * Only forces focusability when the host isn't already focusable - closing
+   * the menu returns focus here, which is a no-op on an element that cannot
+   * hold focus, and an interactive host (a link, a button) should keep its
+   * own place in the tab order.
+   */
+  protected get hostTabIndex(): string | null {
+    const el = this.elementRef.nativeElement;
+    return el.hasAttribute('tabindex') || el.tabIndex >= 0 ? null : '-1';
+  }
+
   protected _onContextMenu(event: MouseEvent): void {
     event.preventDefault();
-    this.close();
+    this._openAt(event.clientX, event.clientY);
+  }
 
-    const { clientX: x, clientY: y } = event;
+  protected _onKeyboardRequest(event: Event): void {
+    event.preventDefault();
+    // Anchor to the host element's corner, since there is no cursor.
+    const rect = this.elementRef.nativeElement.getBoundingClientRect();
+    this._openAt(rect.left, rect.bottom);
+  }
+
+  private _openAt(x: number, y: number): void {
+    this.close();
+    const menu = this.menu();
+
     const overlayRef = this.overlay.create({
       positionStrategy: this.overlay
         .position()
@@ -82,24 +113,24 @@ export class BrkContextMenuTriggerDirective implements OnDestroy {
     });
     this.overlayRef = overlayRef;
 
-    const portal = new TemplatePortal(
-      this.menu.templateRef,
-      this.viewContainerRef,
+    overlayRef.attach(
+      new TemplatePortal(menu.templateRef(), this.viewContainerRef),
     );
-    overlayRef.attach(portal);
 
-    this.closeSubscription = menuCloseEvents(this.menu, overlayRef).subscribe(
-      () => this.close(),
+    this.closeSubscription = menuCloseEvents(menu, overlayRef).subscribe(() =>
+      this.close(),
     );
-    queueMicrotask(() => this.menu.focusFirstItem());
+    queueMicrotask(() => menu.onPanelAttached());
   }
 
   close(): void {
     if (!this.overlayRef) {
       return;
     }
-    this.menu.closeAllSubmenus();
+    const menu = this.menu();
+    menu.closeAllSubmenus();
     this.overlayRef.detach();
+    menu.onPanelDetached();
     this.closeSubscription?.unsubscribe();
     this.elementRef.nativeElement.focus();
   }
