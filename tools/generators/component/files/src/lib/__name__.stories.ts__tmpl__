@@ -1,0 +1,32 @@
+import type { Meta, StoryObj } from '@storybook/angular';
+import { <%= className %>Component } from './<%= name %>';
+
+const meta: Meta<<%= className %>Component> = {
+  title: 'Components/<%= titleName %>',
+  component: <%= className %>Component,
+  tags: ['autodocs'],
+  argTypes: {
+    size: { control: 'select', options: ['sm', 'md', 'lg'] },
+  },
+  render: (args) => ({
+    props: args,
+    template: `<brk-<%= name %> [size]="size">Content</brk-<%= name %>>`,
+  }),
+};
+
+export default meta;
+type Story = StoryObj<<%= className %>Component>;
+
+export const Default: Story = { args: { size: 'md' } };
+
+export const Sizes: Story = {
+  render: () => ({
+    template: `
+      <div style="display:flex; gap:1rem; align-items:flex-start;">
+        <brk-<%= name %> size="sm">Small</brk-<%= name %>>
+        <brk-<%= name %> size="md">Medium</brk-<%= name %>>
+        <brk-<%= name %> size="lg">Large</brk-<%= name %>>
+      </div>
+    `,
+  }),
+};

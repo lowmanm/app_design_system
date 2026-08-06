@@ -1,0 +1,22 @@
+# @app-design-system/<%= name %>
+
+<%= description %>
+
+## Usage
+
+```html
+<brk-<%= name %> size="md">Content</brk-<%= name %>>
+```
+
+- `size`: `'sm' | 'md' | 'lg'` (default `'md'`)
+
+Colors come from `@app-design-system/theme-angular-material`'s `--mat-sys-*`
+variables and spacing/radius/type from `@app-design-system/tokens`, so this
+re-themes with `setTheme()` like every other component.
+
+## Testing
+
+`<%= className %>Harness` (Angular CDK `ComponentHarness`) is exported for
+consumers to test against instead of querying host DOM directly.
+
+Run `nx test <%= name %>` to execute the unit tests.

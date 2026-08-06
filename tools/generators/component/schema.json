@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "BrkComponent",
+  "title": "Create a design-system component package",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Component name in kebab-case, e.g. \"tabs\" or \"data-table\". Becomes @app-design-system/<name> with a brk-<name> selector.",
+      "x-prompt": "Component name (kebab-case)?",
+      "$default": { "$source": "argv", "index": 0 }
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line package description, used in package.json and the README."
+    }
+  },
+  "required": ["name"]
+}

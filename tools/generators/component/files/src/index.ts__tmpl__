@@ -1,0 +1,2 @@
+export * from './lib/<%= name %>';
+export * from './lib/<%= name %>.harness';

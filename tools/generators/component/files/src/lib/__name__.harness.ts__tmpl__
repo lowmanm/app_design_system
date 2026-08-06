@@ -1,0 +1,24 @@
+import { ComponentHarness } from '@angular/cdk/testing';
+
+/**
+ * Test harness for <%= className %>Component. Consumers should test through
+ * this rather than querying host DOM directly, so their tests survive
+ * internal markup changes.
+ */
+export class <%= className %>Harness extends ComponentHarness {
+  static hostSelector = '.brk-<%= name %>';
+
+  async getText(): Promise<string> {
+    return (await this.host()).text();
+  }
+
+  async getSize(): Promise<string | null> {
+    const host = await this.host();
+    for (const size of ['sm', 'md', 'lg']) {
+      if (await host.hasClass(`brk-<%= name %>--${size}`)) {
+        return size;
+      }
+    }
+    return null;
+  }
+}

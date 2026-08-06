@@ -14,9 +14,10 @@ packages/theme-angular-material/generated
 apps/playground-bootstrap/src/generated
 apps/docs/src/generated
 
-# Palette JSON is emitted by packages/tokens/scripts/generate-palettes.mjs;
-# reformatting it would produce a permanent diff against the generator.
+# Emitted by packages/tokens/scripts/generate-palettes.mjs; reformatting
+# these would produce a permanent diff against the generator's output.
 packages/tokens/src/reference/brands
+packages/tokens/src/generated-brands.ts
 
 .angular
 .nx/cache

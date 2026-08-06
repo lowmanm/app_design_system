@@ -1,0 +1,23 @@
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import type { ComponentSize } from '@app-design-system/core';
+
+/**
+ * <%= description %>
+ *
+ * ```html
+ * <brk-<%= name %>>Content</brk-<%= name %>>
+ * ```
+ */
+@Component({
+  selector: 'brk-<%= name %>',
+  template: `<ng-content />`,
+  styleUrl: './<%= name %>.css',
+  host: {
+    class: 'brk-<%= name %>',
+    '[class]': '"brk-<%= name %>--" + size()',
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class <%= className %>Component {
+  readonly size = input<ComponentSize>('md');
+}

@@ -1,0 +1,37 @@
+/*
+ * Consume design tokens, never literal values - that is what keeps this
+ * component in step with every brand and theme. Each var() carries a
+ * fallback so the component degrades to something sane if a consumer forgets
+ * to load @app-design-system/tokens' CSS.
+ *
+ * Colour comes from --mat-sys-* (bridged to the tokens' --color-* by
+ * @app-design-system/theme-angular-material); everything else comes from the
+ * tokens directly.
+ */
+:host {
+  display: block;
+  box-sizing: border-box;
+  font-family: var(--font-family-sans, inherit);
+  color: var(--mat-sys-on-surface);
+  border-radius: var(--radius-md, 0.5rem);
+}
+
+:host(.brk-<%= name %>--sm) {
+  padding: var(--space-2, 0.5rem);
+  font-size: var(--font-size-sm, 0.875rem);
+}
+
+:host(.brk-<%= name %>--md) {
+  padding: var(--space-4, 1rem);
+  font-size: var(--font-size-md, 1rem);
+}
+
+:host(.brk-<%= name %>--lg) {
+  padding: var(--space-6, 1.5rem);
+  font-size: var(--font-size-lg, 1.125rem);
+}
+
+:host(:focus-visible) {
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary);
+  outline-offset: var(--focus-ring-offset, 2px);
+}

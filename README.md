@@ -86,6 +86,24 @@ npm install @app-design-system/tokens @app-design-system/bootstrap-overrides
 references. Each package's own README has the specific import/wiring steps
 (which `.scss` to load, which brand to pick).
 
+## Adding a component
+
+Do not hand-copy a sibling package - that is how three different ESLint
+configs and two different build-target shapes ended up here. Use the
+generator, which encodes the library's actual conventions (signal inputs,
+`OnPush`, token-driven CSS, a CDK harness, an axe assertion, and a package
+that publishes from its built output):
+
+```sh
+pnpm exec nx g ./tools/generators:component tabs \
+  --description="Tabbed navigation for switching between sibling views."
+```
+
+It scaffolds `packages/components/tabs`, registers the path in
+`tsconfig.base.json`, and adds the workspace dependency. The result lints,
+tests and builds immediately - fill in the component, then extend the spec
+and stories.
+
 ## Developing this repo
 
 ```sh

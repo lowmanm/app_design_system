@@ -1,0 +1,42 @@
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { describe, expect, it } from 'vitest';
+import { expectNoAxeViolations } from '@app-design-system/core/testing';
+import { <%= className %>Component } from './<%= name %>';
+import { <%= className %>Harness } from './<%= name %>.harness';
+
+@Component({
+  imports: [<%= className %>Component],
+  template: `<brk-<%= name %> size="lg">Content</brk-<%= name %>>`,
+})
+class HostComponent {}
+
+describe('<%= className %>Component', () => {
+  it('applies the size class', () => {
+    const fixture = TestBed.createComponent(HostComponent);
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.nativeElement.querySelector('brk-<%= name %>');
+    expect(el.classList.contains('brk-<%= name %>--lg')).toBe(true);
+  });
+
+  it('exposes its content through <%= className %>Harness', async () => {
+    const fixture = TestBed.createComponent(HostComponent);
+    fixture.detectChanges();
+    // `.loader(fixture).getHarness(...)`, not `.harnessForFixture(...)` - the
+    // latter treats the fixture root as the harness host, which is only
+    // correct when the fixture was created for the harnessed component
+    // directly. Here the root is a wrapping test host.
+    const harness = await TestbedHarnessEnvironment.loader(fixture).getHarness(
+      <%= className %>Harness,
+    );
+    expect(await harness.getSize()).toBe('lg');
+    expect(await harness.getText()).toContain('Content');
+  });
+
+  it('has no accessibility violations', async () => {
+    const fixture = TestBed.createComponent(HostComponent);
+    fixture.detectChanges();
+    await expectNoAxeViolations(fixture.nativeElement);
+  });
+});
