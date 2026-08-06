@@ -22,15 +22,40 @@
   --bs-light: var(--color-surface);
   --bs-dark: var(--color-on-surface);
 
+  /*
+   * Bootstrap builds every translucent variant - .bg-opacity-*, .link-*,
+   * .text-bg-*, .table-*, and button hover/active states - as
+   * `rgba(var(--bs-*-rgb), <alpha>)`. Without these triplets those all stay
+   * frozen at their compile-time light-theme colour after a runtime theme
+   * switch, which was the single biggest gap in this bridge. The tokens
+   * package emits a matching --color-*-rgb for every semantic colour.
+   */
+  --bs-primary-rgb: var(--color-primary-rgb);
+  --bs-secondary-rgb: var(--color-secondary-rgb);
+  --bs-success-rgb: var(--color-success-rgb);
+  --bs-danger-rgb: var(--color-error-rgb);
+  --bs-warning-rgb: var(--color-warning-rgb);
+  --bs-info-rgb: var(--color-tertiary-rgb);
+  --bs-light-rgb: var(--color-surface-rgb);
+  --bs-dark-rgb: var(--color-on-surface-rgb);
+  --bs-body-bg-rgb: var(--color-surface-rgb);
+  --bs-body-color-rgb: var(--color-on-surface-rgb);
+
   --bs-body-bg: var(--color-surface);
   --bs-body-color: var(--color-on-surface);
   --bs-border-color: var(--color-outline-variant);
   --bs-border-radius: var(--radius-md);
   --bs-border-radius-sm: var(--radius-sm);
   --bs-border-radius-lg: var(--radius-lg);
+  --bs-border-radius-xl: var(--radius-xl);
   --bs-border-radius-pill: var(--radius-full);
 
+  --bs-box-shadow: var(--elevation-3);
+  --bs-box-shadow-sm: var(--elevation-1);
+  --bs-box-shadow-lg: var(--elevation-4);
+
   --bs-font-sans-serif: var(--font-family-sans);
+  --bs-font-monospace: var(--font-family-mono);
   --bs-body-font-family: var(--font-family-sans);
   --bs-body-font-size: var(--font-size-md);
   --bs-body-line-height: var(--font-line-height-normal);

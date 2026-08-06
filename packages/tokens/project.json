@@ -11,7 +11,10 @@
         "command": "node scripts/generate-palettes.mjs",
         "cwd": "packages/tokens"
       },
-      "outputs": ["{projectRoot}/src/reference/brands"],
+      "outputs": [
+        "{projectRoot}/src/reference/brands",
+        "{projectRoot}/src/generated-brands.ts"
+      ],
       "cache": true,
       "inputs": ["{projectRoot}/scripts/generate-palettes.mjs"]
     },
@@ -23,6 +26,9 @@
         "command": "node build.mjs",
         "cwd": "packages/tokens"
       }
+    },
+    "test": {
+      "dependsOn": ["build"]
     }
   }
 }

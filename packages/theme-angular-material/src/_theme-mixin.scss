@@ -102,4 +102,29 @@
   --mat-sys-on-surface-variant: var(--color-on-surface-variant);
   --mat-sys-outline: var(--color-outline);
   --mat-sys-outline-variant: var(--color-outline-variant);
+
+  // Surface container ramp. Material derives these itself from its own
+  // neutral palette; without bridging them, a Material component sitting on
+  // a `surface-container` background renders a subtly different neutral than
+  // a Tailwind or Bootstrap component doing the same thing.
+  --mat-sys-surface-container-lowest: var(--color-surface-container-lowest);
+  --mat-sys-surface-container-low: var(--color-surface-container-low);
+  --mat-sys-surface-container: var(--color-surface-container);
+  --mat-sys-surface-container-high: var(--color-surface-container-high);
+  --mat-sys-inverse-surface: var(--color-inverse-surface);
+  --mat-sys-inverse-on-surface: var(--color-inverse-on-surface);
+  --mat-sys-scrim: var(--color-scrim);
+
+  // Success and warning are not part of Material's core role set, so nothing
+  // upstream defines these - they exist purely so design-system components
+  // can express those states through the same --mat-sys-* vocabulary they use
+  // for every other colour, instead of reaching around the theme.
+  --mat-sys-success: var(--color-success);
+  --mat-sys-on-success: var(--color-on-success);
+  --mat-sys-success-container: var(--color-success-container);
+  --mat-sys-on-success-container: var(--color-on-success-container);
+  --mat-sys-warning: var(--color-warning);
+  --mat-sys-on-warning: var(--color-on-warning);
+  --mat-sys-warning-container: var(--color-warning-container);
+  --mat-sys-on-warning-container: var(--color-on-warning-container);
 }

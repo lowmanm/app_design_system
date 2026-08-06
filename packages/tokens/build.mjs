@@ -14,6 +14,42 @@ import { BRANDS } from './scripts/generate-palettes.mjs';
 const { cssVariables, scssVariables, jsonNested } = formats;
 const { css, scss } = transformGroups;
 
+// Bootstrap (and plenty of hand-written CSS) builds translucent colors with
+// `rgba(var(--x-rgb), .5)`, which needs a bare "r, g, b" triplet - a hex
+// custom property cannot be used that way, and CSS has no runtime hex->rgb
+// conversion. Emitting a companion `--color-*-rgb` for every semantic color
+// is what lets those opacity utilities follow a runtime theme change instead
+// of staying frozen at their compile-time value.
+const CSS_RGB_TRIPLET_FORMAT = 'css/variables-with-rgb';
+
+StyleDictionary.registerFormat({
+  name: CSS_RGB_TRIPLET_FORMAT,
+  format: async function ({ dictionary, file, options }) {
+    const base = await StyleDictionary.hooks.formats[cssVariables]({
+      dictionary,
+      file,
+      options,
+      platform: {},
+    });
+    const triplets = dictionary.allTokens
+      .filter((token) => /^#[0-9a-f]{6}$/i.test(String(token.$value)))
+      .map((token) => {
+        const hex = String(token.$value);
+        const [r, g, b] = [1, 3, 5].map((i) =>
+          parseInt(hex.slice(i, i + 2), 16),
+        );
+        return `  --${token.name}-rgb: ${r}, ${g}, ${b};`;
+      });
+    if (triplets.length === 0) {
+      return base;
+    }
+    // Splice the triplets in before the closing brace of the block the base
+    // formatter just produced, so both live under the same theme selector.
+    const closing = base.lastIndexOf('}');
+    return `${base.slice(0, closing)}${triplets.join('\n')}\n${base.slice(closing)}`;
+  },
+});
+
 const THEMES = [
   {
     name: 'light',
@@ -86,7 +122,7 @@ async function buildBrandTheme(brand, { name, selector, file }) {
         files: [
           {
             destination: `theme-${name}.css`,
-            format: cssVariables,
+            format: CSS_RGB_TRIPLET_FORMAT,
             filter: semanticOnly,
             options: { selector, outputReferences: false },
           },

@@ -37,6 +37,26 @@ $line-height-base: $font-line-height-normal;
 
 $spacer: $space-4;
 
+// Bootstrap otherwise derives $spacers from $spacer by its own multipliers
+// (.25/.5/1/1.5/3), which does not line up with the design system's spacing
+// scale - so `.p-2` in Bootstrap would not equal `p-2` in Tailwind or
+// `var(--space-2)` in a component. Mapping the scale explicitly is what
+// makes spacing genuinely shared across all three consumers. Keys mirror the
+// token names so `.p-6` and `--space-6` are the same measurement.
+$spacers: (
+  0: $space-0,
+  1: $space-1,
+  2: $space-2,
+  3: $space-3,
+  4: $space-4,
+  5: $space-5,
+  6: $space-6,
+  8: $space-8,
+  10: $space-10,
+  12: $space-12,
+  16: $space-16,
+);
+
 $border-radius: $radius-md;
 $border-radius-sm: $radius-sm;
 $border-radius-lg: $radius-lg;

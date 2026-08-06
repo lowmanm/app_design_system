@@ -37,8 +37,24 @@ const borderRadius = Object.fromEntries(
 const boxShadow = Object.fromEntries(
   Object.keys(core.elevation).map((key) => [key, cssVar('elevation', key)]),
 );
+// Emitted as [size, { lineHeight }] tuples rather than bare strings. Tailwind
+// v3's default `text-sm`/`text-lg`/... each set a paired line-height;
+// overriding a same-named key with a plain string silently drops it, which
+// would quietly regress the typography of any consumer using those classes.
 const fontSize = Object.fromEntries(
-  Object.keys(core.font.size).map((key) => [key, cssVar('font-size', key)]),
+  Object.keys(core.font.size).map((key) => [
+    key,
+    [
+      cssVar('font-size', key),
+      { lineHeight: cssVar('font-line-height', 'normal') },
+    ],
+  ]),
+);
+const lineHeight = Object.fromEntries(
+  Object.keys(core.font['line-height']).map((key) => [
+    key,
+    cssVar('font-line-height', key),
+  ]),
 );
 const fontFamily = Object.fromEntries(
   Object.keys(core.font.family).map((key) => [
@@ -63,6 +79,12 @@ const transitionTimingFunction = Object.fromEntries(
 );
 
 const preset = {
+  // Tailwind's default `dark:` strategy is `media`, which keys off the OS
+  // preference and so would ignore the design system's own `data-theme`
+  // switching entirely - `setTheme('dark')` would change every token value
+  // but leave every `dark:` utility inert. Pointing the variant at the same
+  // attribute keeps the two in step.
+  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors,
@@ -70,6 +92,7 @@ const preset = {
       borderRadius,
       boxShadow,
       fontSize,
+      lineHeight,
       fontFamily,
       fontWeight,
       transitionDuration,

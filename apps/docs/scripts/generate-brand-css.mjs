@@ -12,6 +12,8 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { BRANDS as BRAND_SEEDS } from '../../../packages/tokens/scripts/generate-palettes.mjs';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const tokensBrandsDir = resolve(
   __dirname,
@@ -19,7 +21,9 @@ const tokensBrandsDir = resolve(
 );
 const outFile = resolve(__dirname, '../src/generated/brand-themes.css');
 
-const BRANDS = ['azure-blue', 'rose-red', 'cyan-orange'];
+// Derived from the tokens package's BRANDS map - the single place a
+// business-unit brand is declared.
+const BRANDS = Object.keys(BRAND_SEEDS);
 const MODES = [
   {
     file: 'theme-light.css',

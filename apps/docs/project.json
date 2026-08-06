@@ -102,7 +102,7 @@
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
-      "dependsOn": ["generate-brand-css"],
+      "dependsOn": ["generate-brand-css", "generate-appearance-data"],
       "options": {
         "browserTarget": "docs:storybook-browser-target",
         "configDir": "apps/docs/.storybook",
@@ -113,7 +113,7 @@
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
-      "dependsOn": ["generate-brand-css"],
+      "dependsOn": ["generate-brand-css", "generate-appearance-data"],
       "outputs": ["{options.outputDir}"],
       "options": {
         "browserTarget": "docs:storybook-browser-target",
@@ -131,6 +131,20 @@
         "staticFilePath": "dist/apps/docs/browser",
         "spa": true
       }
+    },
+    "generate-appearance-data": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["tokens:build"],
+      "options": {
+        "command": "node scripts/generate-appearance-data.mjs",
+        "cwd": "apps/docs"
+      },
+      "outputs": ["{projectRoot}/.storybook/appearance-data.json"],
+      "cache": true,
+      "inputs": [
+        "{projectRoot}/scripts/generate-appearance-data.mjs",
+        "^production"
+      ]
     }
   }
 }
