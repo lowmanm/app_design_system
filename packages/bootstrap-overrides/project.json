@@ -13,9 +13,7 @@
         "command": "node compile-themes.mjs",
         "cwd": "packages/bootstrap-overrides"
       },
-      "outputs": ["{projectRoot}/dist"],
-      "cache": true,
-      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/compile-themes.mjs", "^production"]
+      "outputs": ["{projectRoot}/dist"]
     }
   }
 }

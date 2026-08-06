@@ -13,9 +13,7 @@
         "command": "node build.mjs",
         "cwd": "packages/tailwind-preset"
       },
-      "dependsOn": ["tokens:build"],
-      "cache": true,
-      "inputs": ["{projectRoot}/build.mjs", "^production"]
+      "dependsOn": ["tokens:build"]
     }
   }
 }

@@ -5,21 +5,19 @@
   "prefix": "brk",
   "projectType": "library",
   "tags": ["scope:angular"],
-  "implicitDependencies": ["core"],
+  "implicitDependencies": ["core", "button"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
     },
     "build": {
       "executor": "nx:run-commands",
-      "dependsOn": ["core:build"],
+      "dependsOn": ["core:build", "button:build"],
       "outputs": ["{workspaceRoot}/dist/packages/components/menu"],
       "options": {
         "command": "ng-packagr -p ng-package.json -c tsconfig.package.json",
         "cwd": "packages/components/menu"
-      },
-      "cache": true,
-      "inputs": ["{projectRoot}/src/**/*", "^production"]
+      }
     }
   }
 }

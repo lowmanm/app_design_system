@@ -5,6 +5,17 @@ on:
     branches: [main]
   pull_request:
 
+# Least privilege: CI only reads the repo. Publishing permissions live in
+# release.yml, which is the only workflow that needs write access.
+permissions:
+  contents: read
+
+# A newer push to the same branch supersedes an in-flight run. `main` is
+# excluded from cancellation so every merged commit still gets a full run.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 env:
   PNPM_VERSION: 10
 
@@ -28,8 +39,25 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Nx's local computation cache. Without this every run recomputes from
+      # cold, since this repo has no Nx Cloud remote cache configured.
+      - name: Restore Nx cache
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+            nx-${{ runner.os }}-
+
       - name: Set Nx SHAs for affected commands
         uses: nrwl/nx-set-shas@v4
+
+      # `--all` rather than the default affected-since-base comparison: the
+      # base-branch diff makes this pass or fail depending on what the PR
+      # happens to touch, which is not what a formatting gate should mean.
+      - name: Check formatting
+        run: pnpm exec nx format:check --all
 
       - name: Lint affected projects
         run: pnpm exec nx affected -t lint --parallel=3

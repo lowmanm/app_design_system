@@ -10,17 +10,19 @@
       "options": {
         "command": "node scripts/generate-palettes.mjs",
         "cwd": "packages/tokens"
-      }
+      },
+      "outputs": ["{projectRoot}/src/reference/brands"],
+      "cache": true,
+      "inputs": ["{projectRoot}/scripts/generate-palettes.mjs"]
     },
     "build": {
       "executor": "nx:run-commands",
+      "dependsOn": ["generate-palettes"],
       "outputs": ["{projectRoot}/dist"],
       "options": {
         "command": "node build.mjs",
         "cwd": "packages/tokens"
-      },
-      "cache": true,
-      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/build.mjs"]
+      }
     }
   }
 }

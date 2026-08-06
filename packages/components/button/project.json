@@ -17,9 +17,7 @@
       "options": {
         "command": "ng-packagr -p ng-package.json -c tsconfig.package.json",
         "cwd": "packages/components/button"
-      },
-      "cache": true,
-      "inputs": ["{projectRoot}/src/**/*", "^production"]
+      }
     }
   }
 }

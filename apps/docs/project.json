@@ -74,10 +74,7 @@
       },
       "outputs": ["{projectRoot}/src/generated"],
       "cache": true,
-      "inputs": [
-        "{workspaceRoot}/packages/tokens/dist/css/brands/**/*",
-        "{projectRoot}/scripts/generate-brand-css.mjs"
-      ]
+      "inputs": ["{projectRoot}/scripts/generate-brand-css.mjs", "^production"]
     },
     "storybook-browser-target": {
       "executor": "@angular-devkit/build-angular:browser",

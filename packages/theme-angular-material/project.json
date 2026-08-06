@@ -24,9 +24,7 @@
         "command": "node compile-themes.mjs",
         "cwd": "packages/theme-angular-material"
       },
-      "outputs": ["{projectRoot}/dist"],
-      "cache": true,
-      "inputs": ["{projectRoot}/src/**/*", "{projectRoot}/compile-themes.mjs", "^production"]
+      "outputs": ["{projectRoot}/dist"]
     }
   }
 }
