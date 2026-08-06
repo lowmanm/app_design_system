@@ -13,7 +13,7 @@
         "main": "packages/date-utils/src/index.ts",
         "tsConfig": "packages/date-utils/tsconfig.lib.json",
         "assets": ["packages/date-utils/*.md"],
-        "format": ["cjs"],
+        "format": ["esm", "cjs"],
         "generatePackageJson": true
       }
     }

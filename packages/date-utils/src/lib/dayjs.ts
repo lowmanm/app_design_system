@@ -18,4 +18,9 @@ dayjs.extend(isoWeek);
 dayjs.extend(localeData);
 
 export { dayjs };
-export type { Dayjs } from 'dayjs';
+// ConfigType is re-exported explicitly: consumers that accept 'whatever
+// dayjs() accepts' need the type, and reaching for `dayjs.ConfigType` as a
+// namespace through a re-exported value only works while declaration
+// merging happens to survive, which is exactly the fragility this package
+// exists to absorb.
+export type { Dayjs, ConfigType } from 'dayjs';

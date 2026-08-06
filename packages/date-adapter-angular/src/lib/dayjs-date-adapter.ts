@@ -43,8 +43,8 @@ export class DayjsDateAdapter extends DateAdapter<Dayjs> {
   }
 
   override getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
-    const format =
-      style === 'long' ? 'MMMM' : style === 'short' ? 'MMM' : 'MMM';
+    // 'narrow' is derived from the short name below, so it shares that format.
+    const format = style === 'long' ? 'MMMM' : 'MMM';
     const names = Array.from({ length: 12 }, (_, month) =>
       dayjs().locale(this.locale).month(month).format(format),
     );
@@ -128,7 +128,11 @@ export class DayjsDateAdapter extends DateAdapter<Dayjs> {
   }
 
   override toIso8601(date: Dayjs): string {
-    return date.toISOString();
+    // Deliberately NOT `date.toISOString()`, which converts to UTC: a date
+    // picked as 2026-03-01 in a UTC-5 timezone would serialize as
+    // 2026-02-28T05:00:00Z and read back as the previous day. A datepicker
+    // value is a calendar date, so it serializes as one.
+    return date.format('YYYY-MM-DD');
   }
 
   override isDateInstance(obj: unknown): boolean {

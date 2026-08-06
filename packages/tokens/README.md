@@ -52,6 +52,33 @@ Produces, per brand, per theme (`light` / `dark` / `high-contrast`) plus a
   light/dark/high-contrast via `setTheme()` from `src/index.ts` or by
   setting the attribute directly - brand itself isn't runtime-switchable,
   it's chosen by which brand's files you load.
+
+## Runtime API
+
+Small, framework-agnostic, and safe to import during server-side rendering
+(every function no-ops rather than throwing when there is no DOM):
+
+```ts
+import { initTheme, setTheme, getTheme, onThemeChange } from '@app-design-system/tokens';
+
+// At startup, before first paint: stored preference -> OS preference -> light
+initTheme({ persist: true });
+
+// Later
+setTheme('dark', { persist: true });
+getTheme(); // 'dark'
+const stop = onThemeChange((t) => console.log('theme is now', t));
+```
+
+| Function                    | Purpose                                                                              |
+| --------------------------- | ------------------------------------------------------------------------------------ |
+| `initTheme(options?)`       | Applies the stored preference, else the OS preference. Returns what it applied.      |
+| `setTheme(theme, options?)` | Writes `data-theme`. `{ root }` scopes it to an element; `{ persist }` remembers it. |
+| `getTheme(root?)`           | The theme currently applied, or `null`.                                              |
+| `getSystemTheme()`          | What the OS asks for (`light`/`dark`; `high-contrast` is never inferred).            |
+| `getStoredTheme()`          | The persisted preference, or `null`.                                                 |
+| `onThemeChange(fn)`         | Subscribe to changes made via `setTheme`. Returns an unsubscribe function.           |
+
 - `dist/scss/brands/<brand>/*.scss` - SCSS variables, consumed by
   `@app-design-system/bootstrap-overrides`.
 - `dist/json/brands/<brand>/*.json` - flat JSON, consumed by

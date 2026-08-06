@@ -18,7 +18,10 @@
       "cache": true,
       "inputs": ["{projectRoot}/scripts/generate-palettes.mjs"]
     },
-    "build": {
+    "test": {
+      "dependsOn": ["build"]
+    },
+    "build-css": {
       "executor": "nx:run-commands",
       "dependsOn": ["generate-palettes"],
       "outputs": ["{projectRoot}/dist"],
@@ -27,8 +30,23 @@
         "cwd": "packages/tokens"
       }
     },
-    "test": {
-      "dependsOn": ["build"]
+    "build-js": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "dependsOn": ["generate-palettes"],
+      "options": {
+        "outputPath": "packages/tokens/dist/js",
+        "main": "packages/tokens/src/index.ts",
+        "tsConfig": "packages/tokens/tsconfig.lib.json",
+        "format": ["esm", "cjs"],
+        "declarationRootDir": "packages/tokens/src",
+        "generatePackageJson": false,
+        "thirdParty": false
+      }
+    },
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["build-css", "build-js"]
     }
   }
 }

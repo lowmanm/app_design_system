@@ -9,7 +9,8 @@ configuration into Angular Material's datepicker.
 ## API
 
 - `dayjs` - re-exported from `dayjs`, pre-configured with the `utc`,
-  `timezone`, `customParseFormat`, `localizedFormat`, and `isoWeek` plugins.
+  `timezone`, `customParseFormat`, `localizedFormat`, `isoWeek`, and
+  `localeData` plugins.
   Import this instead of the bare `dayjs` package so every consumer shares
   one plugin configuration.
 - `DATE_FORMATS` - org-standard format strings (`ISO_DATE`, `DISPLAY_DATE`,

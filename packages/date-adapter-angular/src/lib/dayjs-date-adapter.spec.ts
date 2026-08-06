@@ -52,9 +52,22 @@ describe('DayjsDateAdapter', () => {
     expect(() => adapter.format(adapter.invalid(), 'YYYY-MM-DD')).toThrow();
   });
 
-  it('produces an RFC 3339 / ISO 8601 string', () => {
+  it('serializes as a calendar date, not a UTC timestamp', () => {
+    // Matches Angular Material's own DateAdapter contract, which returns
+    // YYYY-MM-DD. A full timestamp would be converted to UTC, so a date
+    // picked as the 15th in a negative-offset timezone would serialize as
+    // the 14th and read back as the wrong day.
     const date = adapter.createDate(2026, 2, 15);
-    expect(adapter.toIso8601(date)).toMatch(/^2026-03-15T/);
+    expect(adapter.toIso8601(date)).toBe('2026-03-15');
+  });
+
+  it('round-trips through deserialize without shifting the day', () => {
+    const date = adapter.createDate(2026, 0, 1);
+    const restored = adapter.deserialize(adapter.toIso8601(date));
+    expect(restored).not.toBeNull();
+    expect(adapter.getYear(restored!)).toBe(2026);
+    expect(adapter.getMonth(restored!)).toBe(0);
+    expect(adapter.getDate(restored!)).toBe(1);
   });
 
   it('recognizes dayjs instances via isDateInstance', () => {

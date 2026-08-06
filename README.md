@@ -38,9 +38,16 @@ runtime-switchable by every consumer, by setting `data-theme` on the
 document root:
 
 ```ts
-import { setTheme } from '@app-design-system/tokens';
-setTheme('dark'); // 'light' | 'dark' | 'high-contrast'
+import { initTheme, setTheme } from '@app-design-system/tokens';
+
+// At startup: stored preference -> OS preference -> light
+initTheme({ persist: true });
+
+setTheme('dark', { persist: true }); // 'light' | 'dark' | 'high-contrast'
 ```
+
+`getTheme`, `getSystemTheme` and `onThemeChange` round out the API - see
+`packages/tokens`' README. All of it is SSR-safe.
 
 The Storybook docs site has toolbar switchers for **both** axes, so you can
 preview every brand and mode without rebuilding. That brand switcher is a

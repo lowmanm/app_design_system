@@ -4,13 +4,19 @@
   "description": "Design tokens (reference + semantic) - single source of truth, built with Style Dictionary into CSS custom properties, SCSS variables/maps, and JSON.",
   "license": "MIT",
   "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/js/index.cjs",
+  "module": "./dist/js/index.js",
+  "types": "./dist/js/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "types": "./dist/js/index.d.ts",
+      "import": "./dist/js/index.js",
+      "require": "./dist/js/index.cjs"
+    },
     "./css/*": "./dist/css/*",
     "./scss/*": "./dist/scss/*",
-    "./json/*": "./dist/json/*"
+    "./json/*": "./dist/json/*",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",

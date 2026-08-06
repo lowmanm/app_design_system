@@ -16,8 +16,15 @@ export function formatDate(
  * flexible parsing when no format is given). Returns `null` for invalid
  * input rather than an "Invalid Date" dayjs instance, so callers don't have
  * to remember to call `.isValid()` themselves.
+ *
+ * Parsing with an explicit format is *strict*: the input must match it
+ * exactly. Without strict mode dayjs accepts nonsense like '03/45/2026' by
+ * rolling the day over into the next month, which silently turns a typo into
+ * a plausible-looking wrong date. This matches the Angular Material date
+ * adapter in the sibling package, which has always parsed strictly - the two
+ * previously disagreed.
  */
 export function parseDate(input: string, format?: string): Date | null {
-  const parsed = format ? dayjs(input, format) : dayjs(input);
+  const parsed = format ? dayjs(input, format, true) : dayjs(input);
   return parsed.isValid() ? parsed.toDate() : null;
 }
