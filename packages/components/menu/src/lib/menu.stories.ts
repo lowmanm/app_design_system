@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { BrkButtonComponent } from '@app-design-system/button';
+import { BrkIconComponent } from '@app-design-system/icon';
 import { BrkMenuComponent } from './menu';
 import { BrkMenuTriggerDirective } from './menu-trigger.directive';
 import { BrkContextMenuTriggerDirective } from './context-menu-trigger.directive';
@@ -16,6 +17,7 @@ const meta: Meta<BrkMenuComponent> = {
     moduleMetadata({
       imports: [
         BrkButtonComponent,
+        BrkIconComponent,
         BrkMenuTriggerDirective,
         BrkContextMenuTriggerDirective,
         BrkMenuItemDirective,
@@ -53,19 +55,25 @@ export const WithIcons: Story = {
       </button>
       <brk-menu #iconMenu>
         <button brkMenuItem>
-          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M11 2l3 3-8 8-4 1 1-4 8-8z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          <brk-icon name="edit" size="sm" />
           Rename
         </button>
         <button brkMenuItem>
-          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="6" y="6" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+          <brk-icon name="content_copy" size="sm" />
           Duplicate
         </button>
         <div brkMenuDivider></div>
         <button brkMenuItem danger>
-          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 5h10M6 5V3.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1V5m-6 0 .6 8a1 1 0 0 0 1 1h4.8a1 1 0 0 0 1-1L12 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <brk-icon name="delete" size="sm" />
           Delete
         </button>
       </brk-menu>
+      <p style="margin-top:1rem; max-width:32rem; font: var(--mat-sys-body-small); opacity:.75">
+        The icons are decorative - each menu item already names itself in
+        text - so <code>brk-icon</code> leaves them hidden from screen
+        readers by default. Note the delete icon turns red with its item
+        without being told to: icons inherit their colour.
+      </p>
     `,
   }),
 };

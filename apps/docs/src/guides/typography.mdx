@@ -1,0 +1,255 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Typography" />
+
+# Typography
+
+Every specimen below is rendered with the real `--type-*` custom properties
+from `@app-design-system/tokens`, in the real typeface - nothing here is a
+picture or a hand-copied number. Switch **Theme** in the toolbar and the
+page follows; the type scale itself is deliberately identical across brands
+and modes, because only colour is a brand decision.
+
+## The fonts
+
+The system ships two typefaces, self-hosted:
+
+export const families = [
+  ['sans', 'Inter', 'Everything. UI, prose, headings, numbers.'],
+  [
+    'mono',
+    'JetBrains Mono',
+    'Code, IDs, and anything where character alignment carries meaning.',
+  ],
+];
+
+<div style={{ display: 'grid', gap: 'var(--space-4)' }}>
+  {families.map(([token, name, use]) => (
+    <div
+      key={token}
+      style={{
+        border: '1px solid var(--color-outline-variant)',
+        borderRadius: 'var(--radius-md)',
+        padding: 'var(--space-4)',
+      }}
+    >
+      <div
+        style={{
+          fontFamily: `var(--font-family-${token})`,
+          fontSize: 'var(--font-size-3xl)',
+          lineHeight: 'var(--font-line-height-tight)',
+        }}
+      >
+        Aa Bb Cc 0123456789
+      </div>
+      <div
+        style={{
+          marginTop: 'var(--space-2)',
+          font: 'var(--mat-sys-body-small)',
+          color: 'var(--color-on-surface-variant)',
+        }}
+      >
+        <code>--font-family-{token}</code> &middot; {name} &middot; {use}
+      </div>
+    </div>
+  ))}
+</div>
+
+They are self-hosted rather than loaded from a CDN: no third-party request
+at runtime, builds work offline, and no visitor data leaves for a font
+host. **Loading them is effectively required** - without
+`@app-design-system/tokens/css/fonts.css` the family tokens fall through to
+`system-ui` and nothing warns you, the page just quietly isn't in the
+design system's typeface.
+
+## The type scale
+
+Five role families. Pick a role by the **job the text does**, not by the
+size you want it to be - that is the whole point of having a scale.
+
+export const roles = [
+  [
+    'display',
+    'Marketing-scale type: hero banners and landing pages. Never for UI chrome.',
+  ],
+  [
+    'headline',
+    'Page and major-section headings - the top of an application screen.',
+  ],
+  [
+    'title',
+    "Sub-section and component headings: a card's title, a dialog's title, a form group's legend.",
+  ],
+  [
+    'body',
+    'Running text. body-md is the document default; body-sm is for dense surfaces, not for squeezing into a cramped layout.',
+  ],
+  [
+    'label',
+    'Text inside or attached to a control - button text, form labels, chips, table column headers.',
+  ],
+];
+
+export const sizes = ['lg', 'md', 'sm'];
+
+<div style={{ display: 'grid', gap: 'var(--space-8)' }}>
+  {roles.map(([family, description]) => (
+    <section key={family}>
+      <h3
+        style={{
+          font: 'var(--mat-sys-title-medium)',
+          margin: '0 0 var(--space-1)',
+          textTransform: 'capitalize',
+        }}
+      >
+        {family}
+      </h3>
+      <p
+        style={{
+          font: 'var(--mat-sys-body-small)',
+          color: 'var(--color-on-surface-variant)',
+          margin: '0 0 var(--space-4)',
+          maxWidth: '44rem',
+        }}
+      >
+        {description}
+      </p>
+      <div style={{ display: 'grid', gap: 'var(--space-4)' }}>
+        {sizes.map((size) => (
+          <div
+            key={size}
+            style={{
+              borderTop: '1px solid var(--color-outline-variant)',
+              paddingTop: 'var(--space-3)',
+            }}
+          >
+            <div
+              style={{
+                fontSize: `var(--type-${family}-${size}-size)`,
+                lineHeight: `var(--type-${family}-${size}-line-height)`,
+                fontWeight: `var(--type-${family}-${size}-weight)`,
+                letterSpacing: `var(--type-${family}-${size}-tracking)`,
+              }}
+            >
+              The quick brown fox
+            </div>
+            <code
+              style={{
+                display: 'block',
+                marginTop: 'var(--space-2)',
+                fontSize: 'var(--font-size-xs)',
+                color: 'var(--color-on-surface-variant)',
+              }}
+            >
+              --type-{family}-{size}-*
+            </code>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+</div>
+
+## Applying a role
+
+Each role is **four** custom properties - `-size`, `-line-height`,
+`-weight`, `-tracking` - rather than one composite value, because you
+routinely need to override exactly one of them (a tighter line-height in a
+dense table) and CSS cannot decompose a `font` shorthand. To apply a whole
+role at once, use the affordance for your framework:
+
+```css
+/* Plain CSS / Bootstrap / Tailwind - load tokens/css/typography.css */
+<h2 class="brk-type-headline-md">Quarterly summary</h2>
+```
+
+```scss
+// Sass - an unknown role name is a build error, not a silent no-op
+@use '@app-design-system/tokens/scss/typography' as type;
+
+.summary-heading {
+  @include type.brk-type('headline-md');
+}
+```
+
+```css
+/* Angular - Material's own system tokens are bridged to this same scale */
+.summary-heading {
+  font: var(--mat-sys-headline-medium);
+}
+```
+
+Angular Material derives its own M3 type scale by default;
+`@app-design-system/theme-angular-material` re-points every `--mat-sys-*`
+typography role at these tokens, so a heading inside a Material component
+and a heading in a Bootstrap panel two divs away are the same size.
+
+## Reference scale
+
+The raw values the roles are built from. Reach for these only when no
+semantic role fits - if that happens often, the role set is wrong and
+should be extended instead.
+
+export const referenceGroups = [
+  [
+    'Size',
+    'font-size',
+    ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl'],
+  ],
+  ['Weight', 'font-weight', ['regular', 'medium', 'semibold', 'bold']],
+  [
+    'Line height',
+    'font-line-height',
+    ['none', 'tight', 'snug', 'normal', 'loose'],
+  ],
+  ['Tracking', 'tracking', ['tighter', 'tight', 'normal', 'wide', 'wider']],
+];
+
+<div style={{ display: 'grid', gap: 'var(--space-6)' }}>
+  {referenceGroups.map(([label, prefix, steps]) => (
+    <div key={prefix}>
+      <h4
+        style={{
+          font: 'var(--mat-sys-title-small)',
+          margin: '0 0 var(--space-2)',
+        }}
+      >
+        {label}
+      </h4>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
+        {steps.map((step) => (
+          <code
+            key={step}
+            style={{
+              fontSize: 'var(--font-size-xs)',
+              border: '1px solid var(--color-outline-variant)',
+              borderRadius: 'var(--radius-sm)',
+              padding: 'var(--space-1) var(--space-2)',
+            }}
+          >
+            --{prefix}-{step}
+          </code>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+## Do
+
+- Choose a role by what the text **is** - a card title is `title-*` even if
+  you wish it looked bigger. Size follows from the role, not the reverse.
+- Keep one `headline-*` per screen region, so the heading hierarchy stays
+  legible to both sighted users and screen-reader users navigating by
+  heading level.
+- Use `body-sm` for genuinely dense surfaces (tables, secondary panels),
+  and set line length to roughly 60-75 characters for comfortable reading.
+
+## Don't
+
+- Don't reach past a role to a raw `--font-size-*` in app code. If nothing
+  fits, that's a gap in the scale worth fixing here.
+- Don't restyle a heading to look like a different level. Change the level,
+  or change which role the level uses.
+- Don't set `font-weight` to make emphasis. Weight is part of the role;
+  emphasis is `<strong>`, colour, or a different role entirely.

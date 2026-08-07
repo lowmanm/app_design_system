@@ -1,0 +1,191 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Spacing & Layout" />
+
+# Spacing & Layout
+
+Every bar below is drawn at its token's real width - the ruler is the token
+itself. One spacing scale drives Angular, Tailwind, Bootstrap and plain CSS,
+so a 16px gap means the same thing in all four.
+
+## The space scale
+
+Built on a **4px base**. The steps are deliberately sparse rather than a
+full 1-16 run: a scale you can hold in your head is what stops a codebase
+from accumulating 13px, 14px and 15px versions of the same gap.
+
+export const spaceSteps = [
+  ['0', '0', 'Collapse a gap without special-casing the rule.'],
+  ['1', '4px', 'Icon-to-label inside a control.'],
+  ['2', '8px', 'Between tightly related controls; menu item padding.'],
+  ['3', '12px', 'Inside a compact control.'],
+  ['4', '16px', 'The default. Card padding, gap between form fields.'],
+  ['5', '20px', ''],
+  ['6', '24px', 'Between distinct groups inside a section.'],
+  ['8', '32px', 'Between sections.'],
+  ['10', '40px', ''],
+  ['12', '48px', 'Between major page regions.'],
+  ['16', '64px', 'Page-level top/bottom rhythm.'],
+];
+
+<div style={{ display: 'grid', gap: 'var(--space-2)' }}>
+  {spaceSteps.map(([step, px, use]) => (
+    <div
+      key={step}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '7.5rem 4rem 1fr',
+        alignItems: 'center',
+        gap: 'var(--space-3)',
+      }}
+    >
+      <code style={{ fontSize: 'var(--font-size-xs)' }}>--space-{step}</code>
+      <code
+        style={{
+          fontSize: 'var(--font-size-xs)',
+          color: 'var(--color-on-surface-variant)',
+        }}
+      >
+        {px}
+      </code>
+      <div
+        style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}
+      >
+        <div
+          style={{
+            width: `var(--space-${step})`,
+            height: '1.25rem',
+            backgroundColor: 'var(--color-primary)',
+            borderRadius: 'var(--radius-sm)',
+            flexShrink: 0,
+          }}
+        />
+        <span
+          style={{
+            font: 'var(--mat-sys-body-small)',
+            color: 'var(--color-on-surface-variant)',
+          }}
+        >
+          {use}
+        </span>
+      </div>
+    </div>
+  ))}
+</div>
+
+## Control sizes
+
+Separate from spacing, and for one specific reason: a button, an input and
+a select sitting on the same row have to be the **same height**, or the row
+looks broken. Before these existed, each component hard-coded its own
+number and they drifted.
+
+export const controlSizes = [
+  ['sm', '32px', 'Dense toolbars, table row actions.'],
+  ['md', '40px', 'The default for forms and page actions.'],
+  ['lg', '48px', 'Primary calls to action, touch-first layouts.'],
+];
+
+<div style={{ display: 'grid', gap: 'var(--space-3)' }}>
+  {controlSizes.map(([size, px, use]) => (
+    <div
+      key={size}
+      style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)' }}
+    >
+      <div
+        style={{
+          height: `var(--size-control-${size})`,
+          minWidth: '7rem',
+          display: 'grid',
+          placeItems: 'center',
+          border: '1px solid var(--color-outline)',
+          borderRadius: 'var(--radius-md)',
+          backgroundColor: 'var(--color-surface-container)',
+          font: 'var(--mat-sys-label-large)',
+        }}
+      >
+        --size-control-{size}
+      </div>
+      <span
+        style={{
+          font: 'var(--mat-sys-body-small)',
+          color: 'var(--color-on-surface-variant)',
+        }}
+      >
+        {px} &middot; {use}
+      </span>
+    </div>
+  ))}
+</div>
+
+`--size-header` (64px) is the application header's height, from the same
+family of fixed layout dimensions.
+
+## Radius
+
+export const radii = ['none', 'sm', 'md', 'lg', 'xl', 'full'];
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-4)' }}>
+  {radii.map((step) => (
+    <div key={step} style={{ textAlign: 'center' }}>
+      <div
+        style={{
+          width: '5rem',
+          height: '5rem',
+          backgroundColor: 'var(--color-primary-container)',
+          border: '1px solid var(--color-outline-variant)',
+          borderRadius: `var(--radius-${step})`,
+        }}
+      />
+      <code
+        style={{
+          display: 'block',
+          marginTop: 'var(--space-2)',
+          fontSize: 'var(--font-size-xs)',
+        }}
+      >
+        {step}
+      </code>
+    </div>
+  ))}
+</div>
+
+## Using it in each framework
+
+The scale is the same everywhere; only the syntax changes.
+
+```html
+<!-- Tailwind: the preset maps the scale onto Tailwind's own spacing keys -->
+<div class="p-4 gap-6">…</div>
+
+<!-- Bootstrap: $spacers is keyed to the same scale -->
+<div class="p-4 gap-3">…</div>
+```
+
+```css
+/* Angular / plain CSS */
+.panel {
+  padding: var(--space-4);
+  gap: var(--space-6);
+  border-radius: var(--radius-md);
+}
+```
+
+## Do
+
+- Compose layouts from **gap**, not from margins on children. A parent that
+  owns its own spacing can be reused anywhere; a child carrying a margin
+  brings that spacing everywhere it goes.
+- Step through the scale for hierarchy: tighter inside a group
+  (`--space-2`), looser between groups (`--space-6`). The contrast is what
+  communicates the grouping, not a border.
+- Use `--size-control-*` for anything that shares a row with a form control.
+
+## Don't
+
+- Don't invent an in-between value. If `--space-4` is too much and
+  `--space-3` too little, the problem is almost never the scale.
+- Don't use spacing tokens for control heights. They are different scales
+  answering different questions, and mixing them is how rows stop aligning.
+- Don't nest padding to fake a gap - it makes the outer container's real
+  size impossible to reason about.

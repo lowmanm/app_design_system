@@ -1,6 +1,6 @@
 # @app-design-system/<%= name %>
 
-<%= description %>
+<%- description %>
 
 ## Usage
 

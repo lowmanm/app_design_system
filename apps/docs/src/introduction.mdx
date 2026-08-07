@@ -10,15 +10,29 @@ Tailwind/Bootstrap integrations, all driven from one source of truth.
 
 ## Consuming packages
 
-| Package                                                                     | Purpose                                                                                                                                               |
-| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@app-design-system/tokens`                                                 | Design tokens (color, typography, spacing, elevation, radius, motion) - CSS custom properties, SCSS variables, and JSON, built with Style Dictionary. |
-| `@app-design-system/theme-angular-material`                                 | Wires the tokens' brand palettes into Angular Material's M3 theme.                                                                                    |
-| `@app-design-system/tailwind-preset`                                        | Tailwind v3 preset generated from the tokens, for Tailwind-based apps.                                                                                |
-| `@app-design-system/bootstrap-overrides`                                    | Bootstrap 5 Sass variable overrides + runtime theme bridge, for Bootstrap-based apps.                                                                 |
-| `@app-design-system/date-utils`                                             | Framework-agnostic dayjs wrapper (formats, timezones).                                                                                                |
-| `@app-design-system/date-adapter-angular`                                   | dayjs `DateAdapter` for Angular Material's datepicker.                                                                                                |
-| `@app-design-system/core`, `button`, `form-field`, `card`, `header`, `menu` | The Angular component library.                                                                                                                        |
+| Package                                                                             | Purpose                                                                                                                                               |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@app-design-system/tokens`                                                         | Design tokens (color, typography, spacing, elevation, radius, motion) - CSS custom properties, SCSS variables, and JSON, built with Style Dictionary. |
+| `@app-design-system/theme-angular-material`                                         | Wires the tokens' brand palettes into Angular Material's M3 theme.                                                                                    |
+| `@app-design-system/tailwind-preset`                                                | Tailwind v3 preset generated from the tokens, for Tailwind-based apps.                                                                                |
+| `@app-design-system/bootstrap-overrides`                                            | Bootstrap 5 Sass variable overrides + runtime theme bridge, for Bootstrap-based apps.                                                                 |
+| `@app-design-system/date-utils`                                                     | Framework-agnostic dayjs wrapper (formats, timezones).                                                                                                |
+| `@app-design-system/date-adapter-angular`                                           | dayjs `DateAdapter` for Angular Material's datepicker.                                                                                                |
+| `@app-design-system/core`, `button`, `form-field`, `card`, `header`, `menu`, `icon` | The Angular component library.                                                                                                                        |
+
+## Foundations
+
+Start with the **Guides** in the sidebar - they document the decisions
+every component is built from, rendered live from the real tokens rather
+than as screenshots:
+
+- **Colors** - the semantic role set, across three brands and three modes.
+- **Typography** - the five type-role families, the shipped typefaces, and
+  how to apply a role in each framework.
+- **Spacing & Layout** - the 4px scale, control sizes, and radius.
+- **Elevation & Motion** - what sits above what, and how things move.
+- **Iconography** - `brk-icon`, the curated set, and the one
+  accessibility rule that matters.
 
 ## Theming
 

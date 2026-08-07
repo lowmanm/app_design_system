@@ -5,7 +5,7 @@
   "prefix": "brk",
   "projectType": "library",
   "tags": ["scope:angular"],
-  "implicitDependencies": ["core", "button"],
+  "implicitDependencies": ["core", "button", "icon"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

@@ -1,0 +1,27 @@
+{
+  "name": "icon",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/components/icon/src",
+  "prefix": "brk",
+  "projectType": "library",
+  "tags": ["scope:angular"],
+  "implicitDependencies": ["core", "tokens"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["core:build", "tokens:build"],
+      "outputs": ["{workspaceRoot}/dist/packages/components/icon"],
+      "options": {
+        "commands": [
+          "ng-packagr -p ng-package.json -c tsconfig.package.json",
+          "node scripts/generate-icon-font.mjs"
+        ],
+        "parallel": false,
+        "cwd": "packages/components/icon"
+      }
+    }
+  }
+}

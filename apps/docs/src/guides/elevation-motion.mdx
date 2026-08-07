@@ -1,0 +1,267 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Elevation & Motion" />
+
+# Elevation & Motion
+
+Both of these are about the same thing: telling a user what is happening in
+space and time without saying it in words. The surfaces below cast their
+real shadows, and the demos below animate at their real durations and
+easings - hover them.
+
+## Elevation
+
+Elevation answers "what is on top of what". Six levels, and the number is a
+**meaning**, not a taste: the higher a surface, the more it interrupts.
+
+export const levels = [
+  ['0', 'Flat page content. Use a border for separation, not a shadow.'],
+  ['1', 'Resting cards and raised surfaces within the page.'],
+  ['2', 'Hovered card, sticky header once the page has scrolled.'],
+  ['3', 'Menus, dropdowns, popovers - transient, anchored to a trigger.'],
+  ['4', 'Dialogs and drawers - modal, interrupting the page.'],
+  ['5', 'Rare. Reserved for something that must sit above a dialog.'],
+];
+
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(15rem, 1fr))',
+    gap: 'var(--space-6)',
+    padding: 'var(--space-4) 0',
+  }}
+>
+  {levels.map(([level, use]) => (
+    <div key={level}>
+      <div
+        style={{
+          height: '6rem',
+          display: 'grid',
+          placeItems: 'center',
+          backgroundColor: 'var(--color-surface-container-low)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: `var(--elevation-${level})`,
+          font: 'var(--mat-sys-label-large)',
+        }}
+      >
+        --elevation-{level}
+      </div>
+      <p
+        style={{
+          font: 'var(--mat-sys-body-small)',
+          color: 'var(--color-on-surface-variant)',
+          margin: 'var(--space-2) 0 0',
+        }}
+      >
+        {use}
+      </p>
+    </div>
+  ))}
+</div>
+
+In **dark mode**, shadows read weakly against a dark background - that is a
+physical fact, not a bug to work around by darkening them further. Lean on
+the surface-container ramp (`--color-surface-container`,
+`-container-high`, ...) to carry the hierarchy instead: a lighter surface
+reads as nearer. Switch **Theme** in the toolbar above and watch the cards
+above lose most of their separation, then compare with the ramp below.
+
+export const containers = [
+  'surface',
+  'surface-container-lowest',
+  'surface-container-low',
+  'surface-container',
+  'surface-container-high',
+];
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-3)' }}>
+  {containers.map((role) => (
+    <div
+      key={role}
+      style={{
+        flex: '1 1 10rem',
+        padding: 'var(--space-4)',
+        backgroundColor: `var(--color-${role})`,
+        color: 'var(--color-on-surface)',
+        border: '1px solid var(--color-outline-variant)',
+        borderRadius: 'var(--radius-md)',
+        fontSize: 'var(--font-size-xs)',
+      }}
+    >
+      {role}
+    </div>
+  ))}
+</div>
+
+## Motion
+
+Motion explains a change - where a thing came from, or that the system
+heard you. Motion that does neither is decoration, and decoration on a tool
+someone uses for eight hours a day becomes friction.
+
+### Durations
+
+Hover each swatch to see it move at that duration.
+
+export const durations = [
+  [
+    'instant',
+    '0ms',
+    'No animation. The honest choice for a state that must feel immediate.',
+  ],
+  ['fast', '100ms', 'Hover and focus feedback - anything the pointer drives.'],
+  ['normal', '200ms', 'The default. Expanding a panel, showing a menu.'],
+  ['slow', '300ms', 'Larger surfaces entering: dialogs, drawers.'],
+  ['slower', '500ms', 'Full-page or route-level transitions. Rarely right.'],
+];
+
+<div style={{ display: 'grid', gap: 'var(--space-3)' }}>
+  {durations.map(([name, ms, use]) => (
+    <div
+      key={name}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '9rem 4rem 1fr',
+        alignItems: 'center',
+        gap: 'var(--space-3)',
+      }}
+    >
+      <code style={{ fontSize: 'var(--font-size-xs)' }}>{name}</code>
+      <code
+        style={{
+          fontSize: 'var(--font-size-xs)',
+          color: 'var(--color-on-surface-variant)',
+        }}
+      >
+        {ms}
+      </code>
+      <div
+        style={{
+          position: 'relative',
+          height: '2rem',
+          backgroundColor: 'var(--color-surface-container)',
+          borderRadius: 'var(--radius-full)',
+          overflow: 'hidden',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.firstChild.style.transform = 'translateX(12rem)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.firstChild.style.transform = 'translateX(0)';
+        }}
+      >
+        <div
+          style={{
+            width: '2rem',
+            height: '2rem',
+            borderRadius: '50%',
+            backgroundColor: 'var(--color-primary)',
+            transition: `transform var(--motion-duration-${name}) var(--motion-easing-standard)`,
+          }}
+        />
+      </div>
+    </div>
+  ))}
+</div>
+
+### Easing
+
+export const easings = [
+  ['standard', 'Almost everything. Accelerates out, settles in.'],
+  ['decelerate', 'Something entering the screen - it arrives and settles.'],
+  ['accelerate', 'Something leaving - it departs and is gone.'],
+];
+
+<div style={{ display: 'grid', gap: 'var(--space-3)' }}>
+  {easings.map(([name, use]) => (
+    <div
+      key={name}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '9rem 1fr 1.5fr',
+        alignItems: 'center',
+        gap: 'var(--space-3)',
+      }}
+    >
+      <code style={{ fontSize: 'var(--font-size-xs)' }}>{name}</code>
+      <div
+        style={{
+          position: 'relative',
+          height: '2rem',
+          backgroundColor: 'var(--color-surface-container)',
+          borderRadius: 'var(--radius-full)',
+          overflow: 'hidden',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.firstChild.style.transform = 'translateX(8rem)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.firstChild.style.transform = 'translateX(0)';
+        }}
+      >
+        <div
+          style={{
+            width: '2rem',
+            height: '2rem',
+            borderRadius: '50%',
+            backgroundColor: 'var(--color-tertiary)',
+            transition: `transform var(--motion-duration-slow) var(--motion-easing-${name})`,
+          }}
+        />
+      </div>
+      <span
+        style={{
+          font: 'var(--mat-sys-body-small)',
+          color: 'var(--color-on-surface-variant)',
+        }}
+      >
+        {use}
+      </span>
+    </div>
+  ))}
+</div>
+
+## Reduced motion
+
+Some people get genuinely ill from movement on screen - vestibular
+disorders make large transforms and parallax nauseating, not merely
+annoying. `prefers-reduced-motion` is an accessibility requirement (WCAG
+2.3.3), not a preference to respect when convenient.
+
+Honour it globally, once:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: var(--motion-duration-instant) !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--motion-duration-instant) !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+Reduced does not mean removed. A cross-fade conveys the same "this
+changed" without moving anything through space, and is usually the right
+substitute for a slide.
+
+## Do
+
+- Animate `transform` and `opacity`. They are the only two properties the
+  browser can animate off the main thread; animating `width`, `top` or
+  `box-shadow` forces layout on every frame and janks.
+- Match the duration to the distance travelled. A 4px hover shift at 300ms
+  feels broken; a full-screen drawer at 100ms feels like a glitch.
+- Use `decelerate` for entrances and `accelerate` for exits, so things
+  appear to arrive from and depart to somewhere real.
+
+## Don't
+
+- Don't animate anything that blocks input. If a user can outrun the
+  animation, the animation is too slow.
+- Don't stack shadows to build hierarchy in dark mode - use the surface
+  ramp.
+- Don't put motion on something that changes constantly. A value that
+  animates on every keystroke is noise.

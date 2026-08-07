@@ -9,3 +9,132 @@ body {
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
 }
+
+// Theme the docs chrome, not just the stories inside it.
+//
+// `html`/`body` above already follow the Theme toolbar, but
+// @storybook/addon-docs paints its own prose container white and its own
+// text near-black. Flipping to dark therefore produced a white page holding
+// content built for a dark surface, and then - once the background was
+// fixed - near-black prose on that dark background.
+//
+// Two things make this fiddly, and both are why the selectors look the way
+// they do:
+//
+//   1. Storybook styles prose through `:where(p, li, ...)` descendants of a
+//      generated emotion class, not through the `.sbdocs-p` classes an
+//      older version used. `:where()` contributes *zero* specificity, so
+//      those rules land at (0,1,0) - and `.sbdocs-p` matches nothing.
+//   2. (0,1,0) ties with a single class of ours and then wins on source
+//      order, because emotion injects its <style> later than this file.
+//
+// Doubling the container class reaches (0,2,0) and settles both, without
+// needing !important. Values come from the same --mat-sys-* tokens the
+// components use, so the docs chrome tracks brand and mode like the content.
+.sbdocs.sbdocs-wrapper,
+.sbdocs.sbdocs-preview,
+.sbdocs.sbdocs-preview .docs-story,
+.docs-story.docs-story {
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+.sbdocs-content.sbdocs-content {
+  color: var(--mat-sys-on-surface);
+
+  :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    li,
+    dt,
+    dd,
+    td,
+    th,
+    blockquote,
+    strong,
+    em,
+    summary
+  ) {
+    color: inherit;
+  }
+
+  // Links stay distinguishable from body text rather than inheriting it.
+  :where(a) {
+    color: var(--mat-sys-primary);
+  }
+
+  :where(hr, table, td, th, blockquote) {
+    border-color: var(--mat-sys-outline-variant);
+  }
+}
+
+// The bordered box each story renders inside, plus the rule under every
+// heading - both drawn from a hard-coded light grey that vanishes on a dark
+// surface.
+.sbdocs.sbdocs-preview,
+.sbdocs.sbdocs-hr {
+  border-color: var(--mat-sys-outline-variant);
+}
+
+// Code blocks. Storybook ships a fixed light Prism theme, so in dark mode
+// these stayed a bright white slab, and even in light mode its primary-red
+// and pure-blue belong to no palette in this system. Re-deriving the token
+// palette from --mat-sys-* makes code follow brand and mode like everything
+// else, and keeps it legible in all three modes rather than only the one the
+// upstream theme was tuned for.
+//
+// Unlike the prose rules above these use real class selectors rather than
+// `:where()`: Prism's own `.token.comment` is (0,2,0), so a zero-specificity
+// wrapper would lose to it. Scoping under the doubled container class puts
+// these at (0,4,0) instead.
+.sbdocs-content.sbdocs-content {
+  // The slab is painted on the emotion-classed div wrapping the <pre>, which
+  // carries no stable class of its own to target.
+  div:has(> pre.prismjs),
+  .docblock-source,
+  pre.prismjs {
+    background-color: var(--mat-sys-surface-container);
+    border-color: var(--mat-sys-outline-variant);
+  }
+
+  .token {
+    color: var(--mat-sys-on-surface);
+  }
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: var(--mat-sys-on-surface-variant);
+    font-style: italic;
+  }
+  .token.punctuation,
+  .token.operator,
+  .token.attr-equals {
+    color: var(--mat-sys-on-surface-variant);
+  }
+  .token.tag,
+  .token.keyword,
+  .token.selector,
+  .token.property,
+  .token.attr-name,
+  .token.rule {
+    color: var(--mat-sys-primary);
+  }
+  .token.string,
+  .token.attr-value,
+  .token.char,
+  .token.url {
+    color: var(--mat-sys-tertiary);
+  }
+  .token.number,
+  .token.boolean,
+  .token.constant,
+  .token.function {
+    color: var(--mat-sys-secondary);
+  }
+}

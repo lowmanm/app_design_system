@@ -46,7 +46,8 @@
       ],
       "@app-design-system/core/testing": [
         "./packages/components/core/src/testing/index.ts"
-      ]
+      ],
+      "@app-design-system/icon": ["./packages/components/icon/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

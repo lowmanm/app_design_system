@@ -94,6 +94,7 @@
           "node_modules/@app-design-system/tokens/dist/css/fonts.css",
           "node_modules/@app-design-system/tokens/dist/css/core.css",
           "node_modules/@app-design-system/tokens/dist/css/typography.css",
+          "dist/packages/components/icon/css/icons.css",
           "apps/docs/src/generated/brand-themes.css",
           "apps/docs/src/styles.scss"
         ],
@@ -104,7 +105,11 @@
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
-      "dependsOn": ["generate-brand-css", "generate-appearance-data"],
+      "dependsOn": [
+        "generate-brand-css",
+        "generate-appearance-data",
+        "icon:build"
+      ],
       "options": {
         "browserTarget": "docs:storybook-browser-target",
         "configDir": "apps/docs/.storybook",
@@ -115,7 +120,11 @@
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
-      "dependsOn": ["generate-brand-css", "generate-appearance-data"],
+      "dependsOn": [
+        "generate-brand-css",
+        "generate-appearance-data",
+        "icon:build"
+      ],
       "outputs": ["{options.outputDir}"],
       "options": {
         "browserTarget": "docs:storybook-browser-target",

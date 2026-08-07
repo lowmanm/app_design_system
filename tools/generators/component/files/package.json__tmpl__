@@ -1,7 +1,7 @@
 {
   "name": "@app-design-system/<%= name %>",
   "version": "0.1.0",
-  "description": "<%= description %>",
+  "description": "<%- description %>",
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^22.0.0",

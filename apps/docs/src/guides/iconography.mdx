@@ -1,0 +1,319 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import manifest from '../../../../packages/components/icon/src/icon-manifest.json';
+
+<Meta title="Guides/Iconography" />
+
+# Iconography
+
+The system's icon set is **Material Symbols Outlined**, self-hosted and
+wrapped in `<brk-icon>`. Every glyph on this page is the real font
+rendering at the real token sizes.
+
+```html
+<brk-icon name="settings" />
+<brk-icon name="check_circle" size="lg" filled />
+<brk-icon name="delete" label="Delete this row" />
+```
+
+Outside Angular, the same thing is a span - the stylesheet does all the
+work, so Tailwind, Bootstrap and plain-HTML apps get identical icons
+without a per-framework sprite loader:
+
+```html
+<span class="brk-icon brk-icon--lg">settings</span>
+```
+
+## Accessibility: the one rule that matters
+
+**Icons are decorative by default.** `<brk-icon>` sets `aria-hidden` unless
+you give it a `label`, and that default is deliberate: most icons sit right
+next to their own text, and announcing them makes a screen reader say
+"delete delete".
+
+Pass `label` **only** when the icon is the sole thing naming a control -
+typically an icon-only button. That turns it into `role="img"` with an
+accessible name.
+
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))',
+    gap: 'var(--space-4)',
+  }}
+>
+  <div
+    style={{
+      border: '1px solid var(--color-outline-variant)',
+      borderLeft: '3px solid var(--color-success)',
+      borderRadius: 'var(--radius-md)',
+      padding: 'var(--space-4)',
+    }}
+  >
+    <strong style={{ font: 'var(--mat-sys-title-small)' }}>Decorative</strong>
+    <p
+      style={{ font: 'var(--mat-sys-body-small)', margin: 'var(--space-2) 0' }}
+    >
+      The button already says "Delete". The icon adds nothing to announce.
+    </p>
+    <code style={{ fontSize: 'var(--font-size-xs)' }}>
+      &lt;brk-icon name="delete" /&gt;
+    </code>
+  </div>
+  <div
+    style={{
+      border: '1px solid var(--color-outline-variant)',
+      borderLeft: '3px solid var(--color-warning)',
+      borderRadius: 'var(--radius-md)',
+      padding: 'var(--space-4)',
+    }}
+  >
+    <strong style={{ font: 'var(--mat-sys-title-small)' }}>Meaningful</strong>
+    <p
+      style={{ font: 'var(--mat-sys-body-small)', margin: 'var(--space-2) 0' }}
+    >
+      An icon-only button. Without a label it is an unnamed control.
+    </p>
+    <code style={{ fontSize: 'var(--font-size-xs)' }}>
+      &lt;brk-icon name="delete" label="Delete row" /&gt;
+    </code>
+  </div>
+</div>
+
+Icons also **inherit colour** rather than setting it, so an icon inside a
+danger menu item turns red with the item and needs no styling of its own.
+
+## Sizes
+
+Four steps, from the `--icon-size-*` tokens. The font's optical-size axis
+is driven from the same value, so strokes stay optically correct instead of
+thinning out as an icon grows.
+
+export const iconSizes = [
+  ['sm', '20px', 'Inline with body text, inside dense controls.'],
+  ['md', '24px', 'The default. Buttons, menu items, form fields.'],
+  ['lg', '32px', 'Section headers, list leading icons.'],
+  ['xl', '40px', 'Empty states and feature blocks.'],
+];
+
+<div style={{ display: 'grid', gap: 'var(--space-3)' }}>
+  {iconSizes.map(([size, px, use]) => (
+    <div
+      key={size}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '4rem 4rem 4rem 1fr',
+        alignItems: 'center',
+        gap: 'var(--space-3)',
+      }}
+    >
+      <span
+        className={`brk-icon brk-icon--${size}`}
+        translate="no"
+        aria-hidden="true"
+      >
+        dashboard
+      </span>
+      <code style={{ fontSize: 'var(--font-size-xs)' }}>{size}</code>
+      <code
+        style={{
+          fontSize: 'var(--font-size-xs)',
+          color: 'var(--color-on-surface-variant)',
+        }}
+      >
+        {px}
+      </code>
+      <span
+        style={{
+          font: 'var(--mat-sys-body-small)',
+          color: 'var(--color-on-surface-variant)',
+        }}
+      >
+        {use}
+      </span>
+    </div>
+  ))}
+</div>
+
+## Fill and weight
+
+Material Symbols is a variable font. `filled` is the one axis that carries
+**meaning** - conventionally, a filled icon is the selected or active state
+of an outlined one, which is why nav bars fill the current item's icon.
+`weight` and `grade` are optical adjustments for matching heavier text or
+holding up on dark backgrounds.
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-6)' }}>
+  {['star', 'favorite', 'bookmark', 'check_circle'].map((name) => (
+    <div key={name} style={{ textAlign: 'center' }}>
+      <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
+        <span
+          className="brk-icon brk-icon--lg"
+          translate="no"
+          aria-hidden="true"
+          style={{ fontVariationSettings: "'FILL' 0" }}
+        >
+          {name}
+        </span>
+        <span
+          className="brk-icon brk-icon--lg"
+          translate="no"
+          aria-hidden="true"
+          style={{ fontVariationSettings: "'FILL' 1" }}
+        >
+          {name}
+        </span>
+      </div>
+      <code
+        style={{
+          display: 'block',
+          marginTop: 'var(--space-2)',
+          fontSize: 'var(--font-size-xs)',
+          color: 'var(--color-on-surface-variant)',
+        }}
+      >
+        {name}
+      </code>
+    </div>
+  ))}
+</div>
+
+<div
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: 'var(--space-5)',
+    marginTop: 'var(--space-6)',
+  }}
+>
+  {[100, 300, 400, 500, 700].map((weight) => (
+    <div key={weight} style={{ textAlign: 'center' }}>
+      <span
+        className="brk-icon brk-icon--lg"
+        translate="no"
+        aria-hidden="true"
+        style={{ fontVariationSettings: `'wght' ${weight}` }}
+      >
+        settings
+      </span>
+      <code
+        style={{
+          display: 'block',
+          marginTop: 'var(--space-1)',
+          fontSize: 'var(--font-size-xs)',
+          color: 'var(--color-on-surface-variant)',
+        }}
+      >
+        {weight}
+      </code>
+    </div>
+  ))}
+</div>
+
+## The curated set
+
+Any of Material Symbols' ~3,400 names works. This shortlist is not a
+restriction - it exists so that three screens don't end up with three
+different "delete" icons. Reach outside it when nothing here fits, and add
+the icon to `icon-manifest.json` if the need recurs.
+
+<div style={{ display: 'grid', gap: 'var(--space-8)' }}>
+  {Object.entries(manifest)
+    .filter(([key]) => !key.startsWith('$'))
+    .map(([group, names]) => (
+      <section key={group}>
+        <h3
+          style={{
+            font: 'var(--mat-sys-title-medium)',
+            margin: '0 0 var(--space-3)',
+            textTransform: 'capitalize',
+          }}
+        >
+          {group}
+        </h3>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(7.5rem, 1fr))',
+            gap: 'var(--space-2)',
+          }}
+        >
+          {names.map((name) => (
+            <div
+              key={name}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 'var(--space-2)',
+                padding: 'var(--space-3) var(--space-1)',
+                border: '1px solid var(--color-outline-variant)',
+                borderRadius: 'var(--radius-md)',
+              }}
+            >
+              <span
+                className="brk-icon brk-icon--lg"
+                translate="no"
+                aria-hidden="true"
+              >
+                {name}
+              </span>
+              <code
+                style={{
+                  fontSize: '0.6875rem',
+                  color: 'var(--color-on-surface-variant)',
+                  textAlign: 'center',
+                  wordBreak: 'break-all',
+                }}
+              >
+                {name}
+              </code>
+            </div>
+          ))}
+        </div>
+      </section>
+    ))}
+</div>
+
+## How it works, and what it costs
+
+An icon is **text**. `name="settings"` puts the literal word in the
+element, and the font's ligature table substitutes the glyph. That is what
+makes one markup pattern work in every framework - and it is why
+`translate="no"` is set on the host, since a page translator that rewrites
+the word renders tofu instead of an icon.
+
+**The font is ~3.8 MB**, carrying all glyphs across all four axes. This is
+a known, deliberate trade-off:
+
+- `font-display: block` shows a brief blank rather than flashing the word
+  "settings", and the file is immutable so it caches indefinitely - a
+  once-per-user cost.
+- **Per-app subsetting does not work with a ligature font.** Subsetters
+  keep the glyphs reachable from the text you give them; every icon name is
+  made of ordinary letters, so the closure over `a`–`z` reaches every
+  ligature and keeps everything. Measured on a 94-icon list, the "subset"
+  came out 8% smaller. Cutting it for real means subsetting by private-use
+  codepoints and writing `&#xe8b8;` instead of `name="settings"` - giving
+  up the readable API. If an app's budget ever makes that trade worth it,
+  it is a per-app decision, not a system default.
+
+## Do
+
+- Pair an icon with a text label wherever space allows. Icon-only controls
+  are learnable, not self-evident, and they fail hardest for the people who
+  use a product least often.
+- Use one icon per concept across the whole product - the curated set above
+  exists to make that the path of least resistance.
+- Use `filled` to mean selected/active, and leave outlined as the resting
+  state. Users already read that convention from every OS they use.
+
+## Don't
+
+- Don't label a decorative icon. A screen reader announcing "delete delete"
+  is worse than one that says nothing.
+- Don't set an icon's colour directly. Colour it by colouring the text
+  around it, so states like `danger` and `disabled` work for free.
+- Don't paste inline SVG for something the set already has - that is how a
+  codebase ends up with four visually different trash cans.
+- Don't use an icon to carry information that appears nowhere else. Icons
+  are recognition aids, not content.

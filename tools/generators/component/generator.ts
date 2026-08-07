@@ -40,7 +40,11 @@ export default async function componentGenerator(
 
   const substitutions = {
     name,
-    className,
+    // Every exported symbol in this library is `Brk`-prefixed
+    // (BrkButtonComponent, BrkMenuHarness) so that an app importing from
+    // several design systems doesn't collide on a name as generic as
+    // `IconComponent`. The prefix belongs here, not in each template.
+    className: `Brk${className}`,
     titleName: names(options.name).className.replace(
       /([a-z])([A-Z])/g,
       '$1 $2',
