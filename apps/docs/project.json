@@ -91,7 +91,9 @@
           }
         ],
         "styles": [
+          "node_modules/@app-design-system/tokens/dist/css/fonts.css",
           "node_modules/@app-design-system/tokens/dist/css/core.css",
+          "node_modules/@app-design-system/tokens/dist/css/typography.css",
           "apps/docs/src/generated/brand-themes.css",
           "apps/docs/src/styles.scss"
         ],

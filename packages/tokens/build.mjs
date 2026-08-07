@@ -10,6 +10,7 @@
 import StyleDictionary from 'style-dictionary';
 import { formats, transformGroups } from 'style-dictionary/enums';
 import { BRANDS } from './scripts/generate-palettes.mjs';
+import { generateFonts } from './scripts/generate-fonts.mjs';
 
 const { cssVariables, scssVariables, jsonNested } = formats;
 const { css, scss } = transformGroups;
@@ -50,6 +51,73 @@ StyleDictionary.registerFormat({
   },
 });
 
+// A semantic type role is four separate custom properties (see
+// src/semantic/typography.json for why it isn't one composite token), which
+// makes applying one by hand four lines of near-identical CSS. These two
+// formats emit the "apply a whole role" affordance each consumer expects:
+// a utility class for Bootstrap/Tailwind/plain-HTML, and a Sass mixin for
+// Angular and other Sass consumers. Both are generated from the tokens
+// themselves, so adding a role to the JSON is all it takes to get both.
+const CSS_TYPE_UTILITIES_FORMAT = 'css/type-utilities';
+const SCSS_TYPE_MIXIN_FORMAT = 'scss/type-mixin';
+
+/** The `display-lg`-style role names present in the built dictionary. */
+function typeRoles(dictionary) {
+  const roles = [];
+  for (const token of dictionary.allTokens) {
+    if (token.path[0] !== 'type') continue;
+    const role = `${token.path[1]}-${token.path[2]}`;
+    if (!roles.includes(role)) roles.push(role);
+  }
+  return roles;
+}
+
+const TYPE_DECLARATIONS = [
+  ['font-size', 'size'],
+  ['line-height', 'line-height'],
+  ['font-weight', 'weight'],
+  ['letter-spacing', 'tracking'],
+];
+
+const AUTOGEN_BANNER = `/**\n * Do not edit directly, this file was auto-generated.\n */\n`;
+
+StyleDictionary.registerFormat({
+  name: CSS_TYPE_UTILITIES_FORMAT,
+  format: ({ dictionary }) => {
+    const blocks = typeRoles(dictionary).map((role) => {
+      const body = TYPE_DECLARATIONS.map(
+        ([property, part]) => `  ${property}: var(--type-${role}-${part});`,
+      ).join('\n');
+      return `.brk-type-${role} {\n${body}\n}`;
+    });
+    return `${AUTOGEN_BANNER}\n${blocks.join('\n\n')}\n`;
+  },
+});
+
+StyleDictionary.registerFormat({
+  name: SCSS_TYPE_MIXIN_FORMAT,
+  format: ({ dictionary }) => {
+    const roles = typeRoles(dictionary);
+    const body = TYPE_DECLARATIONS.map(
+      ([property, part]) => `  ${property}: var(--type-#{$role}-${part});`,
+    ).join('\n');
+    // The role list is baked in so a typo is a build-time Sass error rather
+    // than a `var(--type-tittle-md-size)` that silently resolves to nothing.
+    return `${AUTOGEN_BANNER}
+$brk-type-roles: (
+${roles.map((role) => `  '${role}',`).join('\n')}
+);
+
+@mixin brk-type($role) {
+  @if not index($brk-type-roles, $role) {
+    @error 'Unknown type role "#{$role}". Expected one of: #{$brk-type-roles}.';
+  }
+${body}
+}
+`;
+  },
+});
+
 const THEMES = [
   {
     name: 'light',
@@ -70,11 +138,18 @@ const THEMES = [
 
 const CORE_SOURCE = [
   'src/reference/typography.json',
+  'src/reference/tracking.json',
   'src/reference/spacing.json',
   'src/reference/radius.json',
   'src/reference/elevation.json',
   'src/reference/motion.json',
   'src/reference/size.json',
+  'src/reference/icon.json',
+  // Typography is the one semantic layer that is *not* brand-scoped: every
+  // business unit shares the same type scale, only colour differs. It is
+  // sourced here (rather than alongside semantic/color.*.json) so its
+  // `{font.size.*}` references resolve against the reference scale above.
+  'src/semantic/typography.json',
 ];
 
 async function buildCore() {
@@ -90,12 +165,19 @@ async function buildCore() {
             format: cssVariables,
             options: { selector: ':root' },
           },
+          {
+            destination: 'typography.css',
+            format: CSS_TYPE_UTILITIES_FORMAT,
+          },
         ],
       },
       scss: {
         transformGroup: scss,
         buildPath: 'dist/scss/',
-        files: [{ destination: '_core.scss', format: scssVariables }],
+        files: [
+          { destination: '_core.scss', format: scssVariables },
+          { destination: '_typography.scss', format: SCSS_TYPE_MIXIN_FORMAT },
+        ],
       },
       json: {
         transformGroup: css,
@@ -193,6 +275,9 @@ async function buildBrandPalette(brand) {
 
 console.log('Building design tokens...');
 await buildCore();
+// The typefaces the tokens name. Emitted from here so one Nx target owns
+// the whole of dist/ - see scripts/generate-fonts.mjs.
+generateFonts();
 for (const brand of Object.keys(BRANDS)) {
   await buildBrandPalette(brand);
   for (const theme of THEMES) {

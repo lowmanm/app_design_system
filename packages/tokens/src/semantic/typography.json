@@ -1,0 +1,155 @@
+{
+  "type": {
+    "$description": "The semantic type scale - the layer components and app code should actually use. Five role families, each in three sizes, so a heading is chosen by its job (\"this is a section title\") rather than by picking a raw font size. Every value references the reference scale in reference/typography.json and reference/tracking.json rather than restating a number, so retuning the scale is a one-line change there.\n\nEach role emits four custom properties - -size, -line-height, -weight and -tracking - instead of one composite shorthand, because a consumer routinely needs to override exactly one of them (a tighter line-height in a dense table, say) and CSS cannot decompose a `font` shorthand. @app-design-system/tokens/css/typography.css ships a .brk-type-<role> utility class that applies all four together.",
+    "display": {
+      "$description": "Marketing-scale type: hero banners and landing pages. Never for UI chrome.",
+      "lg": {
+        "size": { "$type": "dimension", "$value": "{font.size.6xl}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.none}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.bold}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.tighter}" }
+      },
+      "md": {
+        "size": { "$type": "dimension", "$value": "{font.size.5xl}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.none}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.bold}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.tighter}" }
+      },
+      "sm": {
+        "size": { "$type": "dimension", "$value": "{font.size.4xl}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.tight}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.bold}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.tight}" }
+      }
+    },
+    "headline": {
+      "$description": "Page and major-section headings - the top of an application screen's hierarchy.",
+      "lg": {
+        "size": { "$type": "dimension", "$value": "{font.size.3xl}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.tight}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.semibold}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.tight}" }
+      },
+      "md": {
+        "size": { "$type": "dimension", "$value": "{font.size.2xl}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.tight}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.semibold}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.normal}" }
+      },
+      "sm": {
+        "size": { "$type": "dimension", "$value": "{font.size.xl}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.snug}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.semibold}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.normal}" }
+      }
+    },
+    "title": {
+      "$description": "Sub-section and component headings - a card's title, a dialog's title, a form group's legend.",
+      "lg": {
+        "size": { "$type": "dimension", "$value": "{font.size.lg}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.snug}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.semibold}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.normal}" }
+      },
+      "md": {
+        "size": { "$type": "dimension", "$value": "{font.size.md}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.snug}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.semibold}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.normal}" }
+      },
+      "sm": {
+        "size": { "$type": "dimension", "$value": "{font.size.sm}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.snug}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.semibold}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.normal}" }
+      }
+    },
+    "body": {
+      "$description": "Running text. body-md is the document default; body-sm is for dense surfaces (tables, secondary panels), not for making room on a cramped layout.",
+      "lg": {
+        "size": { "$type": "dimension", "$value": "{font.size.lg}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.normal}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.regular}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.normal}" }
+      },
+      "md": {
+        "size": { "$type": "dimension", "$value": "{font.size.md}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.normal}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.regular}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.normal}" }
+      },
+      "sm": {
+        "size": { "$type": "dimension", "$value": "{font.size.sm}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.normal}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.regular}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.normal}" }
+      }
+    },
+    "label": {
+      "$description": "Type inside or attached to a control - button text, form labels, chips, table column headers. Tighter line-height because labels are single-line, and positive tracking because they are small.",
+      "lg": {
+        "size": { "$type": "dimension", "$value": "{font.size.sm}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.tight}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.medium}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.wide}" }
+      },
+      "md": {
+        "size": { "$type": "dimension", "$value": "{font.size.xs}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.tight}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.medium}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.wide}" }
+      },
+      "sm": {
+        "size": { "$type": "dimension", "$value": "{font.size.xs}" },
+        "line-height": {
+          "$type": "number",
+          "$value": "{font.line-height.tight}"
+        },
+        "weight": { "$type": "fontWeight", "$value": "{font.weight.semibold}" },
+        "tracking": { "$type": "dimension", "$value": "{tracking.wider}" }
+      }
+    }
+  }
+}

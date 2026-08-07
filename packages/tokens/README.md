@@ -7,8 +7,12 @@ duplicated per framework.
 
 ## Structure
 
-- `src/reference/{typography,spacing,radius,elevation,motion}.json` - raw
-  scales shared by every business unit's brand.
+- `src/reference/{typography,tracking,spacing,radius,elevation,motion,size,icon}.json` -
+  raw scales shared by every business unit's brand.
+- `src/semantic/typography.json` - the semantic type scale (`type.body.md`,
+  `type.headline.lg`, ...), aliasing the reference scale above. Unlike
+  color, it is brand-agnostic, so it is built into `core.css` rather than
+  per brand.
 - `src/reference/brands/<brand>/color.json` - per-brand tonal color
   palette (`palette.*`), generated from that brand's seed colors. Treat
   these as generated output - edit `scripts/generate-palettes.mjs`'s
@@ -52,6 +56,42 @@ Produces, per brand, per theme (`light` / `dark` / `high-contrast`) plus a
   light/dark/high-contrast via `setTheme()` from `src/index.ts` or by
   setting the attribute directly - brand itself isn't runtime-switchable,
   it's chosen by which brand's files you load.
+
+Plus, built once and shared by every brand:
+
+- `dist/css/core.css` - the brand-independent tokens: type scale, spacing,
+  radius, elevation, motion, control sizes, icon sizes.
+- `dist/css/typography.css` - `.brk-type-<role>` utility classes (e.g.
+  `.brk-type-headline-lg`), for applying a whole type role at once.
+- `dist/scss/_typography.scss` - the same thing as a Sass mixin:
+  `@include tokens.brk-type('headline-lg')`. An unknown role name is a
+  build-time `@error`, not a silently-empty `var()`.
+- `dist/css/fonts.css` + `dist/fonts/*.woff2` - the typefaces themselves.
+
+## Fonts
+
+The tokens name `Inter` and `JetBrains Mono`, and this package ships them:
+`dist/css/fonts.css` declares self-hosted `@font-face` rules built from the
+`@fontsource-variable/*` packages by `scripts/generate-fonts.mjs`. Load it
+before the rest:
+
+```css
+@import '@app-design-system/tokens/css/fonts.css';
+@import '@app-design-system/tokens/css/core.css';
+```
+
+**Loading it is effectively required.** Without it `--font-family-sans`
+resolves to its `system-ui` fallback and nothing warns you - the page just
+quietly isn't in the design system's typeface. If your org standardises on
+a different face, change `font.family` in
+`src/reference/typography.json`; the generator reads the family name from
+there, so the `@font-face` and the token can't disagree.
+
+Self-hosted rather than CDN-linked on purpose: no third-party request at
+runtime, builds work offline, and no visitor data leaves for a font host.
+Only the weight-axis (`wght`) cuts ship, and each unicode subset is a
+separate `@font-face` gated by `unicode-range`, so a Latin-only page
+downloads ~50 KB per family and nothing else.
 
 ## Runtime API
 

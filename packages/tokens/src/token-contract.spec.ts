@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
@@ -42,9 +42,16 @@ function emittedTokenNames(): Set<string> {
 const stripComments = (source: string) =>
   source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
 
-/** Every token a consumer file references via `var(--x)`. */
+/**
+ * Every token a consumer file references via `var(--x)`.
+ *
+ * The trailing `[,)]` requires the name to actually end there, which skips
+ * Sass-interpolated references like `var(--type-#{$role}-size)` - those
+ * cannot be checked statically from the source, so the typography bridge is
+ * covered by its own test below that expands the map instead.
+ */
 function referencedTokenNames(source: string): string[] {
-  return [...stripComments(source).matchAll(/var\((--[\w-]+)/g)].map(
+  return [...stripComments(source).matchAll(/var\((--[\w-]+)\s*[,)]/g)].map(
     (m) => m[1]!,
   );
 }
@@ -117,5 +124,87 @@ describe('token contract', () => {
     const bridged = new Set(referencedTokenNames(bridge));
     const unbridged = semanticRoles.filter((role) => !bridged.has(role));
     expect(unbridged).toEqual([]);
+  });
+
+  describe('shipped fonts', () => {
+    // reference/typography.json named Inter and JetBrains Mono for a long
+    // time with nothing actually supplying them, so every consumer silently
+    // rendered in system-ui. Fontsource additionally names its variable
+    // families `Inter Variable`, which would reintroduce exactly that
+    // fallback if the rewrite in scripts/generate-fonts.mjs ever stopped
+    // matching. Assert the declared families are the ones the tokens name,
+    // and that every file the CSS points at is really there.
+    const fontsCss = read('packages/tokens/dist/css/fonts.css');
+    const typography = JSON.parse(
+      read('packages/tokens/src/reference/typography.json'),
+    ) as { font: { family: Record<string, { $value: string[] }> } };
+
+    const declaredFamilies = Object.values(typography.font.family).map((f) =>
+      String(f.$value[0]).replace(/^['"]|['"]$/g, ''),
+    );
+
+    it.each(declaredFamilies)('declares @font-face for %s', (family) => {
+      expect(fontsCss).toContain(`font-family: '${family}'`);
+    });
+
+    it('declares no family the tokens do not name', () => {
+      const families = new Set(
+        [...fontsCss.matchAll(/font-family:\s*'([^']+)'/g)].map((m) => m[1]!),
+      );
+      expect([...families].sort()).toEqual([...declaredFamilies].sort());
+    });
+
+    it('references only font files that exist', () => {
+      const urls = [...fontsCss.matchAll(/url\((\.\.\/fonts\/[\w.-]+)\)/g)].map(
+        (m) => m[1]!,
+      );
+      expect(urls.length).toBeGreaterThan(0);
+      const missing = urls.filter(
+        (url) =>
+          !existsSync(resolve(repoRoot, 'packages/tokens/dist/css', url)),
+      );
+      expect(missing).toEqual([]);
+    });
+  });
+
+  describe('typography bridge', () => {
+    // `bridge-typography-roles-to-tokens()` builds its declarations by
+    // interpolating over a Sass map, so the generic "references only tokens
+    // that exist" check above can't see through it. Expand the map here and
+    // check both directions: no role in the map points at a token that
+    // doesn't exist, and no emitted role is left out of the map.
+    const bridgeSource = stripComments(
+      read('packages/theme-angular-material/src/_theme-mixin.scss'),
+    );
+    const mapped = new Map(
+      [...bridgeSource.matchAll(/'([\w-]+)':\s*'([\w-]+)'/g)].map(
+        ([, matRole, tokenRole]) => [tokenRole!, matRole!],
+      ),
+    );
+    const parts = ['size', 'line-height', 'weight', 'tracking'];
+
+    /** `display-lg`-style role names present in the built token CSS. */
+    const emittedRoles = [
+      ...new Set(
+        [...emitted]
+          .map((name) => /^--type-([\w]+-(?:lg|md|sm))-/.exec(name)?.[1])
+          .filter((role): role is string => role !== undefined),
+      ),
+    ];
+
+    it('maps a role for every emitted type role', () => {
+      expect(emittedRoles.length).toBeGreaterThan(0);
+      const unmapped = emittedRoles.filter((role) => !mapped.has(role));
+      expect(unmapped).toEqual([]);
+    });
+
+    it('only maps roles whose tokens all exist', () => {
+      const missing = [...mapped.keys()].flatMap((role) =>
+        parts
+          .map((part) => `--type-${role}-${part}`)
+          .filter((name) => !emitted.has(name)),
+      );
+      expect(missing).toEqual([]);
+    });
   });
 });

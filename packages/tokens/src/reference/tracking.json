@@ -1,0 +1,10 @@
+{
+  "tracking": {
+    "$description": "Letter-spacing scale. Expressed in em so a value tracks its own font size - large display type needs negative tracking to avoid looking loose, small all-caps labels need positive tracking to stay legible.",
+    "tighter": { "$type": "dimension", "$value": "-0.02em" },
+    "tight": { "$type": "dimension", "$value": "-0.01em" },
+    "normal": { "$type": "dimension", "$value": "0em" },
+    "wide": { "$type": "dimension", "$value": "0.01em" },
+    "wider": { "$type": "dimension", "$value": "0.04em" }
+  }
+}

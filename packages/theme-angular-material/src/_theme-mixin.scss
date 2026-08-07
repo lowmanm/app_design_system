@@ -48,6 +48,10 @@
       )
     );
     @include bridge-color-roles-to-tokens();
+    // Unlike colour, the type scale does not vary by theme - so this is
+    // included once, here, and the dark/high-contrast blocks below inherit
+    // it from `:root` rather than restating it.
+    @include bridge-typography-roles-to-tokens();
   }
 
   [data-theme='dark'] {
@@ -127,4 +131,50 @@
   --mat-sys-on-warning: var(--color-on-warning);
   --mat-sys-warning-container: var(--color-warning-container);
   --mat-sys-on-warning-container: var(--color-on-warning-container);
+}
+
+// The typography counterpart of the colour bridge above, and it exists for
+// the same reason: `mat.theme()` derives its own M3 type scale (Roboto's
+// metrics, M3's own size steps), which is close to but not the same as the
+// `--type-*` scale in packages/tokens/src/semantic/typography.json that
+// Tailwind, Bootstrap and plain-HTML consumers read. Left alone, an
+// `<h1>` inside a Material component would be a different size than an
+// `<h1>` two divs away in a Bootstrap panel.
+//
+// Material exposes each role twice: as granular parts (`-size`,
+// `-line-height`, `-weight`, `-tracking`, `-font`) and as a `font`
+// shorthand that its own component styles actually consume. Both have to be
+// re-pointed - overriding only the parts leaves every component still
+// rendering from the stale shorthand.
+@mixin bridge-typography-roles-to-tokens() {
+  @each $mat-role,
+    $token-role
+      in (
+        'display-large': 'display-lg',
+        'display-medium': 'display-md',
+        'display-small': 'display-sm',
+        'headline-large': 'headline-lg',
+        'headline-medium': 'headline-md',
+        'headline-small': 'headline-sm',
+        'title-large': 'title-lg',
+        'title-medium': 'title-md',
+        'title-small': 'title-sm',
+        'body-large': 'body-lg',
+        'body-medium': 'body-md',
+        'body-small': 'body-sm',
+        'label-large': 'label-lg',
+        'label-medium': 'label-md',
+        'label-small': 'label-sm'
+      )
+  {
+    --mat-sys-#{$mat-role}-font: var(--font-family-sans);
+    --mat-sys-#{$mat-role}-size: var(--type-#{$token-role}-size);
+    --mat-sys-#{$mat-role}-line-height: var(--type-#{$token-role}-line-height);
+    --mat-sys-#{$mat-role}-weight: var(--type-#{$token-role}-weight);
+    --mat-sys-#{$mat-role}-tracking: var(--type-#{$token-role}-tracking);
+    --mat-sys-#{$mat-role}: var(--type-#{$token-role}-weight)
+      var(--type-#{$token-role}-size) /
+      var(--type-#{$token-role}-line-height)
+      var(--font-family-sans);
+  }
 }

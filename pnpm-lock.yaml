@@ -243,6 +243,7 @@ importers:
       '@app-design-system/core':
         specifier: workspace:*
         version: link:../core
+    publishDirectory: ../../../dist/packages/components/button
 
   packages/components/card:
     dependencies:
@@ -255,6 +256,7 @@ importers:
       '@app-design-system/core':
         specifier: workspace:*
         version: link:../core
+    publishDirectory: ../../../dist/packages/components/card
 
   packages/components/core:
     dependencies:
@@ -264,6 +266,7 @@ importers:
       '@angular/core':
         specifier: ^22.0.0
         version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
+    publishDirectory: ../../../dist/packages/components/core
 
   packages/components/form-field:
     dependencies:
@@ -273,9 +276,7 @@ importers:
       '@angular/core':
         specifier: ^22.0.0
         version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
-      '@app-design-system/core':
-        specifier: workspace:*
-        version: link:../core
+    publishDirectory: ../../../dist/packages/components/form-field
 
   packages/components/header:
     dependencies:
@@ -288,6 +289,7 @@ importers:
       '@app-design-system/core':
         specifier: workspace:*
         version: link:../core
+    publishDirectory: ../../../dist/packages/components/header
 
   packages/components/menu:
     dependencies:
@@ -303,6 +305,10 @@ importers:
       '@app-design-system/core':
         specifier: workspace:*
         version: link:../core
+      rxjs:
+        specifier: ^7.8.0
+        version: 7.8.2
+    publishDirectory: ../../../dist/packages/components/menu
 
   packages/date-adapter-angular:
     dependencies:
@@ -315,12 +321,14 @@ importers:
       '@app-design-system/date-utils':
         specifier: workspace:*
         version: link:../date-utils
+    publishDirectory: ../../dist/packages/date-adapter-angular
 
   packages/date-utils:
     dependencies:
       dayjs:
         specifier: ^1.11.13
         version: 1.11.21
+    publishDirectory: ../../dist/packages/date-utils
 
   packages/tailwind-preset:
     dependencies:
@@ -343,7 +351,14 @@ importers:
         specifier: ^1.83.0
         version: 1.102.0
 
-  packages/tokens: {}
+  packages/tokens:
+    devDependencies:
+      '@fontsource-variable/inter':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource-variable/jetbrains-mono':
+        specifier: ^5.3.0
+        version: 5.3.0
 
 packages:
 
@@ -2158,6 +2173,12 @@ packages:
   '@eslint/plugin-kit@0.4.1':
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fontsource-variable/inter@5.3.0':
+    resolution: {integrity: sha512-OupL48va4JNofb97w6NYeF9S7W/kHNKM0Er8Dem5nqi4jeOLrVJDoE8tZEpnMJmtkvNbB1EIPPwHcdkF6b1oUA==}
+
+  '@fontsource-variable/jetbrains-mono@5.3.0':
+    resolution: {integrity: sha512-F32xpS2NsGYoQi2ADSkKTgpJj7ozajsGgDJ8woTnqjmIB+dxDIqImjl4pXZVEExu8UFZ2ndhmX18EBS/hdz3Lw==}
 
   '@harperfast/extended-iterable@1.0.3':
     resolution: {integrity: sha512-sSAYhQca3rDWtQUHSAPeO7axFIUJOI6hn1gjRC5APVE1a90tuyT8f5WIgRsFhhWA7htNkju2veB9eWL6YHi/Lw==}
@@ -11413,6 +11434,10 @@ snapshots:
     dependencies:
       '@eslint/core': 0.17.0
       levn: 0.4.1
+
+  '@fontsource-variable/inter@5.3.0': {}
+
+  '@fontsource-variable/jetbrains-mono@5.3.0': {}
 
   '@harperfast/extended-iterable@1.0.3':
     optional: true

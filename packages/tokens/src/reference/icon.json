@@ -1,0 +1,11 @@
+{
+  "icon": {
+    "$description": "Icon sizes. These deliberately match Material Symbols' optical-size (opsz) axis stops of 20/24/40/48 - @app-design-system/icons feeds the same number to both font-size and opsz so an icon's stroke weight stays optically correct instead of thinning out as it scales up.",
+    "size": {
+      "sm": { "$type": "dimension", "$value": "1.25rem" },
+      "md": { "$type": "dimension", "$value": "1.5rem" },
+      "lg": { "$type": "dimension", "$value": "2rem" },
+      "xl": { "$type": "dimension", "$value": "2.5rem" }
+    }
+  }
+}

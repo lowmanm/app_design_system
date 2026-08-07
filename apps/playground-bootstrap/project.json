@@ -10,7 +10,11 @@
       "executor": "nx:run-commands",
       "dependsOn": ["bootstrap-overrides:build"],
       "options": {
-        "command": "sass --load-path=../../node_modules --no-source-map src/styles.entry.scss src/generated/styles.css",
+        "commands": [
+          "sass --load-path=../../node_modules --no-source-map src/styles.entry.scss src/generated/styles.css",
+          "mkdir -p src/generated/css && cp ../../node_modules/@app-design-system/tokens/dist/css/fonts.css src/generated/css/ && cp -r ../../node_modules/@app-design-system/tokens/dist/fonts src/generated/"
+        ],
+        "parallel": false,
         "cwd": "apps/playground-bootstrap"
       },
       "outputs": ["{projectRoot}/src/generated"],

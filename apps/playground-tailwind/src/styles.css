@@ -1,3 +1,8 @@
+/* The typefaces the tokens name. Without this the playground renders in
+   system-ui and stops being a fair comparison against the other consumers -
+   see @app-design-system/tokens' README. */
+@import '@app-design-system/tokens/css/fonts.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
