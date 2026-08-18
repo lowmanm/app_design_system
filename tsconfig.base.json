@@ -50,7 +50,8 @@
       "@app-design-system/icon": ["./packages/components/icon/src/index.ts"],
       "@app-design-system/checkbox": [
         "./packages/components/checkbox/src/index.ts"
-      ]
+      ],
+      "@app-design-system/radio": ["./packages/components/radio/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

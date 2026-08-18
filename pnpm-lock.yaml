@@ -41,6 +41,9 @@ importers:
       '@app-design-system/icon':
         specifier: workspace:*
         version: link:packages/components/icon
+      '@app-design-system/radio':
+        specifier: workspace:*
+        version: link:packages/components/radio
       '@app-design-system/tailwind-preset':
         specifier: workspace:*
         version: link:packages/tailwind-preset
@@ -348,6 +351,16 @@ importers:
         specifier: ^7.8.0
         version: 7.8.2
     publishDirectory: ../../../dist/packages/components/menu
+
+  packages/components/radio:
+    dependencies:
+      '@angular/common':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
+    publishDirectory: ../../../dist/packages/components/radio
 
   packages/date-adapter-angular:
     dependencies:

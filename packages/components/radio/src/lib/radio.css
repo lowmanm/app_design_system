@@ -1,0 +1,68 @@
+/*
+ * Draws its own ring + dot via `appearance: none` and a `radial-gradient`
+ * background-image (not `::before`/`::after` - not reliably rendered on
+ * replaced elements like `<input>` across browsers), the same technique
+ * `brk-switch` uses for its thumb. A `radial-gradient` with a hard stop
+ * (color at 40%, transparent immediately after) paints a crisp filled
+ * circle rather than a blurred gradient.
+ */
+:host {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  display: inline-block;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid var(--mat-sys-outline, #79747e);
+  background-color: var(--mat-sys-surface, #fff);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: radial-gradient(
+    circle,
+    var(--mat-sys-primary, #0b5fff) 0%,
+    transparent 0%
+  );
+  cursor: pointer;
+  transition:
+    border-color var(--motion-duration-fast, 100ms)
+      var(--motion-easing-standard, ease),
+    background-image var(--motion-duration-fast, 100ms)
+      var(--motion-easing-standard, ease);
+}
+
+:host.brk-radio--sm {
+  width: var(--icon-size-sm, 1.25rem);
+  height: var(--icon-size-sm, 1.25rem);
+}
+:host.brk-radio--md {
+  width: var(--icon-size-md, 1.5rem);
+  height: var(--icon-size-md, 1.5rem);
+}
+:host.brk-radio--lg {
+  width: var(--icon-size-lg, 2rem);
+  height: var(--icon-size-lg, 2rem);
+}
+
+:host(:checked) {
+  border-color: var(--mat-sys-primary, #0b5fff);
+  background-image: radial-gradient(
+    circle,
+    var(--mat-sys-primary, #0b5fff) 40%,
+    transparent 41%
+  );
+}
+
+:host(:hover:not(:disabled)) {
+  border-color: var(--mat-sys-on-surface, #1c1b1f);
+}
+
+:host(:disabled) {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+:host(:focus-visible) {
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary, #0b5fff);
+  outline-offset: var(--focus-ring-offset, 2px);
+}

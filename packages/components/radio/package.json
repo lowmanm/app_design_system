@@ -1,0 +1,19 @@
+{
+  "name": "@app-design-system/radio",
+  "version": "0.1.0",
+  "description": "Radio button styling applied to a native input[type=radio], plus a radio-group component for the shared name and fieldset/legend semantics.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "@app-design-system/core": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted",
+    "directory": "../../../dist/packages/components/radio",
+    "linkDirectory": false
+  }
+}
