@@ -44,6 +44,9 @@ importers:
       '@app-design-system/dialog':
         specifier: workspace:*
         version: link:packages/components/dialog
+      '@app-design-system/footer':
+        specifier: workspace:*
+        version: link:packages/components/footer
       '@app-design-system/icon':
         specifier: workspace:*
         version: link:packages/components/icon
@@ -346,6 +349,16 @@ importers:
         version: link:../icon
     publishDirectory: ../../../dist/packages/components/dialog
 
+  packages/components/footer:
+    dependencies:
+      '@angular/common':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
+    publishDirectory: ../../../dist/packages/components/footer
+
   packages/components/form-field:
     dependencies:
       '@angular/common':
@@ -455,12 +468,24 @@ importers:
 
   packages/components/table:
     dependencies:
+      '@angular/cdk':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.1.0(@angular/animations@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)))(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
       '@angular/common':
         specifier: ^22.0.0
         version: 22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
       '@angular/core':
         specifier: ^22.0.0
         version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
+      '@angular/forms':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.1.0(@angular/animations@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)))(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
+      '@app-design-system/icon':
+        specifier: workspace:*
+        version: link:../icon
+      '@app-design-system/select':
+        specifier: workspace:*
+        version: link:../select
     publishDirectory: ../../../dist/packages/components/table
 
   packages/components/tabs:

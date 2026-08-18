@@ -1,0 +1,16 @@
+{
+  "name": "@app-design-system/footer",
+  "version": "0.1.0",
+  "description": "The application-shell footer: brand, link columns, and a legal row, mirroring header's content-projection shape.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted",
+    "directory": "../../../dist/packages/components/footer",
+    "linkDirectory": false
+  }
+}

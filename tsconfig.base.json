@@ -68,7 +68,8 @@
       "@app-design-system/dialog": [
         "./packages/components/dialog/src/index.ts"
       ],
-      "@app-design-system/table": ["./packages/components/table/src/index.ts"]
+      "@app-design-system/table": ["./packages/components/table/src/index.ts"],
+      "@app-design-system/footer": ["./packages/components/footer/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
