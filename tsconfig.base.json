@@ -58,7 +58,10 @@
       "@app-design-system/select": [
         "./packages/components/select/src/index.ts"
       ],
-      "@app-design-system/tabs": ["./packages/components/tabs/src/index.ts"]
+      "@app-design-system/tabs": ["./packages/components/tabs/src/index.ts"],
+      "@app-design-system/accordion": [
+        "./packages/components/accordion/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

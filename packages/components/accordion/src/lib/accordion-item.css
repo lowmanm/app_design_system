@@ -1,0 +1,75 @@
+:host {
+  display: block;
+  border-bottom: 1px solid var(--mat-sys-outline-variant, #cac4d0);
+}
+
+.brk-accordion-item__heading {
+  margin: 0;
+}
+
+.brk-accordion-item__trigger {
+  appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3, 0.75rem);
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--space-4, 1rem) var(--space-2, 0.5rem);
+  font-family: var(--font-family-sans, inherit);
+  font-size: var(--type-title-md-size, 1rem);
+  font-weight: var(--type-title-md-weight, 600);
+  color: var(--mat-sys-on-surface, #1c1b1f);
+  text-align: left;
+}
+
+.brk-accordion-item__trigger:hover {
+  color: var(--mat-sys-primary, #0b5fff);
+}
+
+.brk-accordion-item__trigger:focus-visible {
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary, #0b5fff);
+  outline-offset: calc(-1 * var(--focus-ring-width, 2px));
+}
+
+.brk-accordion-item__chevron {
+  flex-shrink: 0;
+  color: var(--mat-sys-on-surface-variant, #49454f);
+  transition: transform var(--motion-duration-normal, 200ms)
+    var(--motion-easing-standard, ease);
+}
+
+.brk-accordion-item__chevron--open {
+  transform: rotate(180deg);
+}
+
+/*
+ * The `grid-template-rows: 0fr -> 1fr` technique: `auto` isn't animatable,
+ * but a fractional grid track is, and a single-row/single-column grid with
+ * `overflow: hidden` on both the track and its child collapses to zero
+ * height exactly like `height: 0` would, while still transitioning
+ * smoothly - no JS height measurement needed.
+ */
+.brk-accordion-item__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows var(--motion-duration-normal, 200ms)
+    var(--motion-easing-standard, ease);
+}
+
+.brk-accordion-item__panel--open {
+  grid-template-rows: 1fr;
+}
+
+.brk-accordion-item__panel-inner {
+  overflow: hidden;
+  min-height: 0;
+  padding: 0 var(--space-2, 0.5rem) var(--space-4, 1rem);
+  font-family: var(--font-family-sans, inherit);
+  font-size: var(--type-body-md-size, 1rem);
+  color: var(--mat-sys-on-surface-variant, #49454f);
+}

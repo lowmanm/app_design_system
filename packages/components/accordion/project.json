@@ -1,0 +1,23 @@
+{
+  "name": "accordion",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/components/accordion/src",
+  "prefix": "brk",
+  "projectType": "library",
+  "tags": ["scope:angular"],
+  "implicitDependencies": ["core", "icon"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["core:build", "icon:build"],
+      "outputs": ["{workspaceRoot}/dist/packages/components/accordion"],
+      "options": {
+        "command": "ng-packagr -p ng-package.json -c tsconfig.package.json",
+        "cwd": "packages/components/accordion"
+      }
+    }
+  }
+}

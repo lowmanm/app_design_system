@@ -1,0 +1,19 @@
+{
+  "name": "@app-design-system/accordion",
+  "version": "0.1.0",
+  "description": "A vertically stacked set of expand/collapse panels - single-open by default, or multi-open via the multi input.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "@app-design-system/icon": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted",
+    "directory": "../../../dist/packages/components/accordion",
+    "linkDirectory": false
+  }
+}
