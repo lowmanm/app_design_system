@@ -1,0 +1,98 @@
+/*
+ * Consume design tokens, never literal values - that is what keeps this
+ * component in step with every brand and theme. Each var() carries a
+ * fallback so the component degrades to something sane if a consumer forgets
+ * to load @app-design-system/tokens' CSS.
+ *
+ * ViewEncapsulation.None (set in dialog.ts) means these selectors reach the
+ * whole document, not just this component's own template - kept scoped by
+ * the `brk-dialog` prefix, the same convention brk-select's panel styles
+ * rely on for the same reason.
+ */
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 32rem;
+  max-height: calc(100vh - var(--space-8, 2rem) * 2);
+  padding: var(--space-6, 1.5rem);
+  border-radius: var(--radius-lg, 0.75rem);
+  background-color: var(--mat-sys-surface, #fff);
+  color: var(--mat-sys-on-surface, #1d1b20);
+  box-shadow: var(--elevation-4, 0 8px 24px rgba(0, 0, 0, 0.2));
+  font-family: var(--font-family-sans, inherit);
+  /* Entrance only - CDK attaches this component fresh each time a dialog
+     opens, so a plain animation-on-mount needs no open/close state to
+     track, unlike accordion's transition-based collapse. */
+  animation: brk-dialog-enter var(--motion-duration-slow, 300ms)
+    var(--motion-easing-decelerate, ease-out);
+}
+
+@keyframes brk-dialog-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.brk-dialog__close {
+  position: absolute;
+  top: var(--space-3, 0.75rem);
+  right: var(--space-3, 0.75rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--size-control-sm, 2rem);
+  height: var(--size-control-sm, 2rem);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full, 9999px);
+  background: transparent;
+  color: var(--mat-sys-on-surface-variant, #49454f);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-fast, 100ms)
+    var(--motion-easing-standard, ease);
+}
+
+.brk-dialog__close:hover {
+  background-color: var(--mat-sys-surface-container-high, #e6e0e9);
+}
+
+.brk-dialog__close:focus-visible {
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary);
+  outline-offset: var(--focus-ring-offset, 2px);
+}
+
+.brk-dialog__title {
+  display: block;
+  margin: 0 var(--space-8, 2rem) var(--space-3, 0.75rem) 0;
+  font-family: var(--font-family-sans, inherit);
+  font-size: var(--type-title-lg-size, 1.375rem);
+  font-weight: var(--type-title-lg-weight, 400);
+  line-height: var(--type-title-lg-line-height, 1.75rem);
+  color: var(--mat-sys-on-surface, #1d1b20);
+}
+
+.brk-dialog__content {
+  overflow-y: auto;
+  font-family: var(--font-family-sans, inherit);
+  font-size: var(--type-body-md-size, 1rem);
+  line-height: var(--type-body-md-line-height, 1.5rem);
+  color: var(--mat-sys-on-surface-variant, #49454f);
+}
+
+.brk-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2, 0.5rem);
+  margin-top: var(--space-6, 1.5rem);
+  padding-top: var(--space-4, 1rem);
+  border-top: 1px solid var(--mat-sys-outline-variant, #cac4d0);
+}

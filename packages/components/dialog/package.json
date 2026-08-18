@@ -1,0 +1,20 @@
+{
+  "name": "@app-design-system/dialog",
+  "version": "0.1.0",
+  "description": "A modal dialog wrapping @angular/cdk/dialog's Dialog directly, plus a token-styled container and title/content/actions slots.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/cdk": "^22.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "@app-design-system/icon": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted",
+    "directory": "../../../dist/packages/components/dialog",
+    "linkDirectory": false
+  }
+}

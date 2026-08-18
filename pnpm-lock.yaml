@@ -41,6 +41,9 @@ importers:
       '@app-design-system/date-utils':
         specifier: workspace:*
         version: link:packages/date-utils
+      '@app-design-system/dialog':
+        specifier: workspace:*
+        version: link:packages/components/dialog
       '@app-design-system/icon':
         specifier: workspace:*
         version: link:packages/components/icon
@@ -324,6 +327,16 @@ importers:
         version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
     publishDirectory: ../../../dist/packages/components/core
 
+  packages/components/dialog:
+    dependencies:
+      '@angular/common':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
+    publishDirectory: ../../../dist/packages/components/dialog
+
   packages/components/form-field:
     dependencies:
       '@angular/common':
@@ -443,12 +456,18 @@ importers:
 
   packages/components/tooltip:
     dependencies:
+      '@angular/cdk':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.1.0(@angular/animations@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)))(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
       '@angular/common':
         specifier: ^22.0.0
         version: 22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
       '@angular/core':
         specifier: ^22.0.0
         version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
+      '@app-design-system/core':
+        specifier: workspace:*
+        version: link:../core
     publishDirectory: ../../../dist/packages/components/tooltip
 
   packages/date-adapter-angular:
