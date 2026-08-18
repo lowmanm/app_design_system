@@ -27,9 +27,10 @@ class HostComponent {
 async function setup() {
   const fixture = TestBed.createComponent(HostComponent);
   fixture.detectChanges();
-  const harness = await TestbedHarnessEnvironment.loader(fixture).getHarness(
-    BrkAccordionHarness,
-  );
+  const harness =
+    await TestbedHarnessEnvironment.loader(fixture).getHarness(
+      BrkAccordionHarness,
+    );
   const items = await harness.getItems();
   return { fixture, harness, items, host: fixture.componentInstance };
 }

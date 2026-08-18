@@ -16,12 +16,7 @@ and its three slot directives:
 
 ```ts
 @Component({
-  imports: [
-    BrkDialogComponent,
-    BrkDialogTitleDirective,
-    BrkDialogContentDirective,
-    BrkDialogActionsDirective,
-  ],
+  imports: [BrkDialogComponent, BrkDialogTitleDirective, BrkDialogContentDirective, BrkDialogActionsDirective],
   template: `
     <brk-dialog>
       <h2 brkDialogTitle>Delete project?</h2>
@@ -47,12 +42,12 @@ dialogRef.closed.subscribe((confirmed) => { ... });
 ```
 
 | Piece                       | What it's for                                                        |
-| ---------------------------- | ---------------------------------------------------------------------- |
-| `BrkDialogService.open()`    | Opens the given component in a modal `Dialog` overlay.                |
-| `BrkDialogComponent`         | The visual container - elevation, radius, max-width, a close button.  |
-| `BrkDialogTitleDirective`    | Marks the dialog's accessible name (required - see below).            |
-| `BrkDialogContentDirective`  | Marks the scrollable body.                                            |
-| `BrkDialogActionsDirective`  | Marks the button row, gets a top divider for free.                    |
+| --------------------------- | -------------------------------------------------------------------- |
+| `BrkDialogService.open()`   | Opens the given component in a modal `Dialog` overlay.               |
+| `BrkDialogComponent`        | The visual container - elevation, radius, max-width, a close button. |
+| `BrkDialogTitleDirective`   | Marks the dialog's accessible name (required - see below).           |
+| `BrkDialogContentDirective` | Marks the scrollable body.                                           |
+| `BrkDialogActionsDirective` | Marks the button row, gets a top divider for free.                   |
 
 `BrkDialogComponent` also renders its own close ("X") button, wired to
 `DialogRef.close()` - not an input to opt out of, since a modal without a

@@ -19,13 +19,11 @@ import { BrkDialogActionsDirective } from './dialog-actions.directive';
     <brk-dialog>
       <h2 brkDialogTitle>Delete project?</h2>
       <p brkDialogContent>
-        This permanently deletes "design-system" and everything in it.
-        This can't be undone.
+        This permanently deletes "design-system" and everything in it. This
+        can't be undone.
       </p>
       <div brkDialogActions>
-        <button type="button" (click)="dialogRef.close(false)">
-          Cancel
-        </button>
+        <button type="button" (click)="dialogRef.close(false)">Cancel</button>
         <button type="button" (click)="dialogRef.close(true)">Delete</button>
       </div>
     </brk-dialog>

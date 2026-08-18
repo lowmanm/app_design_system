@@ -23,9 +23,7 @@ import { BrkDialogHarness } from './dialog.harness';
       <h2 brkDialogTitle>Delete project?</h2>
       <p brkDialogContent>This can't be undone.</p>
       <div brkDialogActions>
-        <button type="button" (click)="dialogRef.close(false)">
-          Cancel
-        </button>
+        <button type="button" (click)="dialogRef.close(false)">Cancel</button>
         <button type="button" (click)="dialogRef.close(true)">Delete</button>
       </div>
     </brk-dialog>
@@ -58,9 +56,9 @@ async function setup() {
 async function getDialog(
   fixture: ReturnType<typeof TestBed.createComponent>,
 ): Promise<BrkDialogHarness | null> {
-  return TestbedHarnessEnvironment.documentRootLoader(
-    fixture,
-  ).getHarnessOrNull(BrkDialogHarness);
+  return TestbedHarnessEnvironment.documentRootLoader(fixture).getHarnessOrNull(
+    BrkDialogHarness,
+  );
 }
 
 describe('BrkDialogComponent + BrkDialogService', () => {
@@ -92,7 +90,9 @@ describe('BrkDialogComponent + BrkDialogService', () => {
 
     expect(document.activeElement).not.toBe(trigger);
     expect(
-      document.querySelector('[role="dialog"]')?.contains(document.activeElement),
+      document
+        .querySelector('[role="dialog"]')
+        ?.contains(document.activeElement),
     ).toBe(true);
 
     host.ref!.close();

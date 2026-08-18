@@ -1,9 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import {
-  Dialog,
-  type DialogConfig,
-  type DialogRef,
-} from '@angular/cdk/dialog';
+import { Dialog, type DialogConfig, type DialogRef } from '@angular/cdk/dialog';
 import type { ComponentType } from '@angular/cdk/portal';
 
 /**

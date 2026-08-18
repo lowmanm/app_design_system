@@ -21,10 +21,10 @@ hover **and** focus (never hover-only, so a keyboard user gets the same
 information a mouse user does), after a short delay so it doesn't flash on
 every incidental mouse pass-over. Escape dismisses it without moving focus.
 
-| Input               | Type                                       | Default   |
+| Input                | Type                                        | Default   |
 | -------------------- | ------------------------------------------- | --------- |
-| `brkTooltip`          | `string` (required) - the tooltip's text.   | -         |
-| `brkTooltipPosition`  | `'above' \| 'below' \| 'before' \| 'after'` | `'above'` |
+| `brkTooltip`         | `string` (required) - the tooltip's text.   | -         |
+| `brkTooltipPosition` | `'above' \| 'below' \| 'before' \| 'after'` | `'above'` |
 
 ## Text only, by contract
 
@@ -42,7 +42,7 @@ position on the opposite side so it flips automatically if there isn't room.
 ## Testing
 
 `BrkTooltipHarness` (Angular CDK `ComponentHarness`) locates the tooltip
-*panel* by its `.brk-tooltip` class. Because the panel is portaled to
+_panel_ by its `.brk-tooltip` class. Because the panel is portaled to
 `document.body` and only exists in the DOM while visible, look it up with
 `TestbedHarnessEnvironment.documentRootLoader(fixture)` after dispatching
 the real event (`mouseenter`, `focus`) that shows it and waiting out the

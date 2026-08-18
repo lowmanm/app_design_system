@@ -46,9 +46,7 @@ export class BrkDialogTitleDirective implements OnInit, OnDestroy {
     // that ancestor view. A microtask applies it on the following cycle.
     queueMicrotask(() => {
       (
-        this.dialogRef?.containerInstance as
-          | AriaLabelledByContainer
-          | undefined
+        this.dialogRef?.containerInstance as AriaLabelledByContainer | undefined
       )?._addAriaLabelledBy(this.id);
     });
   }

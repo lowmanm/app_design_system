@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { BrkIconComponent } from '@app-design-system/icon';
 import { BrkAccordionComponent } from './accordion';
 

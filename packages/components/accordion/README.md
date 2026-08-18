@@ -11,12 +11,8 @@ npm install @app-design-system/accordion
 
 ```html
 <brk-accordion>
-  <brk-accordion-item header="What's included?">
-    Everything in the Pro plan, plus priority support.
-  </brk-accordion-item>
-  <brk-accordion-item header="Can I cancel anytime?">
-    Yes, from your billing settings.
-  </brk-accordion-item>
+  <brk-accordion-item header="What's included?"> Everything in the Pro plan, plus priority support. </brk-accordion-item>
+  <brk-accordion-item header="Can I cancel anytime?"> Yes, from your billing settings. </brk-accordion-item>
 </brk-accordion>
 ```
 
@@ -24,10 +20,10 @@ Single-open (exclusive) by default - opening one item closes whichever was
 open, matching the common "FAQ list" expectation. Pass `multi` on
 `brk-accordion` to allow several items open at once.
 
-| Component            | Input    | Type      | Notes                             |
-| --------------------- | -------- | --------- | ---------------------------------- |
-| `brk-accordion`       | `multi`  | `boolean` | Allow more than one item expanded. |
-| `brk-accordion-item`  | `header` | `string`  | Required. The trigger's text.      |
+| Component            | Input    | Type      | Notes                              |
+| -------------------- | -------- | --------- | ---------------------------------- |
+| `brk-accordion`      | `multi`  | `boolean` | Allow more than one item expanded. |
+| `brk-accordion-item` | `header` | `string`  | Required. The trigger's text.      |
 
 ## Why the container/item relationship is two-way, unlike `brk-tabs`
 
