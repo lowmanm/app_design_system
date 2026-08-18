@@ -65,6 +65,9 @@ importers:
       '@app-design-system/tokens':
         specifier: workspace:*
         version: link:packages/tokens
+      '@app-design-system/tooltip':
+        specifier: workspace:*
+        version: link:packages/components/tooltip
       '@material/material-color-utilities':
         specifier: ^0.3.0
         version: 0.3.0
@@ -261,6 +264,9 @@ importers:
       '@angular/core':
         specifier: ^22.0.0
         version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
+      '@app-design-system/icon':
+        specifier: workspace:*
+        version: link:../icon
     publishDirectory: ../../../dist/packages/components/accordion
 
   packages/components/button:
@@ -434,6 +440,16 @@ importers:
         specifier: ^22.0.0
         version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
     publishDirectory: ../../../dist/packages/components/tabs
+
+  packages/components/tooltip:
+    dependencies:
+      '@angular/common':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
+    publishDirectory: ../../../dist/packages/components/tooltip
 
   packages/date-adapter-angular:
     dependencies:

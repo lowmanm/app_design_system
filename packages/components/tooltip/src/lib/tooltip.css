@@ -1,0 +1,26 @@
+/*
+ * Consume design tokens, never literal values - that is what keeps this
+ * component in step with every brand and theme. Each var() carries a
+ * fallback so the component degrades to something sane if a consumer forgets
+ * to load @app-design-system/tokens' CSS.
+ *
+ * Inverse-surface colours, not the regular surface pair: a tooltip needs to
+ * read clearly against whatever it's floating over, so it deliberately
+ * flips light/dark rather than matching the page - the same token pair
+ * Material's own tooltip spec uses this for.
+ */
+:host {
+  display: block;
+  box-sizing: border-box;
+  max-width: 16rem;
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  background-color: var(--mat-sys-inverse-surface, #313033);
+  color: var(--mat-sys-inverse-on-surface, #f4eff4);
+  box-shadow: var(--elevation-2, 0 2px 6px rgba(0, 0, 0, 0.15));
+  font-family: var(--font-family-sans, inherit);
+  font-size: var(--type-body-sm-size, 0.75rem);
+  line-height: var(--type-body-sm-line-height, 1rem);
+  text-align: center;
+  pointer-events: none;
+}

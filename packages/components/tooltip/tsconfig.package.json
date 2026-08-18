@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    // A `paths` object in a child tsconfig REPLACES the inherited one from
+    // tsconfig.base.json rather than merging with it - so every workspace
+    // package this one can reach must be listed here, not just the ones it
+    // imports today. Each entry points at the dependency's *built* .d.ts
+    // (not its raw source) because ng-packagr refuses to compile across
+    // package boundaries; `dependsOn` in project.json guarantees the build
+    // order that makes these paths resolvable.
+    "paths": {
+      "@app-design-system/core": [
+        "../../../dist/packages/components/core/types/app-design-system-core.d.ts"
+      ]
+    }
+  }
+}
