@@ -65,7 +65,10 @@
       "@app-design-system/tooltip": [
         "./packages/components/tooltip/src/index.ts"
       ],
-      "@app-design-system/dialog": ["./packages/components/dialog/src/index.ts"]
+      "@app-design-system/dialog": [
+        "./packages/components/dialog/src/index.ts"
+      ],
+      "@app-design-system/table": ["./packages/components/table/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

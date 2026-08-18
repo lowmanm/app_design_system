@@ -1,0 +1,22 @@
+{
+  "name": "@app-design-system/table",
+  "version": "0.1.0",
+  "description": "A styled table built on @angular/cdk/table, plus sort-header and paginator primitives.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/cdk": "^22.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/forms": "^22.0.0"
+  },
+  "dependencies": {
+    "@app-design-system/icon": "workspace:*",
+    "@app-design-system/select": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted",
+    "directory": "../../../dist/packages/components/table",
+    "linkDirectory": false
+  }
+}

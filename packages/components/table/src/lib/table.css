@@ -1,0 +1,111 @@
+/*
+ * Consume design tokens, never literal values - that is what keeps this
+ * component in step with every brand and theme. Each var() carries a
+ * fallback so the component degrades to something sane if a consumer forgets
+ * to load @app-design-system/tokens' CSS.
+ *
+ * ViewEncapsulation.None (set in table.ts) means these selectors reach the
+ * whole document - kept scoped by the `.brk-table` ancestor and CDK's own
+ * `[cdk-header-cell]`/`[cdk-cell]`/`[cdk-row]` attribute selectors, the
+ * same convention brk-select's panel and brk-dialog rely on for the same
+ * reason: the actual cell/row elements live in the *consumer's* template,
+ * not this component's own.
+ */
+:host {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--mat-sys-surface, #fff);
+  color: var(--mat-sys-on-surface, #1d1b20);
+  font-family: var(--font-family-sans, inherit);
+  font-size: var(--type-body-md-size, 1rem);
+  line-height: var(--type-body-md-line-height, 1.5rem);
+}
+
+.brk-table [cdk-header-cell],
+.brk-table [cdk-cell],
+.brk-table [cdk-footer-cell] {
+  box-sizing: border-box;
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.brk-table [cdk-header-cell] {
+  border-bottom: 1px solid var(--mat-sys-outline, #79747e);
+  color: var(--mat-sys-on-surface-variant, #49454f);
+  font-size: var(--type-label-lg-size, 0.875rem);
+  font-weight: var(--type-label-lg-weight, 500);
+  white-space: nowrap;
+}
+
+.brk-table [cdk-cell],
+.brk-table [cdk-footer-cell] {
+  border-bottom: 1px solid var(--mat-sys-outline-variant, #cac4d0);
+}
+
+.brk-table [cdk-row]:last-of-type [cdk-cell] {
+  border-bottom: none;
+}
+
+.brk-table [cdk-row] {
+  transition: background-color var(--motion-duration-fast, 100ms)
+    var(--motion-easing-standard, ease);
+}
+
+.brk-table [cdk-row]:hover {
+  background-color: var(--mat-sys-surface-container, #f3edf7);
+}
+
+/*
+ * Opt-in, not automatic: this component doesn't track selection itself
+ * (see the README), so the consumer applies this class from their own
+ * SelectionModel, e.g. [class.brk-table__row--selected]="selection.isSelected(row)".
+ */
+.brk-table__row--selected,
+.brk-table__row--selected:hover {
+  background-color: var(--mat-sys-secondary-container, #e8def8);
+}
+
+/*
+ * BrkSortHeaderDirective's arrow. A background-image SVG data URI with
+ * fill="currentColor", the same technique checkbox/radio/switch use for
+ * their marks - it resolves against .brk-sort-header's own `color`, so a
+ * single asset works in every theme/mode without a second dark-mode copy.
+ */
+.brk-sort-header {
+  cursor: pointer;
+  user-select: none;
+}
+
+.brk-sort-header::after {
+  content: '';
+  display: inline-block;
+  width: var(--icon-size-sm, 1rem);
+  height: var(--icon-size-sm, 1rem);
+  margin-left: var(--space-1, 0.25rem);
+  vertical-align: middle;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 14l5-5 5 5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  transition: opacity var(--motion-duration-fast, 100ms)
+    var(--motion-easing-standard, ease);
+}
+
+.brk-sort-header:hover::after {
+  opacity: 0.6;
+}
+
+.brk-sort-header--active::after {
+  opacity: 1;
+}
+
+.brk-sort-header--desc::after {
+  transform: rotate(180deg);
+}
+
+.brk-sort-header:focus-visible {
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary);
+  outline-offset: calc(-1 * var(--focus-ring-width, 2px));
+}

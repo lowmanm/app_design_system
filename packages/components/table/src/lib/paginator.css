@@ -1,0 +1,61 @@
+/*
+ * Consume design tokens, never literal values - that is what keeps this
+ * component in step with every brand and theme. Each var() carries a
+ * fallback so the component degrades to something sane if a consumer forgets
+ * to load @app-design-system/tokens' CSS.
+ */
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-6, 1.5rem);
+  box-sizing: border-box;
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  font-family: var(--font-family-sans, inherit);
+  font-size: var(--type-body-sm-size, 0.75rem);
+  color: var(--mat-sys-on-surface-variant, #49454f);
+}
+
+.brk-paginator__size {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+}
+
+.brk-paginator__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1, 0.25rem);
+}
+
+.brk-paginator__nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--size-control-sm, 2rem);
+  height: var(--size-control-sm, 2rem);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full, 9999px);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color var(--motion-duration-fast, 100ms)
+    var(--motion-easing-standard, ease);
+}
+
+.brk-paginator__nav-button:hover:not(:disabled) {
+  background-color: var(--mat-sys-surface-container-high, #e6e0e9);
+}
+
+.brk-paginator__nav-button:disabled {
+  color: var(--mat-sys-outline, #79747e);
+  cursor: default;
+}
+
+.brk-paginator__nav-button:focus-visible {
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary);
+  outline-offset: var(--focus-ring-offset, 2px);
+}

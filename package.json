@@ -41,7 +41,8 @@
     "@app-design-system/tabs": "workspace:*",
     "@app-design-system/accordion": "workspace:*",
     "@app-design-system/tooltip": "workspace:*",
-    "@app-design-system/dialog": "workspace:*"
+    "@app-design-system/dialog": "workspace:*",
+    "@app-design-system/table": "workspace:*"
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "~2.6.0",

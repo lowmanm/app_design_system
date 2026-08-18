@@ -1,0 +1,23 @@
+{
+  "name": "table",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/components/table/src",
+  "prefix": "brk",
+  "projectType": "library",
+  "tags": ["scope:angular"],
+  "implicitDependencies": ["select", "icon"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["select:build", "icon:build"],
+      "outputs": ["{workspaceRoot}/dist/packages/components/table"],
+      "options": {
+        "command": "ng-packagr -p ng-package.json -c tsconfig.package.json",
+        "cwd": "packages/components/table"
+      }
+    }
+  }
+}

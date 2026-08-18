@@ -56,6 +56,9 @@ importers:
       '@app-design-system/switch':
         specifier: workspace:*
         version: link:packages/components/switch
+      '@app-design-system/table':
+        specifier: workspace:*
+        version: link:packages/components/table
       '@app-design-system/tabs':
         specifier: workspace:*
         version: link:packages/components/tabs
@@ -329,12 +332,18 @@ importers:
 
   packages/components/dialog:
     dependencies:
+      '@angular/cdk':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.1.0(@angular/animations@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)))(@angular/common@22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
       '@angular/common':
         specifier: ^22.0.0
         version: 22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
       '@angular/core':
         specifier: ^22.0.0
         version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
+      '@app-design-system/icon':
+        specifier: workspace:*
+        version: link:../icon
     publishDirectory: ../../../dist/packages/components/dialog
 
   packages/components/form-field:
@@ -443,6 +452,16 @@ importers:
         specifier: workspace:*
         version: link:../core
     publishDirectory: ../../../dist/packages/components/switch
+
+  packages/components/table:
+    dependencies:
+      '@angular/common':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/core@22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2)
+      '@angular/core':
+        specifier: ^22.0.0
+        version: 22.1.0(@angular/compiler@22.1.0)(rxjs@7.8.2)(zone.js@0.16.2)
+    publishDirectory: ../../../dist/packages/components/table
 
   packages/components/tabs:
     dependencies:
