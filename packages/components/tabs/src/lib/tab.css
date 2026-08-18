@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.brk-tab__panel {
+  padding: var(--space-4, 1rem) 0;
+  font-family: var(--font-family-sans, inherit);
+  color: var(--mat-sys-on-surface, #1c1b1f);
+}
+
+.brk-tab__panel:focus-visible {
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary, #0b5fff);
+  outline-offset: var(--focus-ring-offset, 2px);
+}

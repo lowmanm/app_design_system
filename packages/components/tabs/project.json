@@ -1,0 +1,23 @@
+{
+  "name": "tabs",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/components/tabs/src",
+  "prefix": "brk",
+  "projectType": "library",
+  "tags": ["scope:angular"],
+  "implicitDependencies": ["core"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["core:build"],
+      "outputs": ["{workspaceRoot}/dist/packages/components/tabs"],
+      "options": {
+        "command": "ng-packagr -p ng-package.json -c tsconfig.package.json",
+        "cwd": "packages/components/tabs"
+      }
+    }
+  }
+}
