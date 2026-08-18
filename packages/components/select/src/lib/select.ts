@@ -202,7 +202,19 @@ export class BrkSelectComponent implements ControlValueAccessor, OnDestroy {
     effect(() => {
       const current = this.value();
       const options = this.options();
-      const match = options.find((option) => option.value() === current);
+      // An option whose `value` input hasn't landed yet this pass (e.g. a
+      // freshly-inserted @for-generated option, or writeValue() firing on
+      // the very first render before content children finish binding)
+      // throws NG0950 on read - not a real candidate match, and the read
+      // still registers as a dependency, so the effect reruns once the
+      // input actually lands.
+      const match = options.find((option) => {
+        try {
+          return option.value() === current;
+        } catch {
+          return false;
+        }
+      });
       for (const option of options) {
         option.selected.set(option === match);
       }
