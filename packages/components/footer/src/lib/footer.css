@@ -33,17 +33,24 @@
   font-weight: var(--type-title-sm-weight, 500);
 }
 
-.brk-footer__links {
+/*
+ * Projected content renders in the consumer's own view encapsulation, so
+ * these have to be ::ng-deep to reach it - same technique brk-header's nav
+ * links and form-field's projected native inputs already use.
+ *
+ * Two ::ng-deep levels, not one: `<ng-content select="[brkFooterLinks]">`
+ * projects the consumer's *single* wrapping element, so the flex layout
+ * for the link columns has to target that projected element directly
+ * (`[brkFooterLinks]` itself), not `.brk-footer__links` - that class is
+ * this component's own wrapper *around* the projection point, one level
+ * further out, and flex only lays out direct children.
+ */
+.brk-footer__links ::ng-deep [brkFooterLinks] {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-8, 2rem);
 }
 
-/*
- * Projected content renders in the consumer's own view encapsulation, so
- * these have to be ::ng-deep to reach it - same technique brk-header's nav
- * links and form-field's projected native inputs already use.
- */
 .brk-footer__links ::ng-deep h3 {
   margin: 0 0 var(--space-2, 0.5rem);
   color: var(--mat-sys-on-surface, #1d1b20);
