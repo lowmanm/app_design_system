@@ -35,7 +35,8 @@
     "zone.js": "0.16.2",
     "@app-design-system/icon": "workspace:*",
     "@app-design-system/checkbox": "workspace:*",
-    "@app-design-system/radio": "workspace:*"
+    "@app-design-system/radio": "workspace:*",
+    "@app-design-system/switch": "workspace:*"
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "~2.6.0",

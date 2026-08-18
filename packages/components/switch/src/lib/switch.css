@@ -1,0 +1,96 @@
+/*
+ * Draws the track and thumb via `appearance: none` and a `radial-gradient`
+ * background-image whose `background-position` transitions between the two
+ * ends of the track - not `::before`/`::after` (not reliably rendered on
+ * replaced elements like `<input>` across browsers), and not a wrapping
+ * `<span>` thumb element, since this stays a single real `<input>` with no
+ * child DOM at all. The same drawing technique `brk-radio`'s dot uses,
+ * animated instead of static.
+ *
+ * Track/thumb dimensions are literal, not tokens - a switch's proportions
+ * (roughly 1.8:1 width:height) are a shape specific to this one component,
+ * unlike a checkbox/radio's square box, which reuses the icon-size scale
+ * because it genuinely is icon-sized.
+ */
+:host {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  display: inline-block;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border-radius: var(--radius-full, 9999px);
+  border: 2px solid var(--mat-sys-outline, #79747e);
+  background-color: var(--mat-sys-surface-container-high, #e6e0e9);
+  background-repeat: no-repeat;
+  background-position: 2px center;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-duration-fast, 100ms)
+      var(--motion-easing-standard, ease),
+    border-color var(--motion-duration-fast, 100ms)
+      var(--motion-easing-standard, ease),
+    background-position var(--motion-duration-normal, 200ms)
+      var(--motion-easing-standard, ease);
+}
+
+:host.brk-switch--sm {
+  width: 2rem;
+  height: 1.125rem;
+  background-image: radial-gradient(
+    circle,
+    var(--mat-sys-outline, #79747e) 38%,
+    transparent 39%
+  );
+}
+:host.brk-switch--md {
+  width: 2.75rem;
+  height: 1.5rem;
+  background-image: radial-gradient(
+    circle,
+    var(--mat-sys-outline, #79747e) 38%,
+    transparent 39%
+  );
+}
+:host.brk-switch--lg {
+  width: 3.5rem;
+  height: 1.875rem;
+  background-image: radial-gradient(
+    circle,
+    var(--mat-sys-outline, #79747e) 38%,
+    transparent 39%
+  );
+}
+
+:host(:checked) {
+  border-color: var(--mat-sys-primary, #0b5fff);
+  background-color: var(--mat-sys-primary, #0b5fff);
+  background-position: calc(100% - 2px) center;
+}
+
+/* The functional :host(...) form, not the bare :host.class:pseudo chain
+   used for the unchecked variants above - chaining a pseudo-class directly
+   onto :host's class shorthand isn't reliably valid CSS. */
+:host(.brk-switch--sm:checked),
+:host(.brk-switch--md:checked),
+:host(.brk-switch--lg:checked) {
+  background-image: radial-gradient(
+    circle,
+    var(--mat-sys-on-primary, #fff) 38%,
+    transparent 39%
+  );
+}
+
+:host(:hover:not(:disabled)) {
+  border-color: var(--mat-sys-on-surface, #1c1b1f);
+}
+
+:host(:disabled) {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+:host(:focus-visible) {
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary, #0b5fff);
+  outline-offset: var(--focus-ring-offset, 2px);
+}

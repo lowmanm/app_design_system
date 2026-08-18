@@ -1,0 +1,19 @@
+{
+  "name": "@app-design-system/switch",
+  "version": "0.1.0",
+  "description": "A toggle switch, styled from a native input[type=checkbox][role=switch] for full native form participation.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "@app-design-system/core": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted",
+    "directory": "../../../dist/packages/components/switch",
+    "linkDirectory": false
+  }
+}
