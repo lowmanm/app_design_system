@@ -1,0 +1,19 @@
+{
+  "name": "@app-design-system/checkbox",
+  "version": "0.1.0",
+  "description": "Design-system checkbox styling applied directly to a native input[type=checkbox] - no wrapper element, full native form participation.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0"
+  },
+  "dependencies": {
+    "@app-design-system/core": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted",
+    "directory": "../../../dist/packages/components/checkbox",
+    "linkDirectory": false
+  }
+}

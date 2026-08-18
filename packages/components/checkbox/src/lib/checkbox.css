@@ -1,0 +1,80 @@
+/*
+ * Draws its own box via `appearance: none` and CSS `background-image`, not
+ * the browser's native checkbox rendering (which can't be styled
+ * consistently across browsers) and not `::before`/`::after` (which are
+ * not reliably rendered on replaced elements like `<input>` - a real,
+ * well-known CSS limitation, not an oversight here).
+ *
+ * The checkmark/dash SVGs embed `fill='currentColor'`, which resolves
+ * against this element's own `color` at paint time even as a background
+ * image - that is what lets the mark be recolored (here, to
+ * `--mat-sys-on-primary`) with the same technique brk-icon uses for its
+ * ligature glyphs, without hand-maintaining two copies of a hex value.
+ */
+:host {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  display: inline-block;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border: 2px solid var(--mat-sys-outline, #79747e);
+  border-radius: var(--radius-sm, 0.25rem);
+  background-color: var(--mat-sys-surface, #fff);
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-duration-fast, 100ms)
+      var(--motion-easing-standard, ease),
+    border-color var(--motion-duration-fast, 100ms)
+      var(--motion-easing-standard, ease);
+}
+
+/* Sized from the icon scale, not a control-height scale - a checkbox's own
+   box is much closer to icon dimensions than to a button/input's height. */
+:host.brk-checkbox--sm {
+  width: var(--icon-size-sm, 1.25rem);
+  height: var(--icon-size-sm, 1.25rem);
+}
+:host.brk-checkbox--md {
+  width: var(--icon-size-md, 1.5rem);
+  height: var(--icon-size-md, 1.5rem);
+}
+:host.brk-checkbox--lg {
+  width: var(--icon-size-lg, 2rem);
+  height: var(--icon-size-lg, 2rem);
+}
+
+:host(:checked),
+:host(:indeterminate) {
+  background-color: var(--mat-sys-primary, #0b5fff);
+  border-color: var(--mat-sys-primary, #0b5fff);
+  color: var(--mat-sys-on-primary, #fff);
+}
+
+:host(:checked) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 8.5l3 3 6-7' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: 70% 70%;
+}
+
+:host(:indeterminate) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 8h9' stroke='currentColor' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 60% 60%;
+}
+
+:host(:hover:not(:disabled)) {
+  border-color: var(--mat-sys-on-surface, #1c1b1f);
+}
+
+:host(:disabled) {
+  cursor: not-allowed;
+  /* Material's standard disabled-content opacity, applied to the whole
+     control rather than picking a separate muted color per state. */
+  opacity: 0.38;
+}
+
+:host(:focus-visible) {
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary, #0b5fff);
+  outline-offset: var(--focus-ring-offset, 2px);
+}
