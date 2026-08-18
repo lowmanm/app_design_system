@@ -1,0 +1,126 @@
+/*
+ * The closed control's own look - a form-control-styled box, sized to the
+ * control-height scale (not the icon scale checkbox/radio/switch use:
+ * a select is a full row-height control that sits beside a text input,
+ * same reasoning `brk-button` uses `--size-control-*`).
+ */
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  box-sizing: border-box;
+  height: var(--size-control-md, 2.5rem);
+  padding: 0 var(--space-3, 0.75rem);
+  border: 1px solid var(--mat-sys-outline, #79747e);
+  border-radius: var(--radius-md, 0.5rem);
+  background-color: var(--mat-sys-surface, #fff);
+  color: var(--mat-sys-on-surface, #1c1b1f);
+  font-family: var(--font-family-sans, inherit);
+  font-size: var(--type-body-md-size, 1rem);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    border-color var(--motion-duration-fast, 100ms)
+      var(--motion-easing-standard, ease),
+    box-shadow var(--motion-duration-fast, 100ms)
+      var(--motion-easing-standard, ease);
+}
+
+.brk-select__value {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brk-select__value--placeholder {
+  color: var(--mat-sys-on-surface-variant, #49454f);
+}
+
+.brk-select__chevron {
+  flex-shrink: 0;
+  color: var(--mat-sys-on-surface-variant, #49454f);
+  transition: transform var(--motion-duration-fast, 100ms)
+    var(--motion-easing-standard, ease);
+}
+
+.brk-select__chevron--open {
+  transform: rotate(180deg);
+}
+
+:host(:hover:not([aria-disabled='true'])) {
+  border-color: var(--mat-sys-on-surface, #1c1b1f);
+}
+
+:host([aria-expanded='true']) {
+  border-color: var(--mat-sys-primary, #0b5fff);
+}
+
+:host(:focus-visible) {
+  outline: var(--focus-ring-width, 2px) solid var(--mat-sys-primary, #0b5fff);
+  outline-offset: var(--focus-ring-offset, 2px);
+}
+
+:host([aria-disabled='true']) {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+/*
+ * The listbox panel. Hidden (not portaled anywhere) by default so its
+ * projected options exist as real, always-instantiated directives - that
+ * is what lets `selectedLabel` above read a closed control's selection.
+ * `.brk-select__panel--open` is the state CDK Overlay's pane sees once
+ * `DomPortal` relocates this element into it.
+ */
+.brk-select__panel {
+  display: none;
+}
+
+.brk-select__panel.brk-select__panel--open {
+  display: block;
+  box-sizing: border-box;
+  min-width: 100%;
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: var(--space-2, 0.5rem);
+  border-radius: var(--radius-md, 0.5rem);
+  background-color: var(--mat-sys-surface-container, #f3edf7);
+  box-shadow: var(--elevation-3, 0 4px 12px rgba(0, 0, 0, 0.12));
+}
+
+/*
+ * brk-option's own visual - lives here rather than in a styleUrl on
+ * option.directive.ts, since a `@Directive` (unlike the attribute-selector
+ * `@Component`s elsewhere in this library) has no template or styles of
+ * its own to encapsulate. This works at all because BrkSelectComponent
+ * uses `ViewEncapsulation.None` (see select.ts) - projected options live
+ * in the *consumer's* template, not this component's, so Angular's normal
+ * per-component style scoping would never reach them.
+ */
+.brk-option {
+  display: flex;
+  align-items: center;
+  min-height: var(--size-control-sm, 2rem);
+  padding: var(--space-2, 0.5rem) var(--space-3, 0.75rem);
+  border-radius: var(--radius-sm, 0.25rem);
+  cursor: pointer;
+  font-size: var(--type-body-md-size, 1rem);
+  transition: background-color var(--motion-duration-fast, 100ms)
+    var(--motion-easing-standard, ease);
+}
+
+.brk-option--active {
+  background-color: var(--mat-sys-surface-container-high, #e6e0e9);
+}
+
+.brk-option[aria-selected='true'] {
+  background-color: var(--mat-sys-primary-container, #d8e2ff);
+  color: var(--mat-sys-on-primary-container, #001a41);
+  font-weight: var(--type-label-lg-weight, 500);
+}
+
+.brk-option[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.38;
+}

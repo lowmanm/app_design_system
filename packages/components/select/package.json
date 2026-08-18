@@ -1,0 +1,23 @@
+{
+  "name": "@app-design-system/select",
+  "version": "0.1.0",
+  "description": "A single-select dropdown - the ARIA combobox+listbox pattern, built the way brk-menu was, over a hand-written ControlValueAccessor since it is not a native form element.",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/cdk": "^22.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/forms": "^22.0.0",
+    "rxjs": "^7.8.0"
+  },
+  "dependencies": {
+    "@app-design-system/core": "workspace:*",
+    "@app-design-system/icon": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted",
+    "directory": "../../../dist/packages/components/select",
+    "linkDirectory": false
+  }
+}

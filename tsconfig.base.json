@@ -52,7 +52,10 @@
         "./packages/components/checkbox/src/index.ts"
       ],
       "@app-design-system/radio": ["./packages/components/radio/src/index.ts"],
-      "@app-design-system/switch": ["./packages/components/switch/src/index.ts"]
+      "@app-design-system/switch": [
+        "./packages/components/switch/src/index.ts"
+      ],
+      "@app-design-system/select": ["./packages/components/select/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
