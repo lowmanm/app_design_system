@@ -12,10 +12,14 @@ import {
   type ConnectedPosition,
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { outputToObservable } from '@angular/core/rxjs-interop';
+import {
+  createConnectedOverlay,
+  overlayCloseEvents,
+} from '@app-design-system/core';
 import type { Subscription } from 'rxjs';
 import { BrkMenuComponent } from './menu';
 import { BrkMenuItemDirective } from './menu-item.directive';
-import { menuCloseEvents } from './menu-overlay.util';
 
 /**
  * Connects a trigger element (typically a `brkButton`) to a `<brk-menu>`,
@@ -96,14 +100,8 @@ export class BrkMenuTriggerDirective implements OnDestroy {
     }
     const menu = this.menu();
 
-    const overlayRef = this.overlay.create({
-      positionStrategy: this.overlay
-        .position()
-        .flexibleConnectedTo(this.elementRef)
-        .withPositions(this._buildPositions())
-        .withFlexibleDimensions(false)
-        .withPush(true),
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+    const overlayRef = createConnectedOverlay(this.overlay, this.elementRef, {
+      positions: this._buildPositions(),
       minWidth: this.parentMenuItem
         ? undefined
         : this.elementRef.nativeElement.getBoundingClientRect().width,
@@ -114,9 +112,10 @@ export class BrkMenuTriggerDirective implements OnDestroy {
       new TemplatePortal(menu.templateRef(), this.viewContainerRef),
     );
 
-    this.closeSubscription = menuCloseEvents(menu, overlayRef).subscribe(() =>
-      this.close(),
-    );
+    this.closeSubscription = overlayCloseEvents(
+      overlayRef,
+      outputToObservable(menu.closed),
+    ).subscribe(() => this.close());
 
     // Wait a tick for the portal content to actually be in the DOM before
     // trying to move focus into it.

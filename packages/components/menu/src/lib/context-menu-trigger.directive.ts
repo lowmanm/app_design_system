@@ -8,9 +8,13 @@ import {
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { outputToObservable } from '@angular/core/rxjs-interop';
+import {
+  createConnectedOverlay,
+  overlayCloseEvents,
+} from '@app-design-system/core';
 import type { Subscription } from 'rxjs';
 import { BrkMenuComponent } from './menu';
-import { menuCloseEvents } from './menu-overlay.util';
 
 /**
  * Opens a `<brk-menu>` at the cursor on right-click, instead of below a
@@ -77,11 +81,11 @@ export class BrkContextMenuTriggerDirective implements OnDestroy {
     this.close();
     const menu = this.menu();
 
-    const overlayRef = this.overlay.create({
-      positionStrategy: this.overlay
-        .position()
-        .flexibleConnectedTo({ x, y })
-        .withPositions([
+    const overlayRef = createConnectedOverlay(
+      this.overlay,
+      { x, y },
+      {
+        positions: [
           {
             originX: 'start',
             originY: 'top',
@@ -106,20 +110,20 @@ export class BrkContextMenuTriggerDirective implements OnDestroy {
             overlayX: 'end',
             overlayY: 'bottom',
           },
-        ])
-        .withFlexibleDimensions(false)
-        .withPush(true),
-      scrollStrategy: this.overlay.scrollStrategies.close(),
-    });
+        ],
+        scrollStrategy: 'close',
+      },
+    );
     this.overlayRef = overlayRef;
 
     overlayRef.attach(
       new TemplatePortal(menu.templateRef(), this.viewContainerRef),
     );
 
-    this.closeSubscription = menuCloseEvents(menu, overlayRef).subscribe(() =>
-      this.close(),
-    );
+    this.closeSubscription = overlayCloseEvents(
+      overlayRef,
+      outputToObservable(menu.closed),
+    ).subscribe(() => this.close());
     queueMicrotask(() => menu.onPanelAttached());
   }
 
